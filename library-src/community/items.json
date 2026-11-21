@@ -324,5 +324,156 @@
       "model": "Rainbow_Cat_Model.nsbmd",
       "kind": "object"
     }
+  },
+  {
+    "id": "surf-nailong",
+    "cat": "surf",
+    "name": {
+      "en": "Nailong",
+      "zh": "奶龙",
+      "es": "Nailong"
+    },
+    "by": "MaToRiuKo",
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Nailong_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Nailong_Model.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-minecraft-boat",
+    "cat": "surf",
+    "name": {
+      "en": "Minecraft Boat",
+      "zh": "我的世界木船",
+      "es": "Barco de Minecraft"
+    },
+    "by": "MaToRiuKo",
+    "desc": {
+      "en": "From Minecraft.",
+      "zh": "来自《我的世界》。",
+      "es": "De Minecraft."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Minecraft_Boat_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Minecraft_Boat_Model.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-transparent",
+    "cat": "surf",
+    "name": {
+      "en": "Transparent surf model",
+      "zh": "透明冲浪模型",
+      "es": "Modelo de surf transparente"
+    },
+    "by": "MaToRiuKo",
+    "desc": {
+      "en": "A hidden surf model.",
+      "zh": "隐藏冲浪模型，皆若空游无所依。",
+      "es": "Un modelo de surf oculto."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Transparent_Surf_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Transparent_Surf_Model.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-starmie",
+    "cat": "surf",
+    "name": {
+      "en": "Starmie",
+      "zh": "宝石海星",
+      "es": "Starmie"
+    },
+    "by": "MaToRiuKo",
+    "desc": {
+      "en": "From Pokémon X/Y's Starmie.",
+      "zh": "来自《宝可梦 X/Y》的宝石海星。",
+      "es": "Extraído de Starmie de Pokémon X/Y."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Starmie_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Starmie_Model.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-mantine",
+    "cat": "surf",
+    "name": {
+      "en": "Mantine",
+      "zh": "巨翅飞鱼",
+      "es": "Mantine"
+    },
+    "by": "yoka",
+    "desc": {
+      "en": "From Pokémon X/Y's Mantine.",
+      "zh": "来自《宝可梦 X/Y》的巨翅飞鱼。",
+      "es": "Extraído de Mantine de Pokémon X/Y."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Mantine_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Mantine_Model.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-mantine-shiny",
+    "cat": "surf",
+    "name": {
+      "en": "Shiny Mantine",
+      "zh": "闪光巨翅飞鱼",
+      "es": "Mantine variocolor"
+    },
+    "by": "yoka",
+    "desc": {
+      "en": "From Pokémon X/Y's Shiny Mantine.",
+      "zh": "来自《宝可梦 X/Y》的闪光巨翅飞鱼。",
+      "es": "Extraído de Mantine variocolor de Pokémon X/Y."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Mantine_Shiny_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Mantine_Shiny_Model.nsbmd",
+      "kind": "object"
+    }
   }
 ]

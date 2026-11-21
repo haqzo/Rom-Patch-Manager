@@ -6,7 +6,7 @@ or how the site is published.
 
 ## You may change
 - `library-src/community/**` — the library content: `items.json`, `battle.json`, `renames.json`,
-  `templates.json`, model files (`.nsbmd` / `.nsbca`) and preview pictures (`previews/<id>.jpg`).
+  `templates.json`, `edits.json` (written by dev mode — edit with care, the build validates it), model files (`.nsbmd` / `.nsbca`) and preview pictures (`previews/<id>.jpg`).
 - `README.md`, `CHANGELOG.md` (an "Unreleased" section at the top), `GITHUB-RELEASE.md`.
 - `docs/research/**` — new research notes (one file per topic, with sources).
 - `experiments/**` — test files to try in game (models, .dae, PNGs, notes). Never shipped to the website.

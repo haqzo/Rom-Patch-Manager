@@ -3,8 +3,8 @@
  * immediately), cached copy when offline. Library files never change (named by
  * content hash): cache first, and all of them are cached in the background after install.
  */
-const VERSION = 'rpm-1.1.1-2';
-const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'i18n.js', 'platform.js', 'viewer.js', 'dev.js', 'core/rom.js', 'core/plan.js', 'core/check.js', 'core/bgtemplate.js',
+const VERSION = 'rpm-1.1.4';
+const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'i18n.js', 'platform.js', 'viewer.js', 'dev.js', 'dev-library.js', 'core/rom.js', 'core/plan.js', 'core/check.js', 'core/bgtemplate.js', 'core/edits.js', 'core/a115patch.js', 'tpl_a115_25.nsbmd',
   'core/nitro/index.js', 'core/nitro/reader.js', 'core/nitro/sniff.js', 'core/nitro/tex0.js', 'core/nitro/bmd0.js', 'core/nitro/bca0.js',
   'core/nitro/pose.js', 'core/nitro/mesh.js', 'core/nitro/dsRender.js', 'core/nitro/references.js',
   'library/library.json', 'data/mapnames.json', 'icon.png', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest'];
@@ -39,3 +39,4 @@ self.addEventListener('fetch', (e) => {
   const net = req.mode === 'navigate' ? fetch(url.href, { cache: 'no-cache' }) : fetch(req, { cache: 'no-cache' });
   e.respondWith(net.then((r) => { if (r.ok) { const copy = r.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); } return r; }).catch(() => caches.match(req).then((m) => m || caches.match('index.html'))));
 });
+

@@ -10,6 +10,6 @@
   {
     "id": "bgt-screen", "by": "MaToRiuKo", "file": "templates/battle_bg_template_no_floor.nsbmd",
     "name": { "en": "One full picture (no floor)", "zh": "无地板（整张画面）", "es": "Una imagen completa (sin suelo)" },
-    "slots": [ { "tex": "_11", "name": { "en": "Picture", "zh": "画面", "es": "Imagen" } } ]
+    "slots": [ { "tex": "_11_png", "name": { "en": "Picture", "zh": "画面", "es": "Imagen" } } ]
   }
 ]

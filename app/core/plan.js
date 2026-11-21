@@ -66,7 +66,7 @@ export function overlaps(changes) {
   return res;
 }
 
-/** Estimated growth of the ROM's archives (bytes), the number Mato's ~10 MB note is about. */
+/** Estimated growth of the ROM's archives (bytes), the number the 25 MB size meter checks. */
 export function sizeGrowth(romBytes, R, changes) {
   const byPath = new Map();
   for (const c of changes) for (const w of c.writes) {

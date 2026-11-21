@@ -33,6 +33,10 @@ app/                     ← the website (GitHub Pages)
 
 All files go in `library-src/community/`. Paths in the JSON are relative to that folder.
 
+`edits.json` is written by dev mode (renames, archive/remove, order, categories, presets, replaced files; `lib:<name>`
+means an existing library file). It is applied last, after the other files. Prefer dev mode for those changes; if you edit
+it by hand, `node scripts/add-community.mjs` must still succeed (it stops on broken references).
+
 ### Surf, Fly, platforms, TM/HM backgrounds, title screen, overworld → `items.json`
 ```json
 {
@@ -121,7 +125,7 @@ Full notes: `docs/custom-models.md` (models), `docs/mato-resource-notes.md` (MaT
   set (Nov 2026) is in the library.
 - Template backgrounds (MaToRiuKo's romtool): your pictures replace the template's textures; 16 or 256 colours,
   index 0 transparent; sizes = template size or 1/2, 1/4 … (never bigger). The full-picture template is ~1 MB per slot.
-- Size: MaToRiuKo saw loading problems above ~10–20 MB of extra data in total.
+- Size: up to 25 MB of extra data in total works (MaToRiuKo tested 24.8 MB in game, Nov 2026).
 
 **Ideas waiting** (details in `docs/ideas.md`)
 - **Designed TM/HM bands** (Haqzo approved 8 concepts: hero band with gold rims, crimson comic, amethyst chevrons,

@@ -61,8 +61,9 @@ file name (`…_4_62_VillageBridge.BTX0` → #62 Village Bridge, 282 named areas
 
 **Library filter** — search by name or creator on every tab.
 
-**Dev mode** — add `?dev` to the address: *My items* saved in your browser, `.rpmpack` packs to share with friends,
-and a battle-platform builder with a different model per slot. `?dev=off` turns it off.
+**Dev mode** — add `?dev` to the address: manage the library, categories and presets (drafts previewed in your browser,
+published to GitHub only with a token that has write access), *My items*, `.rpmpack` packs, and a battle-platform builder
+with a different model per slot. `?dev=off` turns it off. Who can publish: [docs/dev-access-security.md](docs/dev-access-security.md).
 
 <details><summary>More screenshots</summary>
 
@@ -86,7 +87,7 @@ and a battle-platform builder with a different model per slot. `?dev=off` turns 
 - **3D previews:** free rotation, 4 views, animations, *compare with what's in your ROM*, export the raw model.
 - **Export:** every replaced entry is read back after the build, and the `.bps` is re-applied to confirm it rebuilds
   the same ROM. Entries that keep their size (or shrink) are written in place.
-- **Size meter** for MaToRiuKo's "~10 MB of extra data" warning.
+- **Size meter**: warns above 25 MB of extra data (MaToRiuKo tested 24.8 MB loading fine in game).
 
 ## Making your own models
 
@@ -103,7 +104,9 @@ app/                 the whole tool = the website (static files; published by .g
   core/plan.js       picks → writes, overlap + size checks, "what's installed" scan
   core/bgtemplate.js MaToRiuKo's battle-background template swap (port of romtool bgtemplate.py)
   core/nitro/        BMD0/BCA0/TEX0 parsing + posing (compiled from vendor-ts/)
-  dev.js             dev mode (?dev)
+  dev.js             dev mode (?dev): My items, packs, platform builder
+  dev-library.js     dev mode: library / categories / presets editor, publishing
+  core/edits.js      applies library-src/community/edits.json (site build + dev preview)
   viewer.js          WebGL preview
   i18n.js            English / 简体中文 / Español
   data/mapnames.json the 282 map-texture areas (from MaToRiuKo's romtool)

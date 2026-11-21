@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "items": {},
+  "scenes": {},
+  "remove": [
+    "disc-none-classic",
+    "bg-transparent"
+  ],
+  "categories": {},
+  "categoryOrder": [],
+  "order": {},
+  "previews": {
+    "surf-transparent": "previews/surf-transparent.jpg",
+    "surf-starmie": "previews/surf-starmie.jpg"
+  },
+  "presets": []
+}

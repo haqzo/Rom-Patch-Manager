@@ -1,0 +1,36 @@
+Rom-Patch-Manager 1.1.4 离线完整包
+===============================
+生成时间：2026-11-21
+来源：原仓库 haqzo/Rom-Patch-Manager 的完整源码工作树（仓库被误删，线上站点当前 404）
+
+【包里有什么】
+- 完整源码：app/（发布用站点，含 core/ 全部模块与 tpl_a115_25.nsbmd）、library-src/（素材库源文件）、
+  scripts/、tests/、docs/、experiments/、.github/workflows/pages.yml、package.json 等
+- app/library/library.json 已用 scripts/add-community.mjs 在本地重建：45 个战斗背景，
+  含 YOKA 的「BW2普通系道馆」和 MaToRiuKo 的「朱紫对战场地」
+- 版本：platform.js = 1.1.4，sw.js 缓存名 = rpm-1.1.4（A115 面板新文案、已去掉 NEW 徽章）
+- 本包【不含】.git 历史：原仓库的提交记录无法从源码快照恢复
+
+【先看效果】
+1. 解压到任意目录
+2. 双击「启动本地站点.bat」，会自动起本地服务并打开 http://127.0.0.1:8769/
+   （需要 Python 3；脚本先找 PATH 里的 python，找不到会提示安装）
+3. 不要直接双击 app/index.html —— file:// 方式读不到 library.json 和模型，必须走本地 HTTP 服务
+
+【重新上传到 GitHub（想恢复原地址的话）】
+1. 用 haqzo 账号新建 public 仓库，名字必须还是 Rom-Patch-Manager，否则 Pages 地址会变
+2. 解压后在该目录执行：
+     git init
+     git add -A
+     git commit -m "restore Rom-Patch-Manager 1.1.4 (source snapshot)"
+     git branch -M main
+     git remote add origin https://github.com/haqzo/Rom-Patch-Manager.git
+     git push -u origin main
+3. 仓库 Settings → Pages → Build and deployment → Source 选择 GitHub Actions
+4. 推送后 Actions 会自动跑 test + deploy（部署时会用 scripts/add-community.mjs 重建库索引），
+   绿灯后 https://haqzo.github.io/Rom-Patch-Manager/ 即恢复
+
+【已知情况】
+- 体积 92.1 MB / 436 个文件，满足 GitHub 限制（单文件 < 100 MB，仓库 < 1 GB）
+- 不要用网页拖拽上传（一次约 100 个文件上限），请用 git 命令或 GitHub Desktop
+- 本机 Windows 上跑 npm test 会崩（0xC0000409，属该机器的环境问题，干净副本同样崩），CI 的 Ubuntu 能正常跑

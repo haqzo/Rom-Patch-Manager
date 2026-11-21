@@ -1,16 +1,19 @@
 /*
- * Dev mode (for Haqzo). Turn on with ?dev, off with ?dev=off. Loaded only when on.
+ * Dev mode (Haqzo & MaToRiuKo). Turn on with ?dev, off with ?dev=off. Loaded only when on.
+ * - Library, categories, presets and publishing: dev-library.js (edits.json draft → GitHub).
  * - My items: private items kept in this browser (IndexedDB), never uploaded.
  * - Save the current changes as one item; add an item back to the changes.
  * - Packs (.rpmpack): share items as one file (Discord etc.), import them on another PC.
  * - Battle platform slot builder: a different model for each of the 34 slots.
  * Not secret: anyone can add ?dev. It only adds tools; nothing private is on the site.
  */
+import { initLibraryDev, gh, token, REPO } from './dev-library.js';
+
 const DB = 'rpm-dev', STORE = 'items';
 function db() {
   return new Promise((res, rej) => {
-    const r = indexedDB.open(DB, 1);
-    r.onupgradeneeded = () => r.result.createObjectStore(STORE, { keyPath: 'id' });
+    const r = indexedDB.open(DB, 2);
+    r.onupgradeneeded = () => { const d = r.result; if (!d.objectStoreNames.contains(STORE)) d.createObjectStore(STORE, { keyPath: 'id' }); if (!d.objectStoreNames.contains('kv')) d.createObjectStore('kv'); };
     r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
   });
 }
@@ -34,14 +37,9 @@ const GROUND_FOR_SLOT = { 0: 'Light_Path', 1: 'Green_Grass', 2: 'Green_Grass', 3
   9: 'Forest', 10: 'Forest', 11: 'Autumn_Grass', 12: 'Snowy_Grass', 13: 'Dirt_Path', 14: 'River', 15: 'Cave_Pool', 16: 'Light_Path', 17: 'Light_Path', 18: 'River', 19: 'Snow',
   20: 'Paved', 21: 'Rocks_Grey', 22: 'Ice', 23: 'Paved', 24: 'Wood', 25: 'Paved', 26: 'Paved', 27: 'Dirt_Path', 28: 'Forest', 29: 'Forest', 30: 'Autumn_Grass', 31: 'Snowy_Grass', 32: 'Green_Grass', 33: 'Paved' };
 
-// ---- publish to the public library (commits to GitHub; the site rebuilds itself in ~2-3 minutes)
-const REPO = 'haqzo/Rom-Patch-Manager', BRANCH = 'main', COMMUNITY = 'library-src/community';
-const ghToken = () => { try { return localStorage.getItem('rpm-gh-token') || ''; } catch { return ''; } };
-async function gh(path, opt = {}) {
-  const r = await fetch(`https://api.github.com/repos/${REPO}/${path}`, { ...opt, headers: { Authorization: `Bearer ${ghToken()}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opt.body ? { 'Content-Type': 'application/json' } : {}) } });
-  if (!r.ok) { let m = ''; try { m = (await r.json()).message; } catch { /* */ } throw new Error(`GitHub ${r.status}: ${m || r.statusText}${r.status === 401 ? ' (check the token)' : ''}${r.status === 403 || r.status === 404 ? ' (the token needs Contents: read & write on ' + REPO + ')' : ''}`); }
-  return r.json();
-}
+// ---- publish one of My items to the public library (items.json; the site rebuilds itself in ~2-3 minutes)
+const BRANCH = 'main', COMMUNITY = 'library-src/community';
+const ghToken = () => token.get();
 const slug = (s) => s.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').replace(/-+/g, '-').slice(0, 40) || 'item';
 const MAGIC_EXT = { BMD0: 'nsbmd', BCA0: 'nsbca', BTX0: 'nsbtx' };
 const magicOf = (u8) => String.fromCharCode(u8[0], u8[1], u8[2], u8[3]);
@@ -86,6 +84,7 @@ async function publishItem(it, form, onStep) {
 export function initDev(C) {
   const { S, esc, icon, toast, renderPanel, refreshChanges, platform, rom, checkModel, mb, dropTarget, readDropped } = C;
   const D = { items: [], sel: new Set(), plat: { files: [], map: {} }, pub: null, pubMsg: '' };
+  const LD = initLibraryDev(C);
   const load = async () => { D.items = (await allItems()).sort((a, b) => b.created - a.created); };
 
   async function saveChanges() {
@@ -129,11 +128,11 @@ export function initDev(C) {
   }
 
   function render(head, body) {
-    head.innerHTML = `<div><h2>Dev tools <span class="pill info">DEV</span></h2><p>Private to this browser. Turn off with <code>?dev=off</code>.</p></div>`;
+    head.innerHTML = `<div><h2>Dev tools <span class="pill info">DEV</span></h2><p>Manage the library, categories and presets, then publish. Drafts stay in this browser until you publish. Turn off with <code>?dev=off</code>.</p></div>`;
     const sizeOf = (it) => it.writes.reduce((a, w) => a + w.data.byteLength, 0);
     const pf = D.plat.files, used = platWrites();
-    body.innerHTML = `<div class="dev">
-      <section class="panel"><h2>My items</h2>
+    body.innerHTML = `<div class="dev">${LD.sections()}
+      <details class="panel"><summary><h2>My items &amp; packs</h2></summary>
         <div class="row"><button class="primary" id="dvSave" ${S.changes.length ? '' : 'disabled'}>Save current changes as an item</button>
           <button class="secondary" id="dvImport">Import .rpmpack</button>
           <button class="ghost" id="dvExport" ${D.sel.size ? '' : 'disabled'}>Export selected as pack (${D.sel.size})</button></div>
@@ -141,10 +140,7 @@ export function initDev(C) {
           <span class="muted small">${esc(it.by)} · ${it.writes.length} files · ${mb(sizeOf(it))} · ${esc([...new Set(it.writes.map((w) => w.path))].join(', '))}</span>
           <span class="row"><button class="secondary small" data-add="${esc(it.id)}">Add to changes</button><button class="ghost small" data-pack="${esc(it.id)}">Pack</button><button class="secondary small" data-pub="${esc(it.id)}">Publish</button><button class="ghost small" data-del="${esc(it.id)}">Delete</button></span></li>`).join('')}</ul>`
           : '<p class="muted">Nothing saved yet. Pick things (library, Your files, template backgrounds…), then “Save current changes”.</p>'}
-      </section>
-      <section class="panel"><h2>Publish to the library</h2>
-        <p class="muted small" style="margin:0">Press <b>Publish</b> on one of My items: it goes into the public library for everyone (about 2–3 minutes later, with a preview picture). Needs a GitHub token once: github.com → Settings → Developer settings → Fine-grained tokens → only <code>haqzo/Rom-Patch-Manager</code>, <b>Contents: Read and write</b>. It stays in this browser only.</p>
-        <div class="row"><label class="field" style="flex:1"><span>GitHub token</span><input id="dvTok" type="password" placeholder="github_pat_…" value="${esc(ghToken())}" autocomplete="off"></label><button class="secondary" id="dvTokSave">${ghToken() ? 'Update' : 'Save'} token</button></div>
+        <p class="muted small">Press <b>Publish</b> on one of My items to put it straight into the public library (sign in under <b>Publish</b> above first).</p>
         ${D.pub ? (() => { const it = D.items.find((x) => x.id === D.pub); const cats = [['surf', 'Surf'], ['fly', 'Fly (complete set)'], ['scene', 'Battle background (model + animation)'], ['platforms', 'Battle platforms'], ['hmbg', 'TM / HM / Fly backgrounds'], ['title', 'Title screen'], ['world', 'Overworld']];
           const guess = it.writes.some((w) => w.path === 'a/0/7/5') ? 'surf' : it.writes.some((w) => w.path === 'a/1/1/5') ? 'fly' : it.writes.some((w) => w.path === 'a/0/1/1' && w.member >= 34) ? 'scene' : it.writes.some((w) => w.path === 'a/0/1/1') ? 'platforms' : it.writes.some((w) => w.path === 'a/1/6/0') ? 'title' : 'surf';
           return `<div class="pubform"><b>Publish “${esc(it.name)}”</b>
@@ -153,14 +149,15 @@ export function initDev(C) {
           <label class="field"><span>Description (optional)</span><input id="pbDesc" placeholder="e.g. Pokémon X/Y Wailmer. Tested in PokeMMO."></label>
           <p class="muted small" style="margin:0">Files: ${esc([...new Set(it.writes.map((w) => `${w.path} #${w.member ?? 'all'}`))].slice(0, 6).join(', '))}${it.writes.length > 6 ? ' …' : ''}. For a battle background the model goes on the battle types people pick; the slots in the item don't matter.</p>
           <div class="row"><button class="primary" id="pbGo" ${ghToken() ? '' : 'disabled'}>Publish for everyone</button><button class="ghost" id="pbCancel">Cancel</button><span class="muted small" id="pbMsg">${esc(D.pubMsg)}</span></div></div>`; })() : (D.pubMsg ? `<p class="small">${D.pubMsg}</p>` : '')}
-      </section>
-      <section class="panel"><h2>Battle platforms — one model per slot</h2>
+      </details>
+      <details class="panel"><summary><h2>Battle platforms — one model per slot</h2></summary>
         <p class="muted small" style="margin:0">Drop several .nsbmd. Files named like <code>Ground_Green_Grass.nsbmd</code> are matched to the right slots automatically; change any slot by hand.</p>
         <div class="drop" id="dvPlatDrop" tabindex="0" role="button">${icon('upload', 'cart')}<b>Drop platform models</b><p>.nsbmd</p></div>
         ${pf.length ? `<ul class="filelist">${pf.map((f) => `<li><div><div>${esc(f.name)}</div><div class="kind">${(f.bytes.length / 1024).toFixed(1)} KB${f.fixed ? ' · counts fixed' : ''}</div>${(f.errors || []).map((e) => `<div class="err">${esc(e.code)} ${esc(e.detail || '')}</div>`).join('')}</div></li>`).join('')}</ul>
         <div class="platgrid">${Array.from({ length: 34 }, (_, m) => `<label><span>#${m} ${esc(PLATFORM_SLOTS[m])}</span><select data-slot="${m}"><option value="">— keep —</option>${pf.map((f, i) => `<option value="${i}" ${D.plat.map[m] === String(i) ? 'selected' : ''}>${esc(f.name)}</option>`).join('')}</select></label>`).join('')}</div>
         <div class="row"><button class="primary" id="dvPlatAdd" ${used.length && !pf.some((f) => f.errors?.length) ? '' : 'disabled'}>Add to changes (${used.length} slots)</button><button class="ghost" id="dvPlatClear">Clear</button></div>` : ''}
-      </section></div>`;
+      </details></div>`;
+    LD.wire(body);
     $('dvSave').onclick = saveChanges;
     $('dvImport').onclick = async () => { const [f] = await platform.pickFiles({ accept: '.rpmpack,application/json' }); if (f) importPack(f); };
     $('dvExport').onclick = () => exportPack(D.items.filter((x) => D.sel.has(x.id)));
@@ -168,8 +165,7 @@ export function initDev(C) {
     for (const b of body.querySelectorAll('[data-add]')) b.onclick = () => addToChanges(D.items.find((x) => x.id === b.dataset.add));
     for (const b of body.querySelectorAll('[data-pack]')) b.onclick = () => exportPack([D.items.find((x) => x.id === b.dataset.pack)]);
     for (const b of body.querySelectorAll('[data-del]')) b.onclick = async () => { const it = D.items.find((x) => x.id === b.dataset.del); if (!confirm(`Delete “${it.name}” from My items?`)) return; await delItem(it.id); D.sel.delete(it.id); await load(); renderPanel(); };
-    $('dvTokSave').onclick = () => { try { localStorage.setItem('rpm-gh-token', $('dvTok').value.trim()); } catch { /* */ } toast('Token saved in this browser.', 'ok'); renderPanel(); };
-    for (const b of body.querySelectorAll('[data-pub]')) b.onclick = () => { D.pub = b.dataset.pub; D.pubMsg = ''; renderPanel(); $('pbName')?.scrollIntoView({ block: 'center' }); };
+    for (const b of body.querySelectorAll('[data-pub]')) b.onclick = () => { D.pub = b.dataset.pub; D.pubMsg = ''; renderPanel(); const f = $('pbName'); f?.closest('details')?.setAttribute('open', ''); f?.scrollIntoView({ block: 'center' }); };
     if ($('pbCancel')) $('pbCancel').onclick = () => { D.pub = null; D.pubMsg = ''; renderPanel(); };
     if ($('pbGo')) $('pbGo').onclick = async () => {
       const form = { name: $('pbName').value.trim(), by: $('pbBy').value.trim() || 'Haqzo', cat: $('pbCat').value, desc: $('pbDesc').value.trim() };
@@ -199,5 +195,5 @@ export function initDev(C) {
   }
   const $ = (id) => document.getElementById(id);
   load().then(() => { if (S.tab === 'dev') renderPanel(); });
-  return { render };
+  return { render, decorate: LD.decorate, draftFile: LD.draftFile, thumbUrl: LD.thumbUrl, onLibrary: LD.onLibrary, previewing: LD.previewing };
 }

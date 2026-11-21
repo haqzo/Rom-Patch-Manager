@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>A115 第 25 项 · 秘传招式背景 换图（内部测试）</title>
+<style>
+  :root { color-scheme: dark; --bg:#14161c; --panel:#1c1f27; --line:#2b2f3a; --txt:#e8ebf2; --mut:#9aa3b2; --acc:#4c8dff; --ok:#41c98b; --warn:#f0b44c; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:14px/1.6 "Microsoft YaHei",system-ui,sans-serif; }
+  main { max-width: 820px; margin: 0 auto; padding: 28px 20px 60px; }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .sub { color: var(--mut); font-size: 13px; margin-bottom: 20px; }
+  .card { background: var(--panel); border:1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 14px; }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  button { background:#252a35; color:var(--txt); border:1px solid var(--line); border-radius:9px; padding:9px 14px; font-size:14px; cursor:pointer; }
+  button:hover { border-color:#3d4453; }
+  button.primary { background: var(--acc); border-color: var(--acc); color:#fff; }
+  button:disabled { opacity:.45; cursor:not-allowed; }
+  select { background:#252a35; color:var(--txt); border:1px solid var(--line); border-radius:8px; padding:8px; }
+  .drop { border:1.5px dashed #3a4050; border-radius:12px; padding:22px; text-align:center; color:var(--mut); }
+  .drop.hot { border-color: var(--acc); color: var(--txt); }
+  .meta { display:grid; grid-template-columns:auto 1fr; gap:4px 14px; font-size:13px; color:var(--mut); }
+  .meta b { color: var(--txt); font-weight:600; }
+  canvas { image-rendering: pixelated; border-radius:8px; background:#0c0e13; display:block; max-width:100%; }
+  .cap { font-size:12px; color:var(--mut); margin:6px 0 0; }
+  .tpl { position:fixed; left:-9999px; }
+  .tabs { display:flex; gap:8px; margin-bottom:10px; }
+  .tabs button[aria-selected="true"] { border-color: var(--acc); color:#fff; background:#242b3a; }
+  .log { font-family: ui-monospace, Consolas, monospace; font-size:12.5px; color:var(--mut); white-space:pre-wrap; }
+  .badge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em; padding:3px 7px; border-radius:5px; background:#2b3d63; color:#8fbcff; vertical-align:2px; margin-right:6px; }
+  .warnbox { border-left:3px solid var(--warn); background:#231f17; color:#e7d6b3; padding:10px 12px; border-radius:6px; font-size:12.5px; margin-bottom:14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1><span class="badge">INTERNAL TEST</span> A115 第 25 项 · 秘传招式背景 换图</h1>
+  <div class="sub">内部试验版（不在正式站导航里，只发给 MaToRiuKo / Haqzo）：输出 <code>poke_line</code> 128×64 / 8bpp，只换贴图与调色板，几何不动，文件长度保持 9,764 B。</div>
+
+  <div class="warnbox">这是<b>试验版</b>：只用于内部验证，正式站（App 首页）没有入口，也不会给普通使用者看到。确认没问题后，这套逻辑会并进正式站的「招式/秘传/飞翔背景」页签。生成的文件需要装到 ROM 的 <code>a/1/1/5</code> 第 25 项才能进游戏看（MaToRiuKo 已实测可用）。</div>
+
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <div class="row">
+        <button class="primary" id="pick">选择图片…</button>
+        <span class="cap" id="fname">还没有选图</span>
+      </div>
+      <div class="row">
+        <label class="cap">色数
+          <select id="colors">
+            <option value="256" selected>256 色（8bpp）</option>
+            <option value="16">16 色（4bpp，画面会糙一些）</option>
+          </select>
+        </label>
+        <button id="gen" disabled>生成模型</button>
+        <button id="dl" disabled>下载 .nsbmd</button>
+      </div>
+    </div>
+    <div class="drop" id="drop" style="margin-top:14px">把图片拖进来，或点上面「选择图片…」<br><span style="font-size:12px">任意尺寸都行，会自动等比填满 128×64 再居中裁切</span></div>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <button id="tabNew" aria-selected="true">替换后</button>
+      <button id="tabOld" aria-selected="false">原始画面</button>
+    </div>
+    <canvas id="cv" width="512" height="256"></canvas>
+    <p class="cap" id="capNew">128×64 放大 4 倍显示。</p>
+    <div class="row" style="margin-top:10px">
+      <label class="cap"><input type="checkbox" id="tile"> 平铺 2 次检查接缝</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="meta" id="meta">
+      <span>状态</span><b id="mState">等待选图</b>
+      <span>输出长度</span><b id="mLen">—</b>
+      <span>实际用色</span><b id="mUsed">—</b>
+      <span>透明像素</span><b id="mTr">—</b>
+      <span>遮罩</b><b id="mMask">—</b>
+    </div>
+    <div class="log" id="log" style="margin-top:10px"></div>
+  </div>
+</main>
+
+<input type="file" id="file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" class="tpl">
+<script>
+/* ---------- A115 in-place texture patch (mirrors romtool a115bg.py) ---------- */
+const u16 = (b, o) => b[o] | (b[o + 1] << 8);
+const u32 = (b, o) => (b[o] | (b[o + 1] << 8) | (b[o + 2] << 16) | (b[o + 3] << 24)) >>> 0;
+const w16 = (b, o, v) => { b[o] = v & 255; b[o + 1] = (v >>> 8) & 255; };
+const ascii = (b, o, n) => { let s = ''; for (let i = 0; i < n && b[o + i]; i++) s += String.fromCharCode(b[o + i]); return s; };
+const FMT_BPP = { 1: 4, 2: 2, 3: 4, 4: 8, 5: 2, 6: 8, 7: 16 };
+
+function parseTEX0(data) {
+  if (ascii(data, 0, 4) !== 'BMD0') throw new Error('不是 BMD0 模型');
+  let tex0 = -1;
+  const nsect = u16(data, 0x0E);
+  const sect = Array.from({ length: nsect }, (_, i) => u32(data, 0x10 + 4 * i));
+  const from = nsect > 1 ? sect[1] : 0x18;
+  for (let o = from; o + 4 <= data.length; o += 4) if (ascii(data, o, 4) === 'TEX0') { tex0 = o; break; }
+  if (tex0 < 0) throw new Error('没有 TEX0 段');
+  const info = tex0 + 0x3C, amt = data[info + 1], dinfo = info + 12 + amt * 4;
+  const es = Math.max(u16(data, dinfo), 8), doff = dinfo + 4, noff = doff + amt * es;
+  const tda = tex0 + u32(data, tex0 + 0x14);
+  const pinfo = tex0 + u32(data, tex0 + 0x34), pamt = data[pinfo + 1], pdi = pinfo + 12 + pamt * 4;
+  const pes = Math.max(u16(data, pdi), 4), pdo = pdi + 4, pnoff = pdo + pamt * pes;
+  const pda = tex0 + u32(data, tex0 + 0x38);
+  const tex = [], pal = [];
+  for (let i = 0; i < amt; i++) {
+    const r = doff + i * es, pa = u16(data, r + 2), fmt = (pa >> 10) & 7;
+    tex.push({ name: ascii(data, noff + i * 16, 16), fmt, bpp: FMT_BPP[fmt] || 4,
+      w: 8 << ((pa >> 4) & 7), h: 8 << ((pa >> 7) & 7), off: u16(data, r) << 3 });
+  }
+  for (let i = 0; i < pamt; i++) pal.push({ name: ascii(data, pnoff + i * 16, 16), off: u16(data, pdo + i * pes) << 3 });
+  return { data, tex0, tda, pda, palEnd: data.length - pda, textures: tex, palettes: pal };
+}
+
+/* 游戏按材质名取调色板，规则同 bmdview / a115bg */
+function paletteOf(T, name) {
+  const offs = [...new Set([...T.palettes.map((p) => p.off), T.palEnd])].sort((a, b) => a - b);
+  let hit = T.palettes.find((p) => p.name === name || p.name === name + '_pl');
+  if (!hit) {
+    let best = null;
+    for (const p of T.palettes) {
+      const base = p.name.endsWith('_pl') ? p.name.slice(0, -3) : p.name;
+      if (base && name.includes(base) && (!best || base.length > best.len)) best = { len: base.length, p };
+    }
+    hit = best ? best.p : T.palettes[0];
+  }
+  const cur = hit.off, next = offs.find((o) => o > cur);
+  return { name: hit.name, off: cur, colors: Math.max(1, ((next ?? T.palEnd) - cur) >> 1) };
+}
+
+/* 量化：中位切分 + Floyd–Steinberg，0 号索引留作透明（与站点 core/bgtemplate.js 同一套） */
+function medianCut(hist, k) {
+  const cols = [...hist.entries()].map(([c, n]) => ({ r: (c >> 10) & 31, g: (c >> 5) & 31, b: c & 31, n }));
+  let boxes = [cols];
+  const range = (bx) => { const m = { r: [31, 0], g: [31, 0], b: [31, 0] }; for (const c of bx) for (const ch of 'rgb') { m[ch][0] = Math.min(m[ch][0], c[ch]); m[ch][1] = Math.max(m[ch][1], c[ch]); } return m; };
+  while (boxes.length < k) {
+    let bi = -1, best = -1, axis = 'r';
+    boxes.forEach((bx, i) => {
+      if (bx.length < 2) return;
+      const m = range(bx);
+      for (const ch of 'rgb') { const span = (m[ch][1] - m[ch][0]) * Math.sqrt(bx.reduce((a, c) => a + c.n, 0)); if (span > best) { best = span; bi = i; axis = ch; } }
+    });
+    if (bi < 0 || best <= 0) break;
+    const bx = boxes[bi].slice().sort((a, b) => a[axis] - b[axis]);
+    const total = bx.reduce((a, c) => a + c.n, 0);
+    let acc = 0, cut = 1;
+    for (let i = 0; i < bx.length - 1; i++) { acc += bx[i].n; if (acc >= total / 2) { cut = i + 1; break; } }
+    boxes.splice(bi, 1, bx.slice(0, cut), bx.slice(cut));
+  }
+  return boxes.map((bx) => {
+    const n = bx.reduce((a, c) => a + c.n, 0) || 1;
+    return ['r', 'g', 'b'].map((ch) => Math.round((bx.reduce((a, c) => a + c[ch] * c.n, 0) / n) * 255 / 31));
+  });
+}
+
+function indexImage(img, colors) {
+  const { width: w, height: h, rgba } = img;
+  const k = colors - 1, n = w * h;
+  const idx = new Uint8Array(n);
+  const hist = new Map();
+  let transparent = 0;
+  for (let i = 0; i < n; i++) {
+    if (rgba[i * 4 + 3] < 128) { transparent++; continue; }
+    const c = ((rgba[i * 4] >> 3) << 10) | ((rgba[i * 4 + 1] >> 3) << 5) | (rgba[i * 4 + 2] >> 3);
+    hist.set(c, (hist.get(c) || 0) + 1);
+  }
+  let pal;
+  if (hist.size <= k) {
+    const keys = [...hist.keys()];
+    pal = keys.map((c) => [((c >> 10) & 31) * 255 / 31, ((c >> 5) & 31) * 255 / 31, (c & 31) * 255 / 31].map(Math.round));
+    const lut = new Map(keys.map((c, i) => [c, i + 1]));
+    for (let i = 0; i < n; i++) {
+      if (rgba[i * 4 + 3] < 128) continue;
+      idx[i] = lut.get(((rgba[i * 4] >> 3) << 10) | ((rgba[i * 4 + 1] >> 3) << 5) | (rgba[i * 4 + 2] >> 3)) || 1;
+    }
+  } else {
+    pal = medianCut(hist, k);
+    const cache = new Map();
+    const nearest = (r, g, b) => {
+      const key = ((r >> 2) << 12) | ((g >> 2) << 6) | (b >> 2);
+      const hit = cache.get(key); if (hit !== undefined) return hit;
+      let bi = 0, bd = Infinity;
+      for (let j = 0; j < pal.length; j++) { const p = pal[j], d = (p[0] - r) ** 2 + (p[1] - g) ** 2 + (p[2] - b) ** 2; if (d < bd) { bd = d; bi = j; } }
+      cache.set(key, bi); return bi;
+    };
+    const err = new Float32Array(n * 3);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const i = y * w + x;
+      if (rgba[i * 4 + 3] < 128) continue;
+      const r = Math.max(0, Math.min(255, rgba[i * 4] + err[i * 3])), g = Math.max(0, Math.min(255, rgba[i * 4 + 1] + err[i * 3 + 1])), b = Math.max(0, Math.min(255, rgba[i * 4 + 2] + err[i * 3 + 2]));
+      const j = nearest(r | 0, g | 0, b | 0); idx[i] = j + 1;
+      const e = [r - pal[j][0], g - pal[j][1], b - pal[j][2]];
+      const spread = (dx, dy, f) => { const xx = x + dx, yy = y + dy; if (xx < 0 || xx >= w || yy >= h) return; const t = yy * w + xx; for (let c = 0; c < 3; c++) err[t * 3 + c] += e[c] * f; };
+      spread(1, 0, 7 / 16); spread(-1, 1, 3 / 16); spread(0, 1, 5 / 16); spread(1, 1, 1 / 16);
+    }
+  }
+  const palette = [[0, 0, 0], ...pal];
+  while (palette.length < colors) palette.push([0, 0, 0]);
+  return { idx, palette: palette.slice(0, colors), transparent, used: pal.length };
+}
+
+const rgb555 = (c) => (c[0] >> 3) | ((c[1] >> 3) << 5) | ((c[2] >> 3) << 10);
+
+/* 只换贴图像素 + 调色板；8×8 遮罩整块清零（游戏里索引 0 = 透明），文件长度不变 */
+function patchA115(src, texName, img, colors) {
+  const T = parseTEX0(src);
+  const tx = T.textures.find((t) => t.name === texName);
+  if (!tx) throw new Error('模型里没有贴图 ' + texName);
+  if (img.width !== tx.w || img.height !== tx.h) throw new Error(img.width + '×' + img.height + ' 不是 ' + tx.w + '×' + tx.h);
+  const P = paletteOf(T, texName);
+  const useColors = Math.max(2, Math.min(colors || 256, P.colors));
+  const q = indexImage(img, useColors);
+  const out = new Uint8Array(src);
+  const bytes = (tx.w * tx.h * tx.bpp) >> 3;
+  if (tx.bpp === 8) out.set(q.idx.subarray(0, bytes), T.tda + tx.off);
+  else for (let i = 0; i < q.idx.length; i += 2) out[T.tda + tx.off + (i >> 1)] = (q.idx[i] & 15) | ((q.idx[i + 1] & 15) << 4);
+  for (let i = 0; i < q.palette.length; i++) w16(out, T.pda + P.off + i * 2, rgb555(q.palette[i]));
+  const masks = T.textures.filter((t) => /_a$/.test(t.name));
+  if (masks.length) out.fill(0, T.tda + Math.min(...masks.map((t) => t.off)), T.pda);
+  return { out, tex: tx, palette: P, colors: useColors, transparent: q.transparent, usedColors: q.used, maskNames: masks.map((t) => t.name) };
+}
+
+/* 从字节里解出贴图，用于 2D 预览（看到的就是进游戏的那张） */
+function decodeTexture(data, texName) {
+  const T = parseTEX0(data);
+  const tx = T.textures.find((t) => t.name === texName);
+  const P = paletteOf(T, texName);
+  const pal = [];
+  for (let i = 0; i < Math.min(256, P.colors); i++) {
+    const v = u16(data, T.pda + P.off + i * 2);
+    pal.push([((v & 31) << 3) | 7, (((v >> 5) & 31) << 3) | 7, (((v >> 10) & 31) << 3) | 7, i ? 255 : 0]);
+  }
+  const rgba = new Uint8ClampedArray(tx.w * tx.h * 4);
+  for (let y = 0; y < tx.h; y++) for (let x = 0; x < tx.w; x++) {
+    let i;
+    if (tx.bpp === 8) i = data[T.tda + tx.off + y * tx.w + x];
+    else { const b = data[T.tda + tx.off + y * ((tx.w + 1) >> 1) + (x >> 1)]; i = (x & 1) ? (b >> 4) : (b & 15); }
+    const c = pal[i] || [0, 0, 0, 0], o = (y * tx.w + x) * 4;
+    rgba[o] = c[0]; rgba[o + 1] = c[1]; rgba[o + 2] = c[2]; rgba[o + 3] = c[3];
+  }
+  return { width: tx.w, height: tx.h, rgba };
+}
+
+/* ---------- page ---------- */
+const TPL_B64 = 'Qk1EMP/+AgAkJgAAEAACABgAAAAQAwAATURMMPgCAAAAASgACAAQAH8BAAA9AAEABAAIADAAAABwb2tlX2NpMgAAAAAAAAAAyAIAAJAAAACoAAAAyAEAAMgCAAAAAAABAgIBAAAAAQAAAQAADAADAAAAAwA65ACAAP+KNwAAAAAAAAQAQAAAAAABKAAIABAAfwEAAE0AAQAEAAgAKAAAAG9iaV9wQ3ViZTEAAAAAAAAC+AAQAAAAAAAA4P8AwP//ABAAAAAAAAAAEAAAABAAAAAAAAAAEAAAJgAAAAACAAEHAAsEAAUABAEFASsBAAAARACEAAACQAAIABQAfwEAAF0CAQE9AAIABAAMAMgAAAD0AAAAbGFtYmVydDIAAAAAAAAAAG9iaV9sYW1iZXJ0MwAAAAAAAkAACAAUAH8BAABWAgEBRgACAAQADADEAAEAxQABAHBva2VfbGluZQAAAAAAAABwb2tlX2xpbmVfYQAAAAAAAAJAAAgAFAB/AQAAXgIBAUYAAgAEAAwAxgABAMcAAQBwb2tlX2JhY2sAAAAAAAAAcG9rZV9saW5lX3BsAAAAAAABAQAAACwAOecAAAAAAACAAB8A//gfPwAAAwD/////AADOH4AAQAAAEAAAABAAAAAALAA55wAAAAAAAIAAHj//+B8/AAADAP////8AAM4fCAAIAAAQAAAAEAAAAAJAAAgAFAB/AQAAPQACADgBAgEEAAwAQAAAAFAAAABwb2x5Z29uMAAAAAAAAAAAcG9seWdvbjEAAAAAAAAAAAAAEAAGAAAAIAAAADwAAAAAABAABgAAAEwAAABkAAAAQCIgIwEAAAAA+AAE/38AAOyQfe0AAAAAIiUiJQAIAAQUb33tAAgAABRvgxIiJUEAAPgAAOyQgxIAAAAAQCIgIwEAAACMAHwA/38AAOyQgxIAAAAAIiUiJYwBfAAUb4MSjAEGABRvNxYiJSIljAAGAOyQNxaMAIQA7JDJ6SIlIiWMAYQAFG/J6YwB+gAUb33tIiVBAIwA+gDskH3tAAAAAFRFWDAUIwAAAAAAAAgEPAAAAAAAxAAAAAAAAAAAADwAAAAAAAQhAAAEIQAAAAAAAEIAAACEAAAABCEAAAACSAAIABQAfwEAAFYCAQFGAAIACAAUAAAAwBGAAAKAAAQABAhAAIBwb2tlX2xpbmUAAAAAAAAAcG9rZV9saW5lX2EAAAAAAAACQAAIABQAfwEAAF4CAQFGAAIABAAMAAAAAAACAAAAcG9rZV9iYWNrAAAAAAAAAHBva2VfbGluZV9wbAAAAAACAgICAgICAgICAgICAy0vKwMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAioDLS0DAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICKioqAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIqAysDAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMqAgICAgICAgICKgIqAystLQMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAioqAysrKwMqMjAuLCwuMTEuLCwyNDo6NDMuLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLjAxMjAsLCwsLC4JDxQUPEBMGRgWETQJMzAsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLC4uLCwsLAUFBQUFCQ8ZVSRYJSYmJSNWUxxMFBEOCggFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFIFMhVldYJV5gAZMpKQCTKF8mIyEbFQ4IBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJCQoKCzcMDQ0ODg4PEBAQEBAQEBARERITExQUFBQUFRYWSkpMGBocHBwcHR0eIFNdXl9gYXeT//////////8pKF5aV1RQTURkNjY1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NT09Pj9BRERFRkZISUtLTU1ubm5OTm9PcHBQUFBRcXJSUlJSUlRVc3RYdnZaW1xdXkZNT3BQclVYXGAoYmJ3J19cdnRUUE1GZT8+PWQ5OTY1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTk5Y2RkZD0+REZNeHp6enl8bYyRdJJ2kpKSdXOQjYRse3l5eXl6eXl5eXl5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHl5eXl4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHp7enp6ent8bH6EiIyNjIqEgn59e3p5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh6e3x7enl4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHl5eXp7empqaGhoZ2ZobG1sbX5+a2hnZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnZ2hra2hnZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmdnZ2hoampqZmdnZ2dmZ2hra2hmZmdqa2tqZ2ZmZmZmZmZmZmZmZmZmZmZmZmdnZmZmZmZmZmZmZmZmZmZmZmdnZ2dnZ2dnZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmdnZ2dmZmdmZmeVlZWVlZWWlpaWlZWVlpiYf5iXlZWVlZWVlZWVlZWVlZWVlZaWlpaWlpaWlZWVlZWWlpaWlpaWlZWVlZaXmJeWlZWVlZWVlZWVlZWVlZWVlZWVlZaWlpaVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWWmJh/mJeVlZWVlZWVlZWVlZWVlZWVlZWWlpaXmJiYl5aWlpWVlZWVlpaWlpaXmJiYlpWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVf39/f39/f39/f39/f4CDhoaFgX9/f39/f39/f39/f39/f39/f39/f4CAgYODgYB/f4CDg4B/f4OJi4uJhYB/f3+Af39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/gICBgYGAf39/f39/f39/f39/f39/f39/f3+AgICAgH+AgH9/gIeNj4+LjpCRkY+OiYeFgYCAgICAgH9/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f5qampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqcoaetsrO6tLS6sq+rqaakoqCdm5qampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqanZ2enp+fn6CgoKGhoaGhoaGhoaKioqOjpKSkpKSlpaWlpaanqKmpqampqqqqq6yur7O0vb/Cw/7+KcPtvrSxrKiloJuampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqamprKy8zMzc7P0NHS09TV19fX2LbZ2drat9vc3N3e4OHh4eHh4uS55ujqurS86+y9vr/AwsP///////////7tvbvl49vVzcfFxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExcXGx8bGyMrN0Nbat9u45Ojrv8GZmcLBvuzp5uPc1c/My8rIx8XFxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTEycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJysrKyc3Rt+Pm6brp6OjnueHcttG1ycnJycrJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJyrXKysrKtc7Q07bat9u32rbW0s+1ysnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJye7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7+/w8O/v7+/u7u/x8vHy9vbx7+7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7/Hx7+7u7u/w8O/u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7y8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vPz8/Py8vLz9PX19PPy8vLy8vLy8vLy8vLy8vLy8vLy8vPz8/Py8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vP09fX08/Ly8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pr7/Pv5+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+fn5+fj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/P39/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/Pz8/f39/fz8/Pz8/Pz4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pn7+/r5+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+Pj4+fv7+fj4+Pj4+Pj48vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8/Pz8/Pz8/Py8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8vLy8/Pz8/Py8vLy8vLy8vPz8/Pz8/Py8vLy8/T08/Py8vLy8u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u/v8O/v7u7u7u7u7u7u7u7u7u/w8fDv7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u/v7/Dv7u7u7u/v7u7u8Pb39/bx7+7u7u7u7u7JycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnKztTZ2dPW2+Dd2tbQzszKycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJycnJybXR3bnqurvr67vp5uS4t7bT0M3KxMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExsbHx8jIysvLy8zMzc7Ozs7Ozs7Oz8/Q0dHS0tLS09TV1dfY2drb3d/f39/g4OHi5Lnm6bu9v8LD/v4pw+2+vOfj3NTMxcTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTIyMrLzMzNzs/Q0dLT1NXX19fYttnZ2tq329zc3d7g4eHh4eHi5Lnm6Oq6tLzr7L2+v8DCw////////////u29u+Xj29XNx5qampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqbnJ2dnZ2en6CipaaoqKqssrxhd5mZwsG+67OwrKiloqCfmpqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqampqbm5uanaGmq6+ys7KxsbCtqqekoJyampp/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f4CAgIB/f39/f39/f39/f39/f39/f3+AgICBg4GAgIGDhomLjo+QkJCPjo6LiYOAgH9/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f3+Ag4WDgYB/f39/f39/f39/f39/f3+AgICAgYODg4GBgYB/gYaHhoeJiYWAgH9/f39/f39/lZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWWlpeYmJeWlZWVlZWVlZWVlZWVlZWWlpaWlZWWlZWWlpaWlZaXf3+XlZWWmJiYmJaVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZaWlpaWlpaWlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlpaWlpWVlZaYmH+Yl5WVlZWVlWZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmdnZ2dnZmZmZmZmZmZnZ2dnZ2dnZmZmZmdoamhnZmZmZmZmZmZmZmZmZmZmZmZmZmdnZ2dmZmZmZmZmZmZmZ2pra2toZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnZ2doampqaGdnZ2ZmZmZmZ2dnZ2doamtraGZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnamxsa2hmZmZmZmZ4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHl6ent7enl4eHl7e3l4eHt9bW19fHp4eHh5eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHl6enp6eXh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh5eXl5eXh5eXh4emh+iIh+go2PjoqCfWhmenl5eXl5eXh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eXl4eHh4eHh4NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU7RHBWWHZaW1tadVdUUW9LRj89OTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTs7ZGQ9PT4/Pz9BZURFaUVFRUVFaWlGRkhISUlJSUtLTU1Nbm9PUFFxcXFxcnJSVFVzdFkmXmEBkykplJMoYFt1VVBLQTk1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NQUFBQUFBQUFBQUFBQUFBQUFCzcMDQ4PDxAREhMUFRUWSkpKSkxMTBcYGRobGxwcHh8gHx8gUyJWVyRYWSUmXFxeX2Bhd5P//////////ykoXSVXUxsWDwoGBgUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCAgJCgoKCwwPEhYXGRoeIiRbYCdiYncnX1xYV1MbFhEODQwLCggIBgUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLjAuLjM4Sh5WIyQjVyNWIhxMQzcxLCwsLi4uLi4uLiwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwuMDEwLi4wMgg3PENHSkxKR0NCPDQyLi4sLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsLCwsAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMrKysDAwMqAgMvBC8EBwctAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIqAgICAgICKioqAgICAy8vAwICKistLSsqAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIqKioCAgICKy0vLQMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiorLS8tAwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICKisvBC0DAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgAAAAAAAAAAAAAAAAAAAAAgICAgICAgICAgICAgICAggICAgICAgICAgICAgICAgODg4ODg4ODg4ODg4ODg4ODgev9//3//f/9//3//f/9//3/9f+B64HoBewJ/An8CfwJ/In8jfyN/I38jfyR/JH8kfyV/JX8lfyZ/Jn8mf0h/SH9Jf0l/SX9Kf0p/S39rf2t/bH9tf5B/kX+Tf7R/23/8f/9/4HrgegF/4XoBfwF7AX8BfyF/In8jfyN/I38jfyN/I38jfyN/JH9Ef0R/RH8kf0V/JX8lf0V/RX9Gf0Z/Rn9Hf0d/R39Hf0d/SH9pf2p/an9sf2x/bH9tf25/j3+Rf5J/s3+0f7V/tn/Xf9h/2X/af/1/Q39Ef0V/RX9Ff0V/RX9Ff0Z/Zn9mf0h/aH9pf2t/a3+Of5B/kX+yf/x/RH9Ef0R/RH9lf2Z/Z39nf2d/Z39nf2d/aH9of2h/iH9of4h/aX+Jf2l/an+Kf4t/jH+Nf7F//n//f2Z/Zn9mf2Z//n+If4h/qH+pf6l/qX+qf6p/qn+rf6t/rH+tf61/rn+uf69/sH/Qf9F/0X/Sf9N/03/Uf9R/1n+qf81/zn/Qf9J/1X/2f/d/+X/6f/t//H/8f/1//n+pf6l/qn/Kf8p/qn+qf8p/yn/Lf8t/y3/Lf8x/zH/Mf8x/zH/Nf81/zX/Nf85/zn/Pf89/z3/Pf9B/0H/Qf9F/0X/Tf9N/1H/Uf9V/9X/3f/h//X/Lf8t/y3/Mf8x/zH/Mf81/7H/tf+1/7X/tf+5/7n/uf/9//38=';
+const TPL = Uint8Array.from(atob(TPL_B64), (c) => c.charCodeAt(0));
+const W = 128, H = 64;
+const $ = (id) => document.getElementById(id);
+let pic = null, result = null, view = 'new';
+
+function b64ToBytes() { return TPL; }
+function log(s) { $('log').textContent = s; }
+
+/* 任意尺寸 → 等比 cover 到 128×64 → 居中裁切（同 romtool a115bg._fit） */
+async function readPicture(file) {
+  const bmp = await createImageBitmap(file);
+  const c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const g = c.getContext('2d');
+  const r = Math.max(W / bmp.width, H / bmp.height);
+  const nw = Math.round(bmp.width * r), nh = Math.round(bmp.height * r);
+  g.imageSmoothingQuality = 'high';
+  g.drawImage(bmp, Math.round((W - nw) / 2), Math.round((H - nh) / 2), nw, nh);
+  const rgba = g.getImageData(0, 0, W, H).data;
+  return { name: file.name, w: bmp.width, h: bmp.height, rgba };
+}
+
+function draw(img, note) {
+  const cv = $('cv'), g = cv.getContext('2d');
+  const tile = $('tile').checked;
+  const scale = tile ? 2 : 4;
+  const sw = tile ? W * 2 * scale : W * scale;
+  cv.width = sw; cv.height = H * scale;
+  g.imageSmoothingEnabled = false;
+  const tmp = document.createElement('canvas');
+  tmp.width = img.width; tmp.height = img.height;
+  tmp.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(img.rgba), img.width, img.height), 0, 0);
+  g.drawImage(tmp, 0, 0, img.width * scale, img.height * scale);
+  if (tile) g.drawImage(tmp, img.width * scale, 0, img.width * scale, img.height * scale);
+  $('capNew').textContent = (view === 'new' ? '替换后' : '原始') + ' · ' + W + '×' + H + ' 放大 ' + scale + ' 倍' + (tile ? ' · 横向平铺 2 次检查接缝' : '');
+}
+
+function redraw() {
+  if (view === 'new') {
+    if (!result) { draw(decodeTexture(TPL, 'poke_line')); return; }
+    draw(decodeTexture(result, 'poke_line'));
+  } else draw(decodeTexture(TPL, 'poke_line'));
+}
+
+function pickFile(f) {
+  if (!f) return;
+  readPicture(f).then((p) => {
+    pic = p;
+    $('fname').textContent = p.name + '  ' + p.w + '×' + p.h;
+    $('gen').disabled = false; $('dl').disabled = true;
+    result = null; view = 'new'; setTab('new');
+    draw(decodeTexture(TPL, 'poke_line'));
+    $('mState').textContent = '已选图，点「生成模型」';
+    log('图片 ' + p.w + '×' + p.h + ' → 等比填满后居中裁切到 ' + W + '×' + H + '（不拉伸变形）');
+  }).catch((e) => { $('mState').textContent = '读图失败'; log(String(e)); });
+}
+
+function setTab(t) {
+  view = t;
+  $('tabNew').setAttribute('aria-selected', t === 'new');
+  $('tabOld').setAttribute('aria-selected', t === 'old');
+  redraw();
+}
+
+$('pick').onclick = () => $('file').click();
+$('file').onchange = (e) => pickFile(e.target.files[0]);
+for (const ev of ['dragenter', 'dragover']) $('drop').addEventListener(ev, (e) => { e.preventDefault(); $('drop').classList.add('hot'); });
+for (const ev of ['dragleave', 'drop']) $('drop').addEventListener(ev, (e) => { e.preventDefault(); $('drop').classList.remove('hot'); });
+$('drop').addEventListener('drop', (e) => pickFile(e.dataTransfer.files[0]));
+$('tile').onchange = () => redraw();
+$('tabNew').onclick = () => setTab('new');
+$('tabOld').onclick = () => setTab('old');
+
+$('gen').onclick = () => {
+  if (!pic) return;
+  try {
+    const colors = +$('colors').value;
+    const r = patchA115(b64ToBytes(), 'poke_line', { width: W, height: H, rgba: pic.rgba }, colors);
+    result = r.out;
+    $('mState').textContent = '生成好了，可以下载';
+    $('mLen').textContent = r.out.length + ' B（原始 ' + TPL.length + ' B，差 ' + (r.out.length - TPL.length) + '）';
+    $('mUsed').textContent = r.usedColors + ' 色 / 上限 ' + r.colors;
+    $('mTr').textContent = r.transparent;
+    $('mMask').textContent = r.maskNames.join(' ') + ' 已全部写成透明';
+    $('dl').disabled = false;
+    setTab('new');
+    log('贴图 ' + r.tex.name + ' ' + r.tex.w + '×' + r.tex.h + ' ' + r.tex.bpp + 'bpp · 调色板 ' + r.palette.name + '（偏移 ' + r.palette.off + '，容量 ' + r.palette.colors + ' 色）\n长度保持不变：几何/贴图/调色板偏移都没动');
+  } catch (e) {
+    $('mState').textContent = '生成失败';
+    log('错误：' + (e.message || e));
+  }
+};
+
+$('dl').onclick = () => {
+  if (!result) return;
+  const blob = new Blob([result], { type: 'application/octet-stream' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'A115_第25项_秘传背景_自定义.nsbmd';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  log('已下载 A115_第25项_秘传背景_自定义.nsbmd（' + result.length + ' B）');
+};
+
+/* 首次进来先显示原始画面 */
+redraw();
+$('mLen').textContent = TPL.length + ' B（原始模板）';
+log('模板已载入：' + [...parseTEX0(TPL).textures.map((t) => t.name + ' ' + t.w + '×' + t.h)].join(' · '));
+
+/* 自检模式：?selftest=1 时先造一张 640×480 的图，走完整「选图 → 裁切 → 生成」流程（不弹文件框） */
+if (location.search.includes('selftest')) {
+  (async () => {
+    const c = document.createElement('canvas'); c.width = 640; c.height = 480;
+    const g = c.getContext('2d');
+    const grd = g.createLinearGradient(0, 0, 0, 480);
+    grd.addColorStop(0, '#0b1a4a'); grd.addColorStop(1, '#2f6fd0');
+    g.fillStyle = grd; g.fillRect(0, 0, 640, 480);
+    g.strokeStyle = 'rgba(255,255,255,.9)';
+    for (let i = 0; i < 6; i++) { g.beginPath(); g.moveTo(20 + i * 30, 70 + i * 60); g.lineTo(360 + i * 40, 70 + i * 60); g.lineWidth = 4; g.stroke(); }
+    const blob = await new Promise((res) => c.toBlob(res, 'image/png'));
+    const f = new File([blob], '自检 640x480.png', { type: 'image/png' });
+    pickFile(f);
+    setTimeout(() => $('gen').click(), 400);
+  })();
+}
+</script>
+</body>
+</html>

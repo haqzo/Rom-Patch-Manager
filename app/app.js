@@ -9,12 +9,13 @@ import { ModelViewer, loadModel } from './viewer.js';
 import { checkModel, isFlyModel } from './core/check.js';
 import { buildFromTemplate, legalSizes } from './core/bgtemplate.js';
 import { platform } from './platform.js';
+import { makeA115, patchA115, decodeTexture, A115_MAX_SCALE } from './core/a115patch.js';
 
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const tick = () => new Promise((r) => setTimeout(r, 30));
 const mb = (n) => (n / 1048576).toFixed(n < 10485760 ? 2 : 1) + ' MB';
-const SOFT_LIMIT = 10 * 1048576;
+const SOFT_LIMIT = 25 * 1048576; // MaToRiuKo tested 24.8 MB of extra data loading fine in game (Nov 2026)
 const nFiles = (n) => `${n} ${n === 1 ? t('memberOne') : t('membersCount')}`;
 
 const ICON = {
@@ -64,6 +65,7 @@ const S = {
 // ---------------------------------------------------------------- library files
 async function loadFile(name) {
   if (S.files.has(name)) return S.files.get(name);
+  if (name.startsWith('draft:') && S.dev) { const b = await S.dev.draftFile(name); S.files.set(name, b); return b; }
   const r = await fetch('library/files/' + name);
   if (!r.ok) throw new Error('Missing library file ' + name);
   const b = new Uint8Array(await r.arrayBuffer());
@@ -209,9 +211,14 @@ async function filesFromDrop(dt) {
 }
 
 // ---------------------------------------------------------------- tabs & panels
+// archived items / scenes and hidden categories only show in dev mode
+const shown = (x) => !x.archived || !!S.dev;
+const visibleCats = () => S.lib.categories.filter((c) => !c.hidden || S.dev);
+const visiblePresets = () => (S.lib.presets || []).filter((p) => !p.hidden || S.dev);
 function renderTabs() {
   const used = new Set([...Object.keys(S.picks.items), ...(Object.keys(S.picks.battle).length ? ['battle'] : []), ...(S.picks.custom.length ? ['import'] : [])]);
-  const tabs = S.lib.categories.map((c) => ({ id: c.id, label: L(c.name), icon: c.icon }));
+  const tabs = visibleCats().map((c) => ({ id: c.id, label: L(c.name), icon: c.icon }));
+  if (visiblePresets().length || S.dev) tabs.unshift({ id: 'presets', label: t('presets'), icon: 'star' });
   tabs.push({ id: 'import', label: t('yourFiles'), icon: 'upload', sep: true });
   if (S.dev) tabs.push({ id: 'dev', label: 'Dev', icon: 'box' });
   $('tabs').innerHTML = tabs.map((x) => `<button class="tab ${x.sep ? 'sep' : ''}" role="tab" aria-selected="${S.tab === x.id}" data-tab="${x.id}">${icon(x.icon)}${esc(x.label)}${used.has(x.id) ? '<span class="dot"></span>' : ''}</button>`).join('');
@@ -224,7 +231,9 @@ function renderPanel() {
   body.scrollTop = 0;
   if (S.tab === 'import') { renderImport(head, body); return; }
   if (S.tab === 'dev') { if (S.dev) S.dev.render(head, body); else { S.tab = 'surf'; renderPanel(); } return; }
+  if (S.tab === 'presets') { renderPresets(head, body); S.dev?.decorate('presets', head, body); return; }
   const cat = S.lib.categories.find((c) => c.id === S.tab);
+  if (!cat) { S.tab = visibleCats()[0]?.id || 'import'; renderPanel(); return; }
   const orig = CAT_ORIG[cat.id];
   head.innerHTML = `<div><h2>${esc(L(cat.name))}</h2><p>${esc(L(cat.hint))}</p><div class="tech">${esc(cat.target)}</div></div>
     ${S.rom && (orig || cat.id === 'battle') ? `<button class="ghost small" id="prevOrig">${icon('eye')}${esc(t('previewOriginal'))}</button>` : ''}`;
@@ -232,17 +241,22 @@ function renderPanel() {
     if (cat.id === 'battle') { const m = [...S.selSlots][0] ?? 34; previewRomSlot(m); return; }
     previewRomMember(L(cat.name), orig.path, orig.model, orig.anim, cat.id === 'battle' ? 'scene' : 'object');
   };
-  if (cat.id === 'battle') { renderBattle(body); return; }
-  const items = S.lib.items.filter((x) => x.cat === cat.id);
-  body.innerHTML = `${filterBar(items)}<div class="grid">${items.map((it) => itemCard(it, cat)).join('')}</div><p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
+  if (cat.id === 'battle') { renderBattle(body); S.dev?.decorate('battle', head, body); return; }
+  const items = S.lib.items.filter((x) => x.cat === cat.id && shown(x));
+  const isHm = cat.id === 'hmbg';
+  body.innerHTML = `${filterBar(items)}<div class="grid">${items.map((it) => itemCard(it, cat)).join('')}</div><p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>${isHm ? a115Html() : ''}`;
   wireFilter(body);
+  if (isHm) wireA115(body);
   for (const c of body.querySelectorAll('.card')) {
     c.onclick = (e) => { if (e.target.closest('.peek')) return; toggleItem(cat.id, c.dataset.id); };
     c.querySelector('.peek')?.addEventListener('click', (e) => { e.stopPropagation(); previewItem(c.dataset.id); });
   }
+  S.dev?.decorate(cat.id, head, body);
 }
 
 function thumbHtml(id, glyph) {
+  const draft = S.dev?.thumbUrl(id);
+  if (draft) return `<img src="${draft}" alt="" loading="lazy" data-glyph="${glyph}">`;
   if (S.lib.thumbs && !S.lib.thumbs.includes(id)) return icon(glyph, 'glyph');
   return `<img src="library/previews/${esc(id)}.jpg" alt="" loading="lazy" data-glyph="${glyph}">`;
 }
@@ -285,7 +299,7 @@ function itemCard(it, cat) {
   const inRom = S.scan?.items[cat.id] === it.id;
   return `<div class="card ${sel ? 'sel' : ''}" data-id="${esc(it.id)}" data-f="${esc(filterKey(it))}" data-by="${esc(it.by)}" role="button" tabindex="0" aria-pressed="${sel}">
     <div class="thumb">${thumbHtml(it.id, cat.icon)}
-      <div class="flag">${sel ? `<span class="pill sel">${icon('check')}${esc(t('selected'))}</span>` : ''}${inRom ? `<span class="pill in">${esc(t('installed'))}</span>` : ''}</div>
+      <div class="flag">${sel ? `<span class="pill sel">${icon('check')}${esc(t('selected'))}</span>` : ''}${inRom ? `<span class="pill in">${esc(t('installed'))}</span>` : ''}${it.archived ? '<span class="pill">Archived</span>' : ''}</div>
       ${it.view ? `<button class="peek" title="${esc(t('preview'))}" aria-label="${esc(t('preview'))}">${icon('eye')}</button>` : ''}</div>
     <div class="meta"><div class="name">${esc(L(it.name))}</div><div class="by">${esc(t('by'))} ${esc(it.by)}</div>
       ${it.desc ? `<div class="note">${esc(L(it.desc))}</div>` : ''}
@@ -306,7 +320,7 @@ function renderBattle(body) {
   const B = S.lib.battle;
   // one group per creator (scenes that belong to an old-style set get that set's name)
   const groups = [];
-  for (const sc of B.scenes) {
+  for (const sc of B.scenes.filter(shown)) {
     const title = sc.set ? L(B.sets.find((x) => x.id === sc.set)?.name) || sc.set : sc.by || '—';
     let g = groups.find((x) => x.title === title);
     if (!g) groups.push((g = { title, scenes: [] }));
@@ -325,7 +339,7 @@ function renderBattle(body) {
     ${bgtHtml()}
     <div class="group-title">${esc(t('sets'))}</div>
     <div class="row">${B.sets.map((s) => `<button class="secondary small" data-set="${esc(s.id)}">${esc(L(s.name))}</button>`).join('')}</div>
-    <div class="group-title">${esc(t('library'))}</div>${filterBar(B.scenes)}
+    <div class="group-title">${esc(t('library'))}</div>${filterBar(B.scenes.filter(shown))}
     ${groups.map((g) => `<div class="fgroup"><div class="group-title">${esc(g.title)}</div><div class="grid">${g.scenes.map(sceneCard).join('')}</div></div>`).join('')}<p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
   wireFilter(body);
   for (const b of body.querySelectorAll('#modeSeg button')) b.onclick = () => { S.battleMode = b.dataset.m; renderPanel(); };
@@ -372,10 +386,10 @@ function sceneCard(s) {
   const native = (s.native || []).map(slotName).filter(Boolean);
   return `<div class="card ${used ? 'sel' : ''}" data-id="${esc(s.id)}" data-f="${esc(filterKey(s))}" data-by="${esc(s.by)}" role="button" tabindex="0">
     <div class="thumb">${thumbHtml(s.id, 'mountain')}
-      <div class="flag">${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}</div>
+      <div class="flag">${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}${s.archived ? '<span class="pill">Archived</span>' : ''}</div>
       <button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button></div>
     <div class="meta"><div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(s.by)}${!s.anim || s.modelOnly ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
-      ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}</div></div>`;
+      ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}${s.desc ? `<div class="note">${esc(L(s.desc))}</div>` : ''}</div></div>`;
 }
 
 async function assignScene(id) {
@@ -385,6 +399,60 @@ async function assignScene(id) {
   for (const m of S.selSlots) S.picks.battle[m] = { scene: id, mode };
   renderPanel();
   await refreshChanges();
+}
+
+// ---------------------------------------------------------------- official presets (made in dev mode)
+function presetParts(p) {
+  const parts = [];
+  for (const [cat, id] of Object.entries(p.items || {})) { const c = S.lib.categories.find((x) => x.id === cat), it = S.lib.items.find((x) => x.id === id); if (c && it) parts.push(`${L(c.name)}: ${L(it.name)}`); }
+  const n = Object.keys(p.battle || {}).length;
+  if (n) parts.push(`${t('presetBattle')}: ${n} ${t('slotsCount')}`);
+  return parts;
+}
+function renderPresets(head, body) {
+  head.innerHTML = `<div><h2>${esc(t('presets'))}</h2><p>${esc(t('presetsHint'))}</p></div>`;
+  const P = visiblePresets(), groups = [...new Set(P.map((p) => p.group || ''))];
+  body.innerHTML = P.length ? groups.map((g) => `${g ? `<div class="group-title">${esc(g)}</div>` : ''}<div class="grid presets">${P.filter((p) => (p.group || '') === g).map((p) => {
+    const first = Object.values(p.items || {})[0] || Object.values(p.battle || {})[0]?.scene;
+    return `<div class="card preset" data-preset="${esc(p.id)}"><div class="thumb">${first ? thumbHtml(first, 'star') : icon('star', 'glyph')}${p.hidden ? '<div class="flag"><span class="pill">Hidden</span></div>' : ''}</div>
+      <div class="meta"><div class="name">${esc(L(p.name))}</div>${p.desc ? `<div class="note">${esc(L(p.desc))}</div>` : ''}
+      <ul class="note plist">${presetParts(p).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+      <button class="primary small" data-apply="${esc(p.id)}">${esc(t('presetApply'))}</button></div></div>`; }).join('')}</div>`).join('')
+    : `<p class="muted">${esc(t('presetsNone'))}</p>`;
+  for (const b of body.querySelectorAll('[data-apply]')) b.onclick = () => applyPreset(b.dataset.apply);
+}
+async function applyPreset(id) {
+  const p = S.lib.presets.find((x) => x.id === id); if (!p) return;
+  for (const [cat, iid] of Object.entries(p.items || {})) if (S.lib.items.some((x) => x.id === iid)) S.picks.items[cat] = iid;
+  for (const [m, a] of Object.entries(p.battle || {})) if (sceneById(a.scene)) S.picks.battle[m] = { scene: a.scene, mode: a.mode || 'both' };
+  toast(t('presetApplied').replace('{n}', L(p.name)), 'ok');
+  renderPanel(); await refreshChanges();
+}
+
+// ---------------------------------------------------------------- library refresh (new items without a reload)
+/** Swap in a new library, keeping every selection that still exists. */
+async function setLibrary(lib, fromDev = false) {
+  if (!fromDev) S.dev?.onLibrary?.(lib);
+  S.lib = lib; S.fps = new Map(Object.entries(lib.files));
+  for (const [cat, id] of Object.entries(S.picks.items)) if (!lib.items.some((x) => x.id === id && x.cat === cat)) delete S.picks.items[cat];
+  for (const [m, a] of Object.entries(S.picks.battle)) if (!lib.battle.scenes.some((x) => x.id === a.scene)) delete S.picks.battle[m];
+  S.picks.extras = S.picks.extras.filter((id) => lib.battle.sets.some((x) => x.id === id));
+  if (S.rom) { try { S.scan = scanInstalled(S.rom.bytes, S.rom.R, lib, S.fps); } catch { /* keep */ } }
+  renderRom(); renderPanel(); await refreshChanges();
+}
+let libStamp = '';
+async function checkLibrary() {
+  if (S.dev?.previewing?.()) return; // dev mode is showing a draft
+  try {
+    const r = await fetch('library/library.json', { cache: 'no-cache' });
+    if (!r.ok) return;
+    const text = await r.text();
+    if (text === libStamp) return;
+    const first = !libStamp; libStamp = text;
+    if (first) return;
+    await setLibrary(JSON.parse(text));
+    toast(t('libUpdated'), 'ok');
+  } catch { /* offline: keep what we have */ }
 }
 
 async function applySet(id) {
@@ -890,11 +958,159 @@ function wireArchive() {
   };
 }
 
+
+// ---------------------------------------------------------------- A115 #25 hm background (internal test)
+// 1x = 就地打补丁（长度不变，沿用已验证逻辑）；2x/4x = 重建 TEX0 + 同步 UV + 材质 TEXIMAGE 宽高。
+// 掩膜 poke_line_a 固定整块写成透明（A3I5 全 0x00 = alpha 0），不作为选项。
+const A115 = { tpl: null, imgEl: null, natW: 0, natH: 0, mode: 0, colors: 256, scale: 1,
+  out: null, used: 0, size: 0, mask: '', tw: 128, th: 64, tplLen: 0 };
+
+async function a115Template() {
+  if (!A115.tpl) {
+    A115.tpl = new Uint8Array(await (await fetch('tpl_a115_25.nsbmd', { cache: 'no-cache' })).arrayBuffer());
+    A115.tplLen = A115.tpl.length;
+  }
+  return A115.tpl;
+}
+
+/** 自动档：按上传图片的原始尺寸判定（>=512×256 → 4×，>=256×128 → 2×，否则 1×） */
+function a115AutoScale() {
+  if (!A115.natW) return 1;
+  const s = Math.floor(Math.min(A115.natW / 128, A115.natH / 64));
+  return s >= 4 ? A115_MAX_SCALE : (s >= 2 ? 2 : 1);
+}
+function a115Scale() { return A115.mode || a115AutoScale(); }
+
+/** 任意尺寸 → 等比 cover 到目标尺寸 → 居中裁切（同 romtool _fit） */
+function a115Fit(w, h) {
+  const cv = document.createElement('canvas');
+  cv.width = w; cv.height = h;
+  const g = cv.getContext('2d', { willReadFrequently: true });
+  g.imageSmoothingEnabled = true;
+  g.imageSmoothingQuality = 'high';
+  const sc = Math.max(w / A115.natW, h / A115.natH);
+  const dw = Math.max(1, Math.round(A115.natW * sc)), dh = Math.max(1, Math.round(A115.natH * sc));
+  g.drawImage(A115.imgEl, Math.round((w - dw) / 2), Math.round((h - dh) / 2), dw, dh);
+  return { width: w, height: h, rgba: g.getImageData(0, 0, w, h).data };
+}
+
+function a115Paint(bytes) {
+  const cv = $('a115cv');
+  if (!cv) return;
+  const d = decodeTexture(bytes, 'poke_line');
+  const zoom = Math.max(2, Math.floor(1024 / d.width));
+  cv.width = d.width * zoom; cv.height = d.height * zoom;
+  const tmp = document.createElement('canvas');
+  tmp.width = d.width; tmp.height = d.height;
+  tmp.getContext('2d').putImageData(new ImageData(d.rgba, d.width, d.height), 0, 0);
+  const g = cv.getContext('2d');
+  g.imageSmoothingEnabled = false;
+  for (let y = 0; y < cv.height; y += 8) for (let x = 0; x < cv.width; x += 8) {
+    g.fillStyle = ((x / 8 + y / 8) & 1) ? '#2a2f3a' : '#1d222b';
+    g.fillRect(x, y, 8, 8);
+  }
+  g.drawImage(tmp, 0, 0, cv.width, cv.height);
+}
+
+function a115Html() {
+  const cols = [256, 128, 64].map((n) => `<option value="${n}" ${A115.colors === n ? 'selected' : ''}>${n}</option>`).join('');
+  const scales = [[0, t('a115Auto')], [1, '1× · 128×64'], [2, '2× · 256×128'], [A115_MAX_SCALE, '4× · 512×256']]
+    .map(([v, lbl]) => `<option value="${v}" ${A115.mode === v ? 'selected' : ''}>${esc(lbl)}</option>`).join('');
+  return `<section class="panel a115box">
+    <div class="panel-head"><h2>${esc(t('a115Title'))}</h2></div>
+    <p class="muted">${esc(t('a115Hint'))}</p>
+    <div class="a115-row">
+      <button class="secondary small" id="a115Pick">${icon('upload')}${esc(t('a115Pick'))}</button>
+      <label class="a115-col"><span>${esc(t('a115Scale'))}</span><select id="a115Scale">${scales}</select></label>
+      <label class="a115-col"><span>${esc(t('a115Colors'))}</span><select id="a115Colors"${a115Scale() > 1 ? ' disabled' : ''}>${cols}</select></label>
+      <button class="primary small" id="a115Add"${A115.out ? '' : ' disabled'}>${icon('check')}${esc(t('a115Add'))}</button>
+    </div>
+    <div class="a115-stage"><canvas id="a115cv" width="512" height="256"></canvas></div>
+    <div class="a115-meta muted" id="a115meta"></div>
+  </section>`;
+}
+
+function a115Meta() {
+  if (!A115.out) return t('a115Empty');
+  return t('a115Meta').replace('{n}', A115.used).replace('{size}', A115.size)
+    .replace('{w}', A115.tw).replace('{h}', A115.th).replace('{scale}', A115.scale).replace('{mask}', t('a115Yes'));
+}
+
+async function a115Build() {
+  const tpl = await a115Template();
+  if (!A115.imgEl) { A115.out = null; a115Paint(tpl); return; }
+  const n = a115Scale();
+  A115.scale = n;
+  A115.tw = 128 * n; A115.th = 64 * n;
+  const img = a115Fit(A115.tw, A115.th);
+  const r = makeA115(tpl, 'poke_line', img, { scale: n, colors: n === 1 ? A115.colors : 256 });
+  A115.out = r.out; A115.used = r.usedColors; A115.size = r.out.length;
+  a115Paint(r.out);
+}
+
+async function a115SetScale() {
+  const sel = $('a115Colors');
+  if (sel) sel.disabled = a115Scale() > 1;
+  if (!A115.imgEl) return;
+  await a115Build();
+  const meta = $('a115meta');
+  if (meta) meta.textContent = a115Meta();
+}
+
+async function wireA115(body) {
+  const pick = body.querySelector('#a115Pick'), add = body.querySelector('#a115Add');
+  const scaleSel = body.querySelector('#a115Scale'), sel = body.querySelector('#a115Colors'), meta = body.querySelector('#a115meta');
+  if (!pick) return;
+  A115.imgEl ? await a115Build() : a115Paint(await a115Template());
+  if (meta) meta.textContent = a115Meta();
+  pick.onclick = async () => {
+    const [f] = await platform.pickFiles({ accept: 'image/png,image/jpeg,image/webp,image/bmp,image/*' });
+    if (!f) return;
+    const url = URL.createObjectURL(f);
+    try {
+      const im = await new Promise((res, rej) => {
+        const i = new Image();
+        i.onload = () => res(i);
+        i.onerror = () => rej(new Error(t('a115NotImage')));
+        i.src = url;
+      });
+      A115.imgEl = im; A115.natW = im.naturalWidth; A115.natH = im.naturalHeight;
+      await a115Build();
+      if (meta) meta.textContent = a115Meta();
+      if (add) add.disabled = false;
+      toast(t('a115Ready'));
+    } catch (e) { toast(e.message || t('a115ReadErr'), 'bad'); }
+    finally { URL.revokeObjectURL(url); }
+  };
+  scaleSel.onchange = async () => {
+    A115.mode = +scaleSel.value;
+    await a115SetScale();
+  };
+  sel.onchange = async () => {
+    A115.colors = +sel.value;
+    if (!A115.imgEl) return;
+    await a115Build();
+    if (meta) meta.textContent = a115Meta();
+  };
+  add.onclick = async () => {
+    if (!A115.out) return;
+    S.picks.custom.push({
+      id: 'a115-' + Date.now().toString(36),
+      name: t('a115ChangeName') + (A115.scale > 1 ? ' ' + A115.scale + '×' : ''),
+      sub: 'a/1/1/5 #25',
+      writes: [{ path: 'a/1/1/5', member: 25, data: A115.out }],
+    });
+    renderPanel(); await refreshChanges();
+    toast(t('a115Added'));
+  };
+}
+
 // ---------------------------------------------------------------- boot
 async function boot() {
   applyStatic();
   try {
-    S.lib = await (await fetch('library/library.json', { cache: 'no-cache' })).json();
+    libStamp = await (await fetch('library/library.json', { cache: 'no-cache' })).text();
+    S.lib = JSON.parse(libStamp);
   } catch (e) {
     document.body.innerHTML = `<p style="padding:30px">Could not load the library: ${esc(e.message)}</p>`;
     return;
@@ -922,11 +1138,14 @@ async function boot() {
     if (q.has('dev')) { if (q.get('dev') === 'off') localStorage.removeItem('rpm-dev'); else localStorage.setItem('rpm-dev', '1'); }
     if (localStorage.getItem('rpm-dev') === '1') {
       const { initDev } = await import('./dev.js');
-      S.dev = initDev({ S, esc, icon, toast, renderPanel, refreshChanges, platform, rom, checkModel, mb, dropTarget, readDropped, saveBytes, nFiles, changeTitle: (c) => changeView(c).title });
+      S.dev = initDev({ S, esc, icon, toast, renderPanel, refreshChanges, platform, rom, checkModel, mb, dropTarget, readDropped, saveBytes, nFiles, changeTitle: (c) => changeView(c).title, L, setLibrary, thumbFor: thumbHtml, loadFile, openViewer, busy, tick, legalSizes });
       document.body.classList.add('is-dev');
     }
   } catch (e) { console.warn('dev mode', e); }
   renderRom(); renderPanel(); renderChanges();
+  // new library items show up without a reload: check every 10 minutes and when the tab comes back
+  setInterval(checkLibrary, 10 * 60 * 1000);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkLibrary(); });
   // keep the local launcher (serve.py) alive while this page is open
   if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) { const ping = () => fetch('/__ping', { cache: 'no-store' }).catch(() => {}); ping(); setInterval(ping, 10000); }
   // installable app (Chrome / Edge "Install"), works offline after the first visit

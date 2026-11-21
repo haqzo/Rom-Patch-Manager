@@ -963,192 +963,6 @@
    ]
   },
   {
-   "id": "disc-none-classic",
-   "cat": "platforms",
-   "name": {
-    "en": "No battle ground (classic xdelta)",
-    "zh": "无战斗圆盘（经典 xdelta 版）",
-    "es": "Sin plataforma (xdelta clásico)"
-   },
-   "by": "Community",
-   "writes": [
-    {
-     "path": "a/0/1/1",
-     "member": 0,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 1,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 2,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 3,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 4,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 5,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 6,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 7,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 8,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 9,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 10,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 11,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 12,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 13,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 14,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 15,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 16,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 17,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 18,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 19,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 20,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 21,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 22,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 23,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 24,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 25,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 26,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 27,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 28,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 29,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 30,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 31,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 32,
-     "file": "72d706a1c74e823a.nsbmd"
-    },
-    {
-     "path": "a/0/1/1",
-     "member": 33,
-     "file": "72d706a1c74e823a.nsbmd"
-    }
-   ],
-   "view": null,
-   "sources": [
-    "No-Battle-Ground-Xdelta-Original (a/0/1/1 #0)"
-   ]
-  },
-  {
    "id": "disc-transparent",
    "cat": "platforms",
    "name": {
@@ -1814,6 +1628,175 @@
     "community/grounds/Ground_Ice.nsbmd",
     "community/grounds/Ground_Wood.nsbmd"
    ]
+  },
+  {
+   "id": "surf-nailong",
+   "cat": "surf",
+   "name": {
+    "en": "Nailong",
+    "zh": "奶龙",
+    "es": "Nailong"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "4c67d13fe009808b.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "4c67d13fe009808b.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Nailong_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-minecraft-boat",
+   "cat": "surf",
+   "name": {
+    "en": "Minecraft Boat",
+    "zh": "我的世界木船",
+    "es": "Barco de Minecraft"
+   },
+   "by": "MaToRiuKo",
+   "desc": {
+    "en": "From Minecraft.",
+    "zh": "来自《我的世界》。",
+    "es": "De Minecraft."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "d806fe057de2f1e6.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "d806fe057de2f1e6.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Minecraft_Boat_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-transparent",
+   "cat": "surf",
+   "name": {
+    "en": "Transparent surf model",
+    "zh": "透明冲浪模型",
+    "es": "Modelo de surf transparente"
+   },
+   "by": "MaToRiuKo",
+   "desc": {
+    "en": "A hidden surf model.",
+    "zh": "隐藏冲浪模型，皆若空游无所依。",
+    "es": "Un modelo de surf oculto."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "373ce6285af54aec.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "373ce6285af54aec.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Transparent_Surf_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-starmie",
+   "cat": "surf",
+   "name": {
+    "en": "Starmie",
+    "zh": "宝石海星",
+    "es": "Starmie"
+   },
+   "by": "MaToRiuKo",
+   "desc": {
+    "en": "From Pokémon X/Y's Starmie.",
+    "zh": "来自《宝可梦 X/Y》的宝石海星。",
+    "es": "Extraído de Starmie de Pokémon X/Y."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "65edd22d58c2885d.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "65edd22d58c2885d.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Starmie_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-mantine",
+   "cat": "surf",
+   "name": {
+    "en": "Mantine",
+    "zh": "巨翅飞鱼",
+    "es": "Mantine"
+   },
+   "by": "yoka",
+   "desc": {
+    "en": "From Pokémon X/Y's Mantine.",
+    "zh": "来自《宝可梦 X/Y》的巨翅飞鱼。",
+    "es": "Extraído de Mantine de Pokémon X/Y."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "e86720f58761a369.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "e86720f58761a369.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Mantine_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-mantine-shiny",
+   "cat": "surf",
+   "name": {
+    "en": "Shiny Mantine",
+    "zh": "闪光巨翅飞鱼",
+    "es": "Mantine variocolor"
+   },
+   "by": "yoka",
+   "desc": {
+    "en": "From Pokémon X/Y's Shiny Mantine.",
+    "zh": "来自《宝可梦 X/Y》的闪光巨翅飞鱼。",
+    "es": "Extraído de Mantine variocolor de Pokémon X/Y."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "79aee12083c38216.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "79aee12083c38216.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Mantine_Shiny_Model.nsbmd"
+   ]
   }
  ],
  "battle": {
@@ -1850,9 +1833,9 @@
     "model": 38,
     "anim": 42,
     "name": {
-     "en": "Slot 38 (unconfirmed)",
-     "zh": "槽位 38（未确认）",
-     "es": "Ranura 38 (sin confirmar)"
+     "en": "Dragonspiral Tower grass / Moor of Icirrus",
+     "zh": "龙螺旋塔草丛 / 雪花湿地",
+     "es": "Hierba de la Torre Esquirla / Páramo de Icirrus"
     }
    },
    {
@@ -2125,8 +2108,8 @@
      "es": "Cueva de lava de Groudon"
     },
     "by": "MaToRiuKo",
-    "model": "830565941648905f.nsbmd",
-    "anim": "d0c5ed5a5d489cbe.nsbca",
+    "model": "6a0322fc202c2dce.nsbmd",
+    "anim": "21ebb62345065ea3.nsbca",
     "native": [
      54,
      60
@@ -2279,18 +2262,580 @@
     ]
    },
    {
-    "id": "bg-transparent",
+    "id": "bg-radiant-chamber",
     "name": {
-     "en": "Transparent (no background)",
-     "zh": "透明（无背景）",
-     "es": "Transparente (sin fondo)"
+     "en": "Radiant Chamber",
+     "zh": "光辉密室",
+     "es": "Cámara Radiante"
     },
     "by": "MaToRiuKo",
-    "model": "592d4fe357c253d4.nsbmd",
-    "anim": null,
+    "model": "f83df3eafa7018cd.nsbmd",
+    "anim": "ef733c2ddf136584.nsbca",
+    "desc": {
+     "en": "From Pokémon X/Y's Radiant Chamber.",
+     "zh": "来自《宝可梦 X/Y》的光辉密室。",
+     "es": "Extraído de la Cámara Radiante de Pokémon X/Y."
+    },
+    "sources": [
+     "community/mato-bg/Radiant_Chamber_Model.nsbmd",
+     "community/mato-bg/Radiant_Chamber_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-n-room",
+    "name": {
+     "en": "N's Room",
+     "zh": "N的房间",
+     "es": "Habitación de N"
+    },
+    "by": "MaToRiuKo",
+    "model": "016331fb20ad659d.nsbmd",
+    "anim": "326edc80a797896c.nsbca",
+    "sources": [
+     "community/mato-bg/Ns_Room_Model.nsbmd",
+     "community/mato-bg/Ns_Room_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-blue-pvp",
+    "name": {
+     "en": "Blue Battle Room (No Roof)",
+     "zh": "蓝色战斗房间（无屋顶）",
+     "es": "Sala de Combate Azul (sin techo)"
+    },
+    "by": "YOKA",
+    "model": "49fd53a299f672b9.nsbmd",
     "modelOnly": true,
     "sources": [
-     "transparent battle background.nsbmd"
+     "community/mato-bg/Blue_Battle_Room_No_Roof_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-bw2-normal-gym",
+    "name": {
+     "en": "BW2 Normal-type Gym",
+     "zh": "BW2普通系道馆",
+     "es": "Gimnasio Normal BW2"
+    },
+    "by": "YOKA",
+    "model": "5fe1a83c6f819dda.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/BW2_Normal_Gym_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-paldea-field",
+    "name": {
+     "en": "Paldea Battle Field",
+     "zh": "朱紫对战场地",
+     "es": "Campo de Batalla de Paldea"
+    },
+    "by": "MaToRiuKo",
+    "model": "4acb89aa34b66e25.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Made from the battle-background template with a floor.",
+     "zh": "有地板模板生成。",
+     "es": "Hecha con la plantilla de fondo de combate con suelo."
+    },
+    "sources": [
+     "community/mato-bg/Paldea_Battle_Field_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-01-ice-cave",
+    "name": {
+     "en": "Ice Cave",
+     "zh": "冰之洞窟",
+     "es": "Cueva de Hielo"
+    },
+    "by": "MaToRiuKo",
+    "model": "48d9f4e7710a0365.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_01_Ice_Cave_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-02-humid-cave",
+    "name": {
+     "en": "Humid Cave",
+     "zh": "潮湿洞窟",
+     "es": "Cueva Humeda"
+    },
+    "by": "MaToRiuKo",
+    "model": "bb04f627a91af04c.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_02_Humid_Cave_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-03-earth-cave",
+    "name": {
+     "en": "Earth Cave",
+     "zh": "大地洞窟",
+     "es": "Cueva Terrestre"
+    },
+    "by": "MaToRiuKo",
+    "model": "41dbba65b70fa15e.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_03_Earth_Cave_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-04-forest",
+    "name": {
+     "en": "Forest",
+     "zh": "森林",
+     "es": "Bosque"
+    },
+    "by": "MaToRiuKo",
+    "model": "9ef7886ed37259c0.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_04_Forest_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-05-grassland",
+    "name": {
+     "en": "Grassland",
+     "zh": "草原",
+     "es": "Pradera"
+    },
+    "by": "MaToRiuKo",
+    "model": "656fb60e5a4a3a89.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_05_Grassland_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-06-night-grassland",
+    "name": {
+     "en": "Night Grassland",
+     "zh": "夜色草原",
+     "es": "Pradera Nocturna"
+    },
+    "by": "MaToRiuKo",
+    "model": "c3a6c45420a99618.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_06_Night_Grassland_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-07-grass-field-spring",
+    "name": {
+     "en": "Grass Field Spring",
+     "zh": "草地·春",
+     "es": "Campo de Hierba Primavera"
+    },
+    "by": "MaToRiuKo",
+    "model": "e163ec70184fbe17.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_07_Grass_Field_Spring_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-08-grass-field-summer",
+    "name": {
+     "en": "Grass Field Summer",
+     "zh": "草地·夏",
+     "es": "Campo de Hierba Verano"
+    },
+    "by": "MaToRiuKo",
+    "model": "f1a9d0be29896d4b.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_08_Grass_Field_Summer_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-09-grass-field-autumn",
+    "name": {
+     "en": "Grass Field Autumn",
+     "zh": "草地·秋",
+     "es": "Campo de Hierba Otono"
+    },
+    "by": "MaToRiuKo",
+    "model": "f23728d284c63407.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_09_Grass_Field_Autumn_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-10-grass-field-winter",
+    "name": {
+     "en": "Grass Field Winter",
+     "zh": "草地·冬",
+     "es": "Campo de Hierba Invierno"
+    },
+    "by": "MaToRiuKo",
+    "model": "e880dc13ad949759.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_10_Grass_Field_Winter_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-11-desert",
+    "name": {
+     "en": "Desert",
+     "zh": "沙漠",
+     "es": "Desierto"
+    },
+    "by": "MaToRiuKo",
+    "model": "06b89906f86d0c1e.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_11_Desert_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-12-desert-oras",
+    "name": {
+     "en": "Desert ORAS",
+     "zh": "沙漠·ORAS",
+     "es": "Desierto ORAS"
+    },
+    "by": "MaToRiuKo",
+    "model": "0eb30a5a96a4d302.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_12_Desert_ORAS_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-13-beach",
+    "name": {
+     "en": "Beach",
+     "zh": "海滩",
+     "es": "Playa"
+    },
+    "by": "MaToRiuKo",
+    "model": "f05976ead8f8dc1e.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_13_Beach_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-14-night-beach",
+    "name": {
+     "en": "Night Beach",
+     "zh": "夜色海滩",
+     "es": "Playa Nocturna"
+    },
+    "by": "MaToRiuKo",
+    "model": "9153ee6a4bee2c70.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_14_Night_Beach_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-15-sea-surface-oras",
+    "name": {
+     "en": "Sea Surface ORAS",
+     "zh": "海面·ORAS",
+     "es": "Superficie Marina ORAS"
+    },
+    "by": "MaToRiuKo",
+    "model": "63af1bfb5a576fdf.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_15_Sea_Surface_ORAS_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-16-deep-sea",
+    "name": {
+     "en": "Deep Sea",
+     "zh": "深海",
+     "es": "Fondo Marino"
+    },
+    "by": "MaToRiuKo",
+    "model": "f9a0d74b9442be6b.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_16_Deep_Sea_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-17-city",
+    "name": {
+     "en": "City",
+     "zh": "都市",
+     "es": "Ciudad"
+    },
+    "by": "MaToRiuKo",
+    "model": "ea85ad5ef25580ea.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_17_City_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-18-night-city",
+    "name": {
+     "en": "Night City",
+     "zh": "夜色都市",
+     "es": "Ciudad Nocturna"
+    },
+    "by": "MaToRiuKo",
+    "model": "85d0ed080d7f7e80.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_18_Night_City_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-19-aquacorde-town",
+    "name": {
+     "en": "Aquacorde Town",
+     "zh": "水弦镇",
+     "es": "Pueblo Acorde"
+    },
+    "by": "MaToRiuKo",
+    "model": "6fcd992b86529b28.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_19_Aquacorde_Town_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-20-battle-maison",
+    "name": {
+     "en": "Battle Maison",
+     "zh": "对战公馆",
+     "es": "Mansion de Combate"
+    },
+    "by": "MaToRiuKo",
+    "model": "2263993ef5b6536a.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_20_Battle_Maison_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-21-sky-pillar",
+    "name": {
+     "en": "Sky Pillar",
+     "zh": "天空之柱",
+     "es": "Pilar Celeste"
+    },
+    "by": "MaToRiuKo",
+    "model": "b50f651af3e4f448.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_21_Sky_Pillar_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-22-korrina-gym",
+    "name": {
+     "en": "Korrina Gym",
+     "zh": "可尔妮道馆",
+     "es": "Gimnasio de Corrina"
+    },
+    "by": "MaToRiuKo",
+    "model": "5860b102dddc498f.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_22_Korrina_Gym_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "gn6-23-wallace-gym",
+    "name": {
+     "en": "Wallace Gym",
+     "zh": "米可利道馆",
+     "es": "Gimnasio de Plubio"
+    },
+    "by": "MaToRiuKo",
+    "model": "112fe9e9fd46eb85.nsbmd",
+    "modelOnly": true,
+    "desc": {
+     "en": "Base art from PhoenixOfLight92's original images, redrawn for 256-colour index adaptation. Built by swapping textures into the floorless battle-background template.",
+     "zh": "底图素材来自 PhoenixOfLight92原图进行256色适配重绘。使用无地板模板换图生成。",
+     "es": "Arte base de las imagenes originales de PhoenixOfLight92, redibujado para la adaptacion a 256 colores. Creado sustituyendo las texturas en la plantilla de fondo de combate sin suelo."
+    },
+    "sources": [
+     "community/gen6-bg/Gen6_23_Wallace_Gym_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-red-battle-room",
+    "name": {
+     "en": "Red Battle Room",
+     "zh": "红色战斗房间",
+     "es": "Sala de Combate Roja"
+    },
+    "by": "MaToRiuKo",
+    "model": "5a898e24ae471a60.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Red_Battle_Room_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-blue-battle-room",
+    "name": {
+     "en": "Blue Battle Room",
+     "zh": "蓝色战斗房间",
+     "es": "Sala de Combate Azul"
+    },
+    "by": "MaToRiuKo",
+    "model": "b228e0ca9f49d860.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Blue_Battle_Room_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-dragonspiral-rayquaza",
+    "name": {
+     "en": "Dragonspiral Tower & Rayquaza",
+     "zh": "龙螺旋塔和裂空座",
+     "es": "Torre Esquirla y Rayquaza"
+    },
+    "by": "MaToRiuKo",
+    "model": "a31b3327f03000fe.nsbmd",
+    "anim": "19fb75247af646fe.nsbca",
+    "sources": [
+     "community/mato-bg/Dragonspiral_and_Rayquaza_Model.nsbmd",
+     "community/mato-bg/Dragonspiral_and_Rayquaza_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-skyarrow-kyogre",
+    "name": {
+     "en": "Skyarrow Bridge & Kyogre",
+     "zh": "天之箭桥下与盖欧卡",
+     "es": "Puente Skyarrow y Kyogre"
+    },
+    "by": "MaToRiuKo",
+    "model": "08ba3192054a26a7.nsbmd",
+    "anim": "f009f1057ece3cb1.nsbca",
+    "sources": [
+     "community/mato-bg/Skyarrow_and_Kyogre_Model.nsbmd",
+     "community/mato-bg/Skyarrow_and_Kyogre_Anim.nsbca"
     ]
    }
   ],
@@ -2325,20 +2870,28 @@
  },
  "files": {
   "014db79e87797e73.nsbca": "143696:B9577CF2",
+  "016331fb20ad659d.nsbmd": "96304:6E1E1E5B",
   "03bdd00bce711694.nsbmd": "249260:39F049CF",
   "048b878dc20e1ef7.nsbmd": "2408:0C028AEC",
   "04e2970f00f955a2.nsbmd": "717252:34F3B9AF",
+  "06b89906f86d0c1e.nsbmd": "1051492:5F271B6E",
   "0809efb8c3b1d88e.nsbmd": "493648:649E8D7B",
+  "08ba3192054a26a7.nsbmd": "464592:9DE8A3E2",
   "0d3d61b940b9f125.nsbmd": "8528:3A4A315D",
   "0d62bae22237c391.nsbmd": "2408:FDD72E89",
   "0d713be82249b06f.nsbmd": "2408:64D999A0",
   "0e18d1525385f3b1.nsbmd": "2248:0B1871EA",
+  "0eb30a5a96a4d302.nsbmd": "1051492:37450BC3",
   "0f1f3185decf9a55.nsbmd": "2408:6832FA6C",
+  "112fe9e9fd46eb85.nsbmd": "1051492:837AF5E4",
   "12608d3062277041.nsbmd": "30704:ADC53062",
   "19ec28540771499b.nsbmd": "2408:B6AB85EA",
+  "19fb75247af646fe.nsbca": "320592:187AF7CE",
   "1a02cb797d738462.nsbmd": "177328:4EDA0DDA",
   "1a3716b8da89befc.nsbmd": "2248:5A7267E9",
+  "21ebb62345065ea3.nsbca": "557392:943F4B17",
   "22463d1cfa1c83f5.nsbmd": "564304:9B1791A5",
+  "2263993ef5b6536a.nsbmd": "1051492:E7AEF46D",
   "226ebd1aa32d5245.nsbmd": "1243216:67D0747F",
   "29048375b46a2a3d.nsbmd": "308400:83027BE2",
   "2981d8d222a55867.nsbmd": "372880:34E83E43",
@@ -2346,56 +2899,71 @@
   "2e08f99cc66f0710.nsbmd": "813124:7DE1A82C",
   "2ec4ca7b3a94d6d2.nsbmd": "379760:3ED3F174",
   "300da5cbcceea2d9.nsbmd": "33200:0BE38F79",
+  "326edc80a797896c.nsbca": "46416:4023B3DF",
   "3362b4e306c63202.nsbca": "39920:C1D4443A",
+  "373ce6285af54aec.nsbmd": "848:5F93B3B0",
   "3807f9454c534fc2.nsbmd": "668496:261FFD48",
   "3b1c10c09ef85723.nsbmd": "2248:E53469C2",
   "3b289c458dcb9593.nsbmd": "48720:6A462EEA",
   "3e68e6fc0d1d3453.nsbca": "168080:8B012E17",
   "3f9a4234516015b3.nsbca": "70928:D2E72429",
+  "41dbba65b70fa15e.nsbmd": "1051492:3F02E70E",
   "4231284448a7b119.nsbmd": "33744:0808A37A",
   "4504a05db77a42f5.nsbmd": "365264:7C36D13A",
   "454209de5aacc43a.nsbmd": "820052:A04174A8",
   "46ffe664911a0a82.nsbmd": "639408:9669BD42",
   "47753100b6e04273.nsbmd": "880:BA898BD2",
+  "48d9f4e7710a0365.nsbmd": "1051492:436A4A8E",
+  "49fd53a299f672b9.nsbmd": "19312:E9B82906",
   "4a735d42fc92b554.nsbmd": "834008:D8B35232",
+  "4acb89aa34b66e25.nsbmd": "398768:BA686AAE",
+  "4c67d13fe009808b.nsbmd": "237524:CCD2F73E",
   "4fd5e8a51de8e6f8.nsbmd": "362400:E8949015",
+  "526a6091ddc59498.nsbmd": "1051492:EA14BCEC",
   "54045d3c9473dbd8.nsbmd": "30544:0232F3E4",
   "54372d19e0318e56.nsbmd": "2248:53D148E3",
   "545cc8f181fba2bb.nsbmd": "2408:951D1CE0",
   "55578d24ac15e914.nsbmd": "694096:0501FB16",
   "55faed7937b4b1c5.nsbmd": "9584:F53E74FA",
   "5708bedddac9ef5e.nsbmd": "30704:AF1A5BB5",
-  "592d4fe357c253d4.nsbmd": "25320:1DE3311F",
+  "5860b102dddc498f.nsbmd": "1051492:7960D2D7",
   "59df366a07b96b00.nsbca": "149360:55C34BE0",
+  "5a898e24ae471a60.nsbmd": "25964:BDA7BD6B",
+  "5fe1a83c6f819dda.nsbmd": "92528:890E2214",
   "60dba8c87493841a.nsbmd": "2408:CADD9F0B",
   "61059ea7831bdb6e.nsbmd": "5576:4F42D13F",
   "618b2be41ab9df94.nsbmd": "1968:82AB965D",
+  "63af1bfb5a576fdf.nsbmd": "1051492:7D509513",
   "6410ec5aecfecda7.nsbca": "119312:28641B7A",
+  "656fb60e5a4a3a89.nsbmd": "1051492:AE8C11C4",
+  "65edd22d58c2885d.nsbmd": "412732:49A1968C",
+  "6a0322fc202c2dce.nsbmd": "883856:ECEDD40E",
   "6ac7f685bda8e2cf.nsbca": "61296:B60CF523",
   "6d58c6bdde966992.nsbmd": "33200:3C2B260A",
   "6dfe72c9ace9af93.nsbmd": "12976:43124597",
   "6e353b9c9115b47d.nsbmd": "2248:CAE28170",
   "6ed0f06bc6905f9f.nsbmd": "2408:397F4BA4",
   "6f653f71ce648b2d.nsbmd": "2408:E11FB535",
+  "6fcd992b86529b28.nsbmd": "1051492:7A902F73",
   "725ebc47ede9289e.nsbca": "324464:E4836107",
-  "72d706a1c74e823a.nsbmd": "1484:D2AC3C58",
   "733633f07d5a2804.nsbca": "11152:175C10B0",
   "769a54091fe14b89.nsbca": "269936:DBFF6844",
+  "79aee12083c38216.nsbmd": "433216:8060964B",
   "7a1fc302d1d33e78.nsbmd": "388912:AEC0A54D",
   "7a6074e2e9f38473.nsbmd": "9584:1FD17416",
   "7b24df535dd1e690.nsbmd": "619252:DA38EBD4",
   "7be34c7db107f7f7.nsbmd": "30704:D1BF7E6C",
-  "7e969f153894905c.nsbmd": "1051532:5DD8B363",
   "829fa3f77a3b38dd.nsbmd": "2408:58FF4293",
-  "830565941648905f.nsbmd": "116304:8FDF1DEF",
   "83b4fadf20164863.nsbmd": "9700:77ECD674",
   "846bcb29de2974a5.nsbmd": "9584:F61E2F14",
+  "85d0ed080d7f7e80.nsbmd": "1051492:1DCEF3C3",
   "8709b8e3b3cc0c78.nsbmd": "2408:881EE962",
   "8814f5eea4ec3232.nsbmd": "2248:E1C00385",
   "8a7a78c97402f4b9.nsbmd": "23440:9E5686FA",
   "8c8c8437c24f2c3b.nsbmd": "485104:52B443CC",
   "8f27b37634faff5b.nsbmd": "201232:5E92A87D",
   "8f99e4abe043176d.nsbmd": "2408:B1142F1A",
+  "9153ee6a4bee2c70.nsbmd": "1051492:87AF1118",
   "91c36ff1ad42ffa5.nsbmd": "2408:E084560A",
   "97982c8c00287548.nsbmd": "474352:DB499560",
   "991f7776bbc4544e.nsbmd": "2408:D90CA9CC",
@@ -2405,7 +2973,9 @@
   "9cf6cb6ae4f31be5.nsbmd": "2256:7CAF322B",
   "9dcb4e9dd6faf09f.nsbmd": "2248:1F7F9E7F",
   "9dd06c9eee1223fc.nsbmd": "231376:87838C58",
+  "9ef7886ed37259c0.nsbmd": "1051492:B79541A0",
   "9fe14bc591b46152.nsbmd": "2248:9690B991",
+  "a31b3327f03000fe.nsbmd": "465328:27D16B94",
   "a42014dc38aa9e77.nsbmd": "141508:3446B6B3",
   "a68a898bd90a4c97.nsbca": "18608:136BB0AD",
   "a8a03ad276439802.nsbmd": "9764:562E071A",
@@ -2413,13 +2983,17 @@
   "a9c1da5ec48c73f1.nsbmd": "10592:FA0A8475",
   "ad4a81a4d3aa6ea2.nsbmd": "390796:AC6E6487",
   "af50568e9fc75184.nsbmd": "200336:8C2D721F",
+  "b228e0ca9f49d860.nsbmd": "21520:88ADDC9D",
   "b3c3cab4b08b9050.nsbmd": "391920:2A8DE054",
   "b43f68594a61f5f7.nsbmd": "2248:5BDB1F6B",
   "b45e970704a4ce18.nsbmd": "438672:B426B7AA",
+  "b50f651af3e4f448.nsbmd": "1051492:367F7F96",
   "baa3cad27580159a.nsbmd": "2408:1945CE4C",
+  "bb04f627a91af04c.nsbmd": "1051492:79F303B6",
   "bba503a5bfdea1e6.nsbmd": "592336:AC4C140C",
   "bd5a740a26b35c4f.nsbmd": "69616:2E93B447",
   "c23ca61e22002849.nsbmd": "1236:2FE95811",
+  "c3a6c45420a99618.nsbmd": "1051492:01901D81",
   "c3e56d58dc500575.nsbmd": "2408:1457BCF8",
   "c573bc5d65ef2087.nsbmd": "9584:800F8831",
   "c7c401248fdf7bf8.nsbmd": "396752:FA0E2333",
@@ -2428,27 +3002,42 @@
   "cfa135fef758ae6e.nsbmd": "824212:B70E8F60",
   "cff61fc40c5a6521.nsbmd": "2408:5065A1A0",
   "d0709cb09404903a.nsbmd": "2408:04CC0897",
-  "d0c5ed5a5d489cbe.nsbca": "538192:2210F303",
   "d7c4c1d6f96d3778.nsbmd": "2248:C90107E9",
+  "d806fe057de2f1e6.nsbmd": "6992:C1E65578",
   "d9d6fc5187c9720b.nsbmd": "473520:71710A59",
   "dab5ed0f95090df6.nsbmd": "987076:88D12BE1",
   "e1474273a159c96f.nsbmd": "2248:789F4BC7",
+  "e163ec70184fbe17.nsbmd": "1051492:D657C613",
   "e2612c917c84ecdd.nsbca": "151152:39BC3C63",
   "e58197c07570ebe3.nsbmd": "117328:655C04B2",
+  "e86720f58761a369.nsbmd": "433216:AEE504DD",
+  "e880dc13ad949759.nsbmd": "1051492:EE52172A",
   "ea4dcb6c3afe92b7.nsbca": "120464:827857F2",
   "ea65f1d0e9d2b973.nsbmd": "403088:E39C54BA",
+  "ea85ad5ef25580ea.nsbmd": "1051492:0991DD7D",
   "eb4684f333b359dc.nsbca": "107856:B28C874F",
   "ebd743212a1bf6c9.nsbmd": "2248:BBCB3CD2",
+  "ef733c2ddf136584.nsbca": "6928:933C31FB",
+  "f009f1057ece3cb1.nsbca": "86512:B8A1852B",
+  "f05976ead8f8dc1e.nsbmd": "1051492:75137534",
+  "f1a9d0be29896d4b.nsbmd": "1051492:A0D6B337",
   "f1d1c4653159b078.nsbmd": "2248:CFB58465",
   "f22dd08423e8bf21.nsbmd": "234672:725B1736",
+  "f23728d284c63407.nsbmd": "1051492:4C74BFF8",
+  "f83df3eafa7018cd.nsbmd": "338176:309EEE05",
+  "f9a0d74b9442be6b.nsbmd": "1051492:75C2CAD8",
   "fa7c0e30bb657120.nsbmd": "2408:FAF27F33",
   "fd9d72407f22d752.nsbca": "8592:94541858"
  },
  "thumbs": [
   "bg-alder",
+  "bg-blue-battle-room",
+  "bg-blue-pvp",
+  "bg-bw2-normal-gym",
   "bg-champion",
   "bg-champion-mirror",
   "bg-distortion-giratina",
+  "bg-dragonspiral-rayquaza",
   "bg-e4-dark",
   "bg-e4-fighting",
   "bg-e4-ghost",
@@ -2457,7 +3046,12 @@
   "bg-groudon-lava",
   "bg-lugia-temple",
   "bg-n-castle",
+  "bg-n-room",
+  "bg-paldea-field",
   "bg-pwt",
+  "bg-radiant-chamber",
+  "bg-red-battle-room",
+  "bg-skyarrow-kyogre",
   "disc-pixel-set",
   "fly-legendary",
   "fly-mega-charizard-y",
@@ -2476,6 +3070,8 @@
   "surf-miraidon",
   "surf-nyan-cat",
   "surf-player-only",
+  "surf-starmie",
+  "surf-transparent",
   "surf-wailmer",
   "surf-wailord",
   "surf-xianxia-sword",
@@ -2522,7 +3118,7 @@
   {
    "id": "bgt-screen",
    "by": "MaToRiuKo",
-   "file": "7e969f153894905c.nsbmd",
+   "file": "526a6091ddc59498.nsbmd",
    "name": {
     "en": "One full picture (no floor)",
     "zh": "无地板（整张画面）",
@@ -2530,7 +3126,7 @@
    },
    "slots": [
     {
-     "tex": "_11",
+     "tex": "_11_png",
      "name": {
       "en": "Picture",
       "zh": "画面",
@@ -2542,5 +3138,6 @@
     }
    ]
   }
- ]
+ ],
+ "presets": []
 }

@@ -11,6 +11,7 @@ import crypto from 'node:crypto';
 import * as rom from '../app/core/rom.js';
 import { checkModel } from '../app/core/check.js';
 import * as TEMPLATE from '../app/core/bgtemplate.js';
+import { applyEdits, validateEdits } from '../app/core/edits.js';
 
 const SRC = 'library-src/community', OUT = 'app/library';
 const EXT = { BMD0: 'nsbmd', BCA0: 'nsbca' };
@@ -30,7 +31,7 @@ export function addCommunity(lib, out = OUT) {
   };
   for (const d of defs) {
     if (d.scene) { // a battle background scene (model + optional animation) published from dev mode
-      const sc = { id: d.id, name: d.name, by: d.by, model: put(d.model), ...(d.anim ? { anim: put(d.anim) } : {}), ...(d.modelOnly ? { modelOnly: true } : {}), sources: [d.model, d.anim].filter(Boolean).map((f) => `community/${f}`) };
+      const sc = { id: d.id, name: d.name, by: d.by, model: put(d.model), ...(d.anim ? { anim: put(d.anim) } : {}), ...(d.modelOnly ? { modelOnly: true } : {}), ...(d.desc ? { desc: d.desc } : {}), sources: [d.model, d.anim].filter(Boolean).map((f) => `community/${f}`) };
       const i = lib.battle.scenes.findIndex((x) => x.id === d.id);
       if (i >= 0) lib.battle.scenes[i] = sc; else lib.battle.scenes.push(sc);
       continue;
@@ -66,24 +67,13 @@ export function addCommunity(lib, out = OUT) {
         const src = path.join(SRC, 'previews', d.id + '.jpg');
         if (fs.existsSync(src)) fs.copyFileSync(src, path.join(out, 'previews', d.id + '.jpg'));
       }
-      return { id: d.id, name: d.name, by: d.by, model: put(d.model), ...(d.anim ? { anim: put(d.anim) } : {}), ...(d.modelOnly ? { modelOnly: true } : {}), ...(d.native ? { native: d.native } : {}), sources: [d.model, d.anim].filter(Boolean).map((f) => `community/${f}`) };
+      return { id: d.id, name: d.name, by: d.by, model: put(d.model), ...(d.anim ? { anim: put(d.anim) } : {}), ...(d.modelOnly ? { modelOnly: true } : {}), ...(d.native ? { native: d.native } : {}), ...(d.desc ? { desc: d.desc } : {}), sources: [d.model, d.anim].filter(Boolean).map((f) => `community/${f}`) };
     });
     // scenes published from dev mode (already in lib.battle.scenes, from items.json) stay too
     const devScenes = lib.battle.scenes.filter((x) => defs.some((d) => d.scene && d.id === x.id) && !fresh.some((f) => f.id === x.id));
     lib.battle.scenes = [...fresh, ...keep, ...devScenes];
     lib.battle.sets = B.sets.map((st) => ({ id: st.id, name: st.name, by: st.by, extras: st.extras || [],
       assign: st.fromNative ? Object.fromEntries(fresh.flatMap((sc) => (sc.native || []).map((m) => [String(m), sc.id]))) : st.assign }));
-    // only ship files something still uses
-    const used = new Set();
-    for (const it of lib.items) { it.writes.forEach((w) => used.add(w.file)); if (it.view) { used.add(it.view.model); if (it.view.anim) used.add(it.view.anim); } }
-    for (const sc of lib.battle.scenes) { used.add(sc.model); if (sc.anim) used.add(sc.anim); }
-    for (const st of lib.battle.sets) st.extras.forEach((w) => used.add(w.file));
-    for (const t of lib.templates || []) used.add(t.file);
-    for (const f of Object.keys(lib.files)) if (!used.has(f)) { delete lib.files[f]; fs.rmSync(path.join(out, 'files', f), { force: true }); }
-    // previews of scenes that are gone
-    const ids = new Set([...lib.items.map((x) => x.id), ...lib.battle.scenes.map((x) => x.id)]);
-    for (const f of fs.readdirSync(path.join(out, 'previews'))) if (f.endsWith('.jpg') && !ids.has(f.slice(0, -4))) fs.rmSync(path.join(out, 'previews', f));
-    lib.thumbs = fs.readdirSync(path.join(out, 'previews')).filter((f) => f.endsWith('.jpg')).map((f) => f.slice(0, -4)).sort();
   }
   // name fixes (e.g. MaToRiuKo's renames)
   const rp = path.join(SRC, 'renames.json');
@@ -92,6 +82,30 @@ export function addCommunity(lib, out = OUT) {
     for (const [id, name] of Object.entries(R.items || {})) { const it = lib.items.find((x) => x.id === id); if (it) it.name = name; }
     for (const [m, name] of Object.entries(R.slots || {})) { const sl = lib.battle.slots.find((x) => x.model === +m); if (sl) sl.name = name; }
   }
+  // dev-mode edits (edits.json): item / scene / category edits, archive + remove, order, previews, presets
+  const ep = path.join(SRC, 'edits.json');
+  if (fs.existsSync(ep)) {
+    const E = JSON.parse(fs.readFileSync(ep, 'utf8'));
+    const resolve = (ref) => {
+      if (ref.startsWith('lib:')) { const f = ref.slice(4); if (!lib.files[f] && !fs.existsSync(path.join(out, 'files', f))) throw new Error(`edits.json: library file ${f} is missing`); return f; }
+      return put(ref);
+    };
+    const problems = validateEdits(lib, E, (ref) => (ref.startsWith('lib:') ? !!lib.files[ref.slice(4)] : fs.existsSync(path.join(SRC, ref)))).filter((x) => x.level === 'error');
+    if (problems.length) throw new Error('edits.json:\n  ' + problems.map((x) => x.msg).join('\n  '));
+    applyEdits(lib, E, resolve);
+    for (const [id, ref] of Object.entries(E.previews || {})) fs.copyFileSync(path.join(SRC, ref), path.join(out, 'previews', id + '.jpg'));
+  }
+  // only ship files something still uses
+  const used = new Set();
+  for (const it of lib.items) { it.writes.forEach((w) => used.add(w.file)); if (it.view) { used.add(it.view.model); if (it.view.anim) used.add(it.view.anim); } }
+  for (const sc of lib.battle.scenes) { used.add(sc.model); if (sc.anim) used.add(sc.anim); }
+  for (const st of lib.battle.sets) st.extras.forEach((w) => used.add(w.file));
+  for (const t of lib.templates || []) used.add(t.file);
+  for (const f of Object.keys(lib.files)) if (!used.has(f)) { delete lib.files[f]; fs.rmSync(path.join(out, 'files', f), { force: true }); }
+  // previews of scenes that are gone
+  const ids = new Set([...lib.items.map((x) => x.id), ...lib.battle.scenes.map((x) => x.id)]);
+  for (const f of fs.readdirSync(path.join(out, 'previews'))) if (f.endsWith('.jpg') && !ids.has(f.slice(0, -4))) fs.rmSync(path.join(out, 'previews', f));
+  lib.thumbs = fs.readdirSync(path.join(out, 'previews')).filter((f) => f.endsWith('.jpg')).map((f) => f.slice(0, -4)).sort();
   lib.files = Object.fromEntries(Object.entries(lib.files).sort());
   return defs.length;
 }

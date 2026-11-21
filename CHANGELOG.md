@@ -1,6 +1,14 @@
 # Changelog
 
 ## Unreleased
+- Library: **25 Gen 6 battle backgrounds** by MaToRiuKo (model only, any battle type, no floor plane). Made by swapping textures into the floorless template; base textures by **PhoenixOfLight92**. Previews are rendered by CI.
+- Battle backgrounds can now carry a description/credit line (`desc`, EN / ZH / ES): `battle.json` scenes keep it through the build, and the scene card shows it under the author, like item cards already did.
+- **Presets tab**: official combinations (items from any category + battle backgrounds per battle type) that users apply with one click. Only shown when there are presets.
+- Library refresh: open tabs check for a new library every 10 minutes (and when you come back to the tab), swap it in, keep every pick that still exists, and show a short notice.
+- Dev mode upgrade (Haqzo & MaToRiuKo), organized into sections: **Library** (add, edit names / descriptions / credits, replace or add files, move between categories, duplicate, archive / restore, remove, preview pictures, reorder — for published items and battle backgrounds too), **Categories** (create generic ones, rename, icon, description, reorder, hide), **Presets**, **Publish**, My items & packs, Battle platforms.
+- Dev mode: every change goes into a draft kept in the browser and previewed live; **Publish** shows the list of changes, checks for missing files and broken references, then commits `library-src/community/edits.json` (or opens a pull request for review). Edits made by both of you at the same time are merged.
+- Dev mode: ✎ buttons on library cards and “+ Add” / “✎ Category” in every tab (only with `?dev`).
+- Dev mode sign-in: the GitHub token is forgotten when the browser closes unless “Remember on this device” is ticked; GitHub's own permission check decides who can publish. See docs/dev-access-security.md.
 - Library: **Blue PVP Battle Field** by YOKA (model only, any battle type), uploaded by MaToRiuKo.
 - AGENTS.md + docs/HANDOFF-CHATGPT.md: rules and handoff for AI helpers; `experiments/` and `docs/research/` folders.
 
