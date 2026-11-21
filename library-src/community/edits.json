@@ -1,6 +1,50 @@
 {
   "version": 1,
-  "items": {},
+  "items": {
+    "surf-lapras": {
+      "desc": {
+        "en": "From Pokémon X/Y's Lapras.",
+        "zh": "来自《宝可梦 X/Y》的拉普拉斯。",
+        "es": "Extraído de Lapras de Pokémon X/Y."
+      }
+    },
+    "surf-mega-charizard-x": {
+      "desc": {
+        "en": "From Pokémon X/Y's Mega Charizard X.",
+        "zh": "来自《宝可梦 X/Y》的超级喷火龙X。",
+        "es": "Extraído de Mega Charizard X de Pokémon X/Y."
+      }
+    },
+    "surf-dudunsparce": {
+      "name": {
+        "en": "Dunsparce",
+        "zh": "土龙弟弟",
+        "es": "Dunsparce"
+      }
+    },
+    "surf-player-only": {
+      "name": {
+        "en": "Surf example template",
+        "zh": "冲浪示例模板",
+        "es": "Plantilla de ejemplo de surf"
+      }
+    },
+    "surf-nailong": {
+      "name": {
+        "en": "Naiwa",
+        "zh": "奶蛙",
+        "es": "Naiwa"
+      },
+      "desc": {
+        "zh": "似龙非龙，似蛙非蛙。"
+      }
+    },
+    "surf-xianxia-sword": {
+      "desc": {
+        "zh": "今朝剑指叠云处。"
+      }
+    }
+  },
   "scenes": {},
   "remove": [
     "disc-none-classic",
