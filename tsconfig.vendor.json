@@ -1,0 +1,2 @@
+{ "compilerOptions": { "target": "ES2022", "module": "ES2022", "moduleResolution": "bundler", "outDir": "app/core/nitro", "rootDir": "vendor-ts", "strict": false, "noImplicitAny": false, "skipLibCheck": true, "declaration": false, "removeComments": false, "isolatedModules": true, "verbatimModuleSyntax": false, "noEmitOnError": false },
+  "include": ["vendor-ts/*.ts"] }

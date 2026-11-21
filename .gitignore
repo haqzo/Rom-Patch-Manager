@@ -1,0 +1,7 @@
+node_modules/
+tmp/
+*.nds
+*.bps
+*.xdelta
+__pycache__/
+.DS_Store

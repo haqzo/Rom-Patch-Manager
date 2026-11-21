@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' data: blob: https://api.github.com; worker-src 'self' blob:">
+<title>Rom Patch Manager</title>
+<link rel="icon" href="icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#141c2c">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand">
+      <img class="logo" src="icon.png" alt="">
+      <div>
+        <div class="brand-name">Rom Patch Manager</div>
+        <div class="brand-sub" data-t="tagline"></div>
+      </div>
+    </div>
+    <div class="top-right">
+      <label class="lang"><span class="sr" data-t="langName"></span><select id="lang"></select></label>
+      <button class="primary small" id="installBtn" hidden><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span data-t="installApp"></span></button>
+      <button class="ghost" id="aboutBtn" data-t="about"></button>
+    </div>
+  </header>
+
+  <aside class="side">
+    <section class="panel rom" id="romCard"></section>
+    <section class="panel changes">
+      <div class="panel-head"><h2 data-t="yourChanges"></h2><button class="link" id="clearAll" data-t="clearAll"></button></div>
+      <ul class="change-list" id="changeList"></ul>
+      <div class="meter" id="meter" hidden>
+        <div class="meter-row"><span data-t="added"></span><b id="meterVal"></b></div>
+        <div class="meter-bar"><i id="meterFill"></i></div>
+        <p class="meter-note" id="meterNote"></p>
+      </div>
+    </section>
+    <section class="panel export">
+      <button class="primary big" id="saveNds"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span data-t="saveNds"></span></button>
+      <button class="secondary" id="saveBps"><span data-t="saveBps"></span></button>
+      <p class="fine" data-t="exportHint"></p>
+    </section>
+  </aside>
+
+  <main class="content">
+    <nav class="tabs" id="tabs" role="tablist"></nav>
+    <div class="cat-head" id="catHead"></div>
+    <div class="panel-body" id="panel"></div>
+  </main>
+</div>
+
+<div class="modal" id="viewerModal" hidden>
+  <div class="modal-card viewer-card">
+    <div class="viewer-head">
+      <h3 id="viewerTitle"></h3>
+      <div class="viewer-tools">
+        <div class="seg" id="viewMode"></div>
+        <button class="ghost small" id="vCompare"></button>
+        <button class="ghost small" id="vAttach"></button>
+        <button class="ghost small" id="vExport"></button>
+        <button class="icon-btn" id="vClose" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="viewer-stage" id="viewerStage"></div>
+    <div class="viewer-foot">
+      <button class="ghost small" id="vPlay"></button>
+      <input type="range" id="vFrame" min="0" max="0" value="0">
+      <span class="frame-no" id="vFrameNo"></span>
+      <span class="hint" data-t="dragHint"></span>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="busy" hidden>
+  <div class="modal-card busy-card"><div class="spinner"></div><p id="busyText"></p></div>
+</div>
+
+<div class="modal" id="aboutModal" hidden>
+  <div class="modal-card about-card">
+    <img class="about-logo" src="icon.png" alt="">
+    <h3>Rom Patch Manager</h3>
+    <p class="ver" id="aboutVer"></p>
+    <p data-t="credits"></p>
+    <button class="primary" id="aboutClose">OK</button>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+<input type="file" id="fileInput" hidden>
+<script type="module" src="app.js"></script>
+</body>
+</html>

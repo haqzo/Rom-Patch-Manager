@@ -1,0 +1,2546 @@
+{
+ "version": 1,
+ "originals": null,
+ "generated": "2026-11-17",
+ "categories": [
+  {
+   "id": "surf",
+   "icon": "wave",
+   "name": {
+    "en": "Surf",
+    "zh": "冲浪",
+    "es": "Surf"
+   },
+   "hint": {
+    "en": "The ride you sit on while surfing.",
+    "zh": "冲浪时乘坐的模型。",
+    "es": "Lo que montas al hacer Surf."
+   },
+   "target": "a/0/7/5 #49",
+   "pick": "one"
+  },
+  {
+   "id": "fly",
+   "icon": "wing",
+   "name": {
+    "en": "Fly",
+    "zh": "飞翔",
+    "es": "Vuelo"
+   },
+   "hint": {
+    "en": "Take-off and landing when you use Fly. Models and their animations are always installed together.",
+    "zh": "使用飞翔时的起飞与降落。模型和骨骼动画会一起安装。",
+    "es": "Despegue y aterrizaje al usar Vuelo. Modelos y animaciones se instalan juntos."
+   },
+   "target": "a/1/1/5",
+   "pick": "one"
+  },
+  {
+   "id": "battle",
+   "icon": "mountain",
+   "name": {
+    "en": "Battle backgrounds",
+    "zh": "战斗背景",
+    "es": "Fondos de combate"
+   },
+   "hint": {
+    "en": "Pick a background for each battle type, or apply a whole set.",
+    "zh": "为每种战斗场景选择背景，或一键套用整套。",
+    "es": "Elige un fondo para cada tipo de combate o aplica un set completo."
+   },
+   "target": "a/0/1/1 #34–83",
+   "pick": "slots"
+  },
+  {
+   "id": "platforms",
+   "icon": "disc",
+   "name": {
+    "en": "Battle platforms",
+    "zh": "战斗圆盘",
+    "es": "Plataformas"
+   },
+   "hint": {
+    "en": "The round discs the Pokémon stand on.",
+    "zh": "宝可梦脚下的圆形平台。",
+    "es": "Los discos redondos bajo los Pokémon."
+   },
+   "target": "a/0/1/1 #0–33",
+   "pick": "one"
+  },
+  {
+   "id": "hmbg",
+   "icon": "spark",
+   "name": {
+    "en": "TM / HM / Fly backgrounds",
+    "zh": "招式/秘传/飞翔背景",
+    "es": "Fondos MT / MO / Vuelo"
+   },
+   "hint": {
+    "en": "The background shown when a field move or Fly is used.",
+    "zh": "使用场地招式或飞翔时出现的背景。",
+    "es": "El fondo que aparece al usar un movimiento de campo o Vuelo."
+   },
+   "target": "a/1/1/5 #25, #59",
+   "pick": "one"
+  },
+  {
+   "id": "title",
+   "icon": "star",
+   "name": {
+    "en": "Title screen",
+    "zh": "标题画面",
+    "es": "Pantalla de título"
+   },
+   "hint": {
+    "en": "The 3D models on the start screen.",
+    "zh": "开始画面上的 3D 模型。",
+    "es": "Los modelos 3D de la pantalla de inicio."
+   },
+   "target": "a/1/6/0",
+   "pick": "one"
+  },
+  {
+   "id": "world",
+   "icon": "flag",
+   "name": {
+    "en": "Overworld",
+    "zh": "大地图",
+    "es": "Mundo"
+   },
+   "hint": {
+    "en": "Map objects.",
+    "zh": "地图上的物体。",
+    "es": "Objetos del mapa."
+   },
+   "target": "a/1/5/7 #0",
+   "pick": "one"
+  }
+ ],
+ "items": [
+  {
+   "id": "surf-lapras",
+   "cat": "surf",
+   "name": {
+    "en": "Lapras",
+    "zh": "拉普拉斯",
+    "es": "Lapras"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "4fd5e8a51de8e6f8.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "4fd5e8a51de8e6f8.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Lapras.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-kyogre",
+   "cat": "surf",
+   "name": {
+    "en": "Kyogre",
+    "zh": "盖欧卡",
+    "es": "Kyogre"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "ea65f1d0e9d2b973.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "ea65f1d0e9d2b973.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Kyogre.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-kyogre-big",
+   "cat": "surf",
+   "name": {
+    "en": "Kyogre (big)",
+    "zh": "盖欧卡（大号）",
+    "es": "Kyogre (grande)"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "4504a05db77a42f5.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "4504a05db77a42f5.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/KyogreBIG.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-groudon",
+   "cat": "surf",
+   "name": {
+    "en": "Groudon",
+    "zh": "固拉多",
+    "es": "Groudon"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "2ec4ca7b3a94d6d2.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "2ec4ca7b3a94d6d2.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Groudon.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-mega-charizard-x",
+   "cat": "surf",
+   "name": {
+    "en": "Mega Charizard X",
+    "zh": "超级喷火龙X",
+    "es": "Mega Charizard X"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "b45e970704a4ce18.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "b45e970704a4ce18.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Mega Charizard X.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-miraidon",
+   "cat": "surf",
+   "name": {
+    "en": "Miraidon",
+    "zh": "密勒顿",
+    "es": "Miraidon"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "0809efb8c3b1d88e.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "0809efb8c3b1d88e.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Miraidon.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-dudunsparce",
+   "cat": "surf",
+   "name": {
+    "en": "Dudunsparce",
+    "zh": "土龙节节",
+    "es": "Dudunsparce"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "29048375b46a2a3d.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "29048375b46a2a3d.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Dudunsparce.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-mini-merry",
+   "cat": "surf",
+   "name": {
+    "en": "Mini Merry II",
+    "zh": "迷你梅利号 II",
+    "es": "Mini Merry II"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "dab5ed0f95090df6.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "dab5ed0f95090df6.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Mini Merry2.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-nyan-cat",
+   "cat": "surf",
+   "name": {
+    "en": "Nyan Cat",
+    "zh": "彩虹猫",
+    "es": "Nyan Cat"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "Includes its own rainbow water splash",
+    "zh": "包含配套的彩虹水花特效",
+    "es": "Incluye su propio efecto de agua arcoíris"
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "f22dd08423e8bf21.nsbmd"
+    },
+    {
+     "path": "a/0/7/5",
+     "member": 54,
+     "file": "618b2be41ab9df94.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "f22dd08423e8bf21.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Rainbow_Cat_Model.nsbmd",
+    "community/Rainbow_Splash_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-xianxia-sword",
+   "cat": "surf",
+   "name": {
+    "en": "Xianxia Flying Sword",
+    "zh": "仙侠飞剑",
+    "es": "Espada voladora Xianxia"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "ad4a81a4d3aa6ea2.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "ad4a81a4d3aa6ea2.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Xianxia Flying Sword.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-player-only",
+   "cat": "surf",
+   "name": {
+    "en": "Just the trainer (no ride)",
+    "zh": "只有训练家（无坐骑）",
+    "es": "Solo el entrenador (sin montura)"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "0d3d61b940b9f125.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "0d3d61b940b9f125.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Surf Models/Player Riding Base Model Template.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-ace-striker",
+   "cat": "surf",
+   "name": {
+    "en": "Ace's Striker (sails up)",
+    "zh": "艾斯的小艇（扬帆）",
+    "es": "Striker de Ace (velas desplegadas)"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "Includes its own water splash effect",
+    "zh": "包含配套的水花特效",
+    "es": "Incluye su propio efecto de agua"
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "cfa135fef758ae6e.nsbmd"
+    },
+    {
+     "path": "a/0/7/5",
+     "member": 54,
+     "file": "9cf6cb6ae4f31be5.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "cfa135fef758ae6e.nsbmd",
+    "kind": "object"
+   },
+   "sources": []
+  },
+  {
+   "id": "surf-ace-furled",
+   "cat": "surf",
+   "name": {
+    "en": "Ace's Striker (sails furled)",
+    "zh": "艾斯的小艇（收帆）",
+    "es": "Striker de Ace (velas plegadas)"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "Includes its own water splash effect",
+    "zh": "包含配套的水花特效",
+    "es": "Incluye su propio efecto de agua"
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "22463d1cfa1c83f5.nsbmd"
+    },
+    {
+     "path": "a/0/7/5",
+     "member": 54,
+     "file": "9cf6cb6ae4f31be5.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "22463d1cfa1c83f5.nsbmd",
+    "kind": "object"
+   },
+   "sources": []
+  },
+  {
+   "id": "fly-mega-charizard-y",
+   "cat": "fly",
+   "name": {
+    "en": "Mega Charizard Y",
+    "zh": "超级喷火龙Y",
+    "es": "Mega Charizard Y"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "Take-off + landing models and animations for male, female and Champion trainers",
+    "zh": "男/女/冠军训练家的起飞与降落模型和动画",
+    "es": "Modelos y animaciones de despegue y aterrizaje (chico, chica y Campeón)"
+   },
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 58,
+     "file": "97982c8c00287548.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 60,
+     "file": "733633f07d5a2804.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 66,
+     "file": "d9d6fc5187c9720b.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 67,
+     "file": "fd9d72407f22d752.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 103,
+     "file": "97982c8c00287548.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 104,
+     "file": "733633f07d5a2804.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 107,
+     "file": "97982c8c00287548.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 108,
+     "file": "733633f07d5a2804.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 111,
+     "file": "d9d6fc5187c9720b.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 112,
+     "file": "fd9d72407f22d752.nsbca"
+    }
+   ],
+   "view": {
+    "model": "97982c8c00287548.nsbmd",
+    "anim": "733633f07d5a2804.nsbca",
+    "kind": "object"
+   },
+   "sources": [
+    "Mega-Charizard-Y-Fly (a/1/1/5 #58)",
+    "Mega-Charizard-Y-Fly (a/1/1/5 #60)",
+    "Mega-Charizard-Y-Fly (a/1/1/5 #66)",
+    "Mega-Charizard-Y-Fly (a/1/1/5 #67)"
+   ]
+  },
+  {
+   "id": "fly-xianxia-sword",
+   "cat": "fly",
+   "name": {
+    "en": "Xianxia Flying Sword",
+    "zh": "仙侠飞剑（御剑飞行）",
+    "es": "Espada voladora Xianxia"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "Take-off + landing models for all trainers",
+    "zh": "所有训练家的起飞与降落模型",
+    "es": "Modelos de despegue y aterrizaje para todos"
+   },
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 58,
+     "file": "a9306785ca53888f.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 66,
+     "file": "a9306785ca53888f.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 103,
+     "file": "a9306785ca53888f.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 107,
+     "file": "a9306785ca53888f.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 111,
+     "file": "a9306785ca53888f.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "a9306785ca53888f.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Xianxia-Flying-Sword (a/1/1/5 #58)"
+   ]
+  },
+  {
+   "id": "fly-legendary",
+   "cat": "fly",
+   "name": {
+    "en": "Legendary Fly — Rayquaza (complete)",
+    "zh": "传说飞翔 — 烈空坐（完整）",
+    "es": "Vuelo legendario — Rayquaza (completo)"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "All 11 files: take-off and landing models + animations for male, female and Champion trainers, and #118 (originally the cave cut-in model “cave_ci”), exactly as in the original Legendary patch",
+    "zh": "全部 11 个文件：男/女/冠军训练家的起飞与降落模型和动画，以及 #118（原为洞穴过场模型 cave_ci），与原版传说补丁完全一致",
+    "es": "Los 11 archivos: modelos y animaciones de despegue y aterrizaje (chico, chica, Campeón) y el #118 (originalmente el modelo “cave_ci” de la cueva), igual que el parche Legendario original"
+   },
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 58,
+     "file": "c7c401248fdf7bf8.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 60,
+     "file": "3362b4e306c63202.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 66,
+     "file": "2981d8d222a55867.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 67,
+     "file": "a68a898bd90a4c97.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 103,
+     "file": "c7c401248fdf7bf8.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 104,
+     "file": "3362b4e306c63202.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 107,
+     "file": "c7c401248fdf7bf8.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 108,
+     "file": "3362b4e306c63202.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 111,
+     "file": "2981d8d222a55867.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 112,
+     "file": "a68a898bd90a4c97.nsbca"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 118,
+     "file": "7a1fc302d1d33e78.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "c7c401248fdf7bf8.nsbmd",
+    "anim": "3362b4e306c63202.nsbca",
+    "kind": "object"
+   },
+   "sources": [
+    "legendary-fly-complete (a/1/1/5 #58)",
+    "legendary-fly-complete (a/1/1/5 #60)",
+    "legendary-fly-complete (a/1/1/5 #66)",
+    "legendary-fly-complete (a/1/1/5 #67)",
+    "legendary-fly-complete (a/1/1/5 #118)"
+   ]
+  },
+  {
+   "id": "hm-clean",
+   "cat": "hmbg",
+   "name": {
+    "en": "Clean TM/HM background",
+    "zh": "干净的招式学习器/秘传背景",
+    "es": "Fondo MT/MO limpio"
+   },
+   "by": "Community",
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 25,
+     "file": "a8a03ad276439802.nsbmd"
+    }
+   ],
+   "view": null,
+   "sources": [
+    "Clean-TM-HM-Background (a/1/1/5 #25)"
+   ]
+  },
+  {
+   "id": "hm-clean-alt",
+   "cat": "hmbg",
+   "name": {
+    "en": "Clean TM/HM background (alt.)",
+    "zh": "干净的招式学习器/秘传背景（另一版）",
+    "es": "Fondo MT/MO limpio (alt.)"
+   },
+   "by": "Community",
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 25,
+     "file": "c23ca61e22002849.nsbmd"
+    }
+   ],
+   "view": null,
+   "sources": [
+    "Clean-TM-Mixed-Extra-Member25 (a/1/1/5 #25)"
+   ]
+  },
+  {
+   "id": "hm-mato",
+   "cat": "hmbg",
+   "name": {
+    "en": "Clean HM + Fly cut-in backgrounds",
+    "zh": "干净的秘传 + 飞翔背景",
+    "es": "Fondos limpios de MO y Vuelo"
+   },
+   "by": "MaToRiuKo",
+   "linked": {
+    "en": "Also cleans the Fly cut-in background (#59)",
+    "zh": "同时替换飞翔过场背景 (#59)",
+    "es": "También limpia el fondo de Vuelo (#59)"
+   },
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 25,
+     "file": "83b4fadf20164863.nsbmd"
+    },
+    {
+     "path": "a/1/1/5",
+     "member": 59,
+     "file": "61059ea7831bdb6e.nsbmd"
+    }
+   ],
+   "view": null,
+   "sources": []
+  },
+  {
+   "id": "disc-none",
+   "cat": "platforms",
+   "name": {
+    "en": "No battle ground",
+    "zh": "无战斗圆盘",
+    "es": "Sin plataforma de combate"
+   },
+   "by": "Community",
+   "desc": {
+    "en": "Removes the round platforms under the Pokémon in every battle.",
+    "zh": "去掉所有战斗中宝可梦脚下的圆盘。",
+    "es": "Quita las plataformas redondas bajo los Pokémon en todos los combates."
+   },
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "d0709cb09404903a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "991f7776bbc4544e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "6ed0f06bc6905f9f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "0d713be82249b06f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "fa7c0e30bb657120.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "0d62bae22237c391.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "0e18d1525385f3b1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "8814f5eea4ec3232.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "19ec28540771499b.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "829fa3f77a3b38dd.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "6f653f71ce648b2d.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "545cc8f181fba2bb.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "91c36ff1ad42ffa5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "60dba8c87493841a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "cff61fc40c5a6521.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "9dcb4e9dd6faf09f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "0f1f3185decf9a55.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "1a3716b8da89befc.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "c3e56d58dc500575.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "6e353b9c9115b47d.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "e1474273a159c96f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "ebd743212a1bf6c9.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "9fe14bc591b46152.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "b43f68594a61f5f7.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "3b1c10c09ef85723.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "f1d1c4653159b078.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "54372d19e0318e56.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "d7c4c1d6f96d3778.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "8f99e4abe043176d.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "8709b8e3b3cc0c78.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "2b61997cea3993d9.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "048b878dc20e1ef7.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "baa3cad27580159a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "9a05709eeaaf4868.nsbmd"
+    }
+   ],
+   "view": null,
+   "sources": [
+    "No-Battle-Ground (a/0/1/1 #0)",
+    "No-Battle-Ground (a/0/1/1 #1)",
+    "No-Battle-Ground (a/0/1/1 #2)",
+    "No-Battle-Ground (a/0/1/1 #3)",
+    "No-Battle-Ground (a/0/1/1 #4)",
+    "No-Battle-Ground (a/0/1/1 #5)",
+    "No-Battle-Ground (a/0/1/1 #6)",
+    "No-Battle-Ground (a/0/1/1 #7)",
+    "No-Battle-Ground (a/0/1/1 #8)",
+    "No-Battle-Ground (a/0/1/1 #9)",
+    "No-Battle-Ground (a/0/1/1 #10)",
+    "No-Battle-Ground (a/0/1/1 #11)",
+    "No-Battle-Ground (a/0/1/1 #12)",
+    "No-Battle-Ground (a/0/1/1 #13)",
+    "No-Battle-Ground (a/0/1/1 #14)",
+    "No-Battle-Ground (a/0/1/1 #15)",
+    "No-Battle-Ground (a/0/1/1 #16)",
+    "No-Battle-Ground (a/0/1/1 #17)",
+    "No-Battle-Ground (a/0/1/1 #18)",
+    "No-Battle-Ground (a/0/1/1 #19)",
+    "No-Battle-Ground (a/0/1/1 #20)",
+    "No-Battle-Ground (a/0/1/1 #21)",
+    "No-Battle-Ground (a/0/1/1 #22)",
+    "No-Battle-Ground (a/0/1/1 #23)",
+    "No-Battle-Ground (a/0/1/1 #24)",
+    "No-Battle-Ground (a/0/1/1 #25)",
+    "No-Battle-Ground (a/0/1/1 #26)",
+    "No-Battle-Ground (a/0/1/1 #27)",
+    "No-Battle-Ground (a/0/1/1 #28)",
+    "No-Battle-Ground (a/0/1/1 #29)",
+    "No-Battle-Ground (a/0/1/1 #30)",
+    "No-Battle-Ground (a/0/1/1 #31)",
+    "No-Battle-Ground (a/0/1/1 #32)",
+    "No-Battle-Ground (a/0/1/1 #33)"
+   ]
+  },
+  {
+   "id": "disc-none-classic",
+   "cat": "platforms",
+   "name": {
+    "en": "No battle ground (classic xdelta)",
+    "zh": "无战斗圆盘（经典 xdelta 版）",
+    "es": "Sin plataforma (xdelta clásico)"
+   },
+   "by": "Community",
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "72d706a1c74e823a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "72d706a1c74e823a.nsbmd"
+    }
+   ],
+   "view": null,
+   "sources": [
+    "No-Battle-Ground-Xdelta-Original (a/0/1/1 #0)"
+   ]
+  },
+  {
+   "id": "disc-transparent",
+   "cat": "platforms",
+   "name": {
+    "en": "Transparent discs",
+    "zh": "透明战斗圆盘",
+    "es": "Plataformas transparentes"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "a9c1da5ec48c73f1.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "a9c1da5ec48c73f1.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Transparent Battle Platforms (Discs)/bw1/1mx.nsbmd"
+   ]
+  },
+  {
+   "id": "title-cynthia",
+   "cat": "title",
+   "name": {
+    "en": "Cynthia & Garchomp",
+    "zh": "竹兰与烈咬陆鲨",
+    "es": "Cintia y Garchomp"
+   },
+   "by": "MaToRiuKo",
+   "desc": {
+    "en": "Replaces the Reshiram & Zekrom showcase on the title screen.",
+    "zh": "替换标题画面中的莱希拉姆与捷克罗姆。",
+    "es": "Sustituye a Reshiram y Zekrom en la pantalla de título."
+   },
+   "writes": [
+    {
+     "path": "a/1/6/0",
+     "member": 227,
+     "file": "47753100b6e04273.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 230,
+     "file": "47753100b6e04273.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 232,
+     "file": "55578d24ac15e914.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 235,
+     "file": "47753100b6e04273.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 238,
+     "file": "47753100b6e04273.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 240,
+     "file": "3807f9454c534fc2.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "55578d24ac15e914.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "Original-a160-Six-Members (a/1/6/0 #227)",
+    "Original-a160-Six-Members (a/1/6/0 #232)",
+    "Original-a160-Six-Members (a/1/6/0 #240)"
+   ]
+  },
+  {
+   "id": "title-legendary",
+   "cat": "title",
+   "name": {
+    "en": "Groudon, Kyogre & Rayquaza",
+    "zh": "固拉多、盖欧卡与烈空坐",
+    "es": "Groudon, Kyogre y Rayquaza"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/1/6/0",
+     "member": 227,
+     "file": "6dfe72c9ace9af93.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 230,
+     "file": "6dfe72c9ace9af93.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 232,
+     "file": "226ebd1aa32d5245.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 235,
+     "file": "6dfe72c9ace9af93.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 238,
+     "file": "6dfe72c9ace9af93.nsbmd"
+    },
+    {
+     "path": "a/1/6/0",
+     "member": 240,
+     "file": "226ebd1aa32d5245.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "226ebd1aa32d5245.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "German-Legendary-Showcase-Alternative (a/1/6/0 #227)",
+    "German-Legendary-Showcase-Alternative (a/1/6/0 #232)"
+   ]
+  },
+  {
+   "id": "world-ace-monument",
+   "cat": "world",
+   "name": {
+    "en": "Ace monument",
+    "zh": "艾斯纪念碑",
+    "es": "Monumento a Ace"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/1/5/7",
+     "member": 0,
+     "file": "2e08f99cc66f0710.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "2e08f99cc66f0710.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "ace-monument (a/1/5/7 #0)"
+   ]
+  },
+  {
+   "id": "world-whitebeard-monument",
+   "cat": "world",
+   "name": {
+    "en": "Whitebeard monument",
+    "zh": "白胡子纪念碑",
+    "es": "Monumento a Barbablanca"
+   },
+   "by": "MaToRiuKo",
+   "writes": [
+    {
+     "path": "a/1/5/7",
+     "member": 0,
+     "file": "4a735d42fc92b554.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "4a735d42fc92b554.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "whitebeard-monument (a/1/5/7 #0)"
+   ]
+  },
+  {
+   "id": "surf-wailmer",
+   "cat": "surf",
+   "name": {
+    "en": "Wailmer",
+    "zh": "吼吼鲸",
+    "es": "Wailmer"
+   },
+   "by": "Haqzo",
+   "desc": {
+    "en": "Pokémon X/Y Wailmer, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+    "zh": "来自《宝可梦 X/Y》的吼吼鲸，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+    "es": "Wailmer de Pokémon X/Y, convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "b3c3cab4b08b9050.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "b3c3cab4b08b9050.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Wailmer_Surf.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-lapras-paddle",
+   "cat": "surf",
+   "name": {
+    "en": "Lapras Paddle",
+    "zh": "乘骑拉普拉斯",
+    "es": "Lapras Paddle"
+   },
+   "by": "Haqzo",
+   "desc": {
+    "en": "Pokémon Sun/Moon Poké Ride Lapras with its saddle, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+    "zh": "来自《宝可梦 太阳/月亮》宝可梦坐骑的乘骑拉普拉斯，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+    "es": "Lapras Paddle de Pokémon Sol/Luna (Poké Montura), convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "af50568e9fc75184.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "af50568e9fc75184.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Lapras_Paddle_Surf.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-wailord",
+   "cat": "surf",
+   "name": {
+    "en": "Wailord",
+    "zh": "吼鲸王",
+    "es": "Wailord"
+   },
+   "by": "Haqzo",
+   "desc": {
+    "en": "Pokémon X/Y Wailord, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+    "zh": "来自《宝可梦 X/Y》的吼鲸王，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+    "es": "Wailord de Pokémon X/Y, convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "bba503a5bfdea1e6.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "bba503a5bfdea1e6.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Wailord_Surf.nsbmd"
+   ]
+  },
+  {
+   "id": "surf-gyarados",
+   "cat": "surf",
+   "name": {
+    "en": "Gyarados",
+    "zh": "暴鲤龙",
+    "es": "Gyarados"
+   },
+   "by": "Haqzo",
+   "desc": {
+    "en": "Pokémon X/Y Gyarados, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+    "zh": "来自《宝可梦 X/Y》的暴鲤龙，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+    "es": "Gyarados de Pokémon X/Y, convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+   },
+   "writes": [
+    {
+     "path": "a/0/7/5",
+     "member": 49,
+     "file": "46ffe664911a0a82.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "46ffe664911a0a82.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/Gyarados_Surf.nsbmd"
+   ]
+  },
+  {
+   "id": "disc-pixel-set",
+   "cat": "platforms",
+   "name": {
+    "en": "Pixel battle grounds (set)",
+    "zh": "像素风战斗圆盘（整套）",
+    "es": "Plataformas pixeladas (set)"
+   },
+   "by": "Haqzo",
+   "desc": {
+    "en": "15 pixel-art grounds with 3D grass, rocks and snow. Each battle location gets its own: grass, forest, water, cave, snow, sand, wood, paved… The first (smooth) disc test worked in PokeMMO; this pixel set uses the same size and method.",
+    "zh": "15 种像素风圆盘，带立体草叶、岩石与积雪。每种战斗地点各用一种：草地、森林、水面、洞穴、雪地、沙地、木板、石板……第一版（平滑）圆盘已在 PokeMMO 中测试成功；这套像素圆盘使用相同的尺寸和方法。",
+    "es": "15 plataformas pixeladas con hierba, rocas y nieve en 3D. Cada lugar de combate tiene la suya: hierba, bosque, agua, cueva, nieve, arena, madera, pavimento… La primera prueba (discos lisos) funcionó en PokeMMO; este set usa el mismo tamaño y método."
+   },
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "846bcb29de2974a5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "7be34c7db107f7f7.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "7be34c7db107f7f7.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "54045d3c9473dbd8.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "12608d3062277041.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "6d58c6bdde966992.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "cdc5dae593cf8ac0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "9a184bc30fe7a4dd.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "5708bedddac9ef5e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "4231284448a7b119.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "4231284448a7b119.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "54045d3c9473dbd8.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "12608d3062277041.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "c573bc5d65ef2087.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "9c125cc20a65ca33.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "9a184bc30fe7a4dd.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "846bcb29de2974a5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "846bcb29de2974a5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "9c125cc20a65ca33.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "8a7a78c97402f4b9.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "cdc5dae593cf8ac0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "300da5cbcceea2d9.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "7a6074e2e9f38473.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "cdc5dae593cf8ac0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "55faed7937b4b1c5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "cdc5dae593cf8ac0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "cdc5dae593cf8ac0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "c573bc5d65ef2087.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "4231284448a7b119.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "4231284448a7b119.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "54045d3c9473dbd8.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "12608d3062277041.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "7be34c7db107f7f7.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "cdc5dae593cf8ac0.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "7be34c7db107f7f7.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/grounds/Ground_Light_Path.nsbmd",
+    "community/grounds/Ground_Green_Grass.nsbmd",
+    "community/grounds/Ground_Autumn_Grass.nsbmd",
+    "community/grounds/Ground_Snowy_Grass.nsbmd",
+    "community/grounds/Ground_Rocks_Brown.nsbmd",
+    "community/grounds/Ground_Paved.nsbmd",
+    "community/grounds/Ground_Cave_Pool.nsbmd",
+    "community/grounds/Ground_Pale_Grass.nsbmd",
+    "community/grounds/Ground_Forest.nsbmd",
+    "community/grounds/Ground_Dirt_Path.nsbmd",
+    "community/grounds/Ground_River.nsbmd",
+    "community/grounds/Ground_Snow.nsbmd",
+    "community/grounds/Ground_Rocks_Grey.nsbmd",
+    "community/grounds/Ground_Ice.nsbmd",
+    "community/grounds/Ground_Wood.nsbmd"
+   ]
+  }
+ ],
+ "battle": {
+  "path": "a/0/1/1",
+  "slots": [
+   {
+    "model": 34,
+    "anim": 35,
+    "name": {
+     "en": "Unova grass",
+     "zh": "合众草地",
+     "es": "Hierba de Teselia"
+    }
+   },
+   {
+    "model": 36,
+    "anim": 40,
+    "name": {
+     "en": "Slot 36 (unconfirmed)",
+     "zh": "槽位 36（未确认）",
+     "es": "Ranura 36 (sin confirmar)"
+    }
+   },
+   {
+    "model": 37,
+    "anim": 41,
+    "name": {
+     "en": "Slot 37 (unconfirmed)",
+     "zh": "槽位 37（未确认）",
+     "es": "Ranura 37 (sin confirmar)"
+    }
+   },
+   {
+    "model": 38,
+    "anim": 42,
+    "name": {
+     "en": "Slot 38 (unconfirmed)",
+     "zh": "槽位 38（未确认）",
+     "es": "Ranura 38 (sin confirmar)"
+    }
+   },
+   {
+    "model": 39,
+    "anim": 43,
+    "name": {
+     "en": "Slot 39 (unconfirmed)",
+     "zh": "槽位 39（未确认）",
+     "es": "Ranura 39 (sin confirmar)"
+    }
+   },
+   {
+    "model": 44,
+    "anim": 45,
+    "name": {
+     "en": "Undella Town surf / fishing",
+     "zh": "双龙市 冲浪/钓鱼",
+     "es": "Surf / pesca en Pueblo Arenisca"
+    }
+   },
+   {
+    "model": 46,
+    "anim": 50,
+    "name": {
+     "en": "Spring grass (other regions)",
+     "zh": "春季草地（其他地区）",
+     "es": "Hierba de primavera (otras regiones)"
+    }
+   },
+   {
+    "model": 47,
+    "anim": 51,
+    "name": {
+     "en": "Summer grass (other regions)",
+     "zh": "夏季草地（其他地区）",
+     "es": "Hierba de verano (otras regiones)"
+    }
+   },
+   {
+    "model": 48,
+    "anim": 52,
+    "name": {
+     "en": "Autumn grass (other regions)",
+     "zh": "秋季草地（其他地区）",
+     "es": "Hierba de otoño (otras regiones)"
+    }
+   },
+   {
+    "model": 49,
+    "anim": 53,
+    "name": {
+     "en": "Winter grass (other regions)",
+     "zh": "冬季草地（其他地区）",
+     "es": "Hierba de invierno (otras regiones)"
+    }
+   },
+   {
+    "model": 54,
+    "anim": 55,
+    "name": {
+     "en": "Unova cave",
+     "zh": "合众洞穴",
+     "es": "Cueva de Teselia"
+    }
+   },
+   {
+    "model": 56,
+    "anim": 57,
+    "name": {
+     "en": "Unova dark cave",
+     "zh": "合众黑暗洞穴",
+     "es": "Cueva oscura de Teselia"
+    }
+   },
+   {
+    "model": 58,
+    "anim": 59,
+    "name": {
+     "en": "Unova forest",
+     "zh": "合众森林",
+     "es": "Bosque de Teselia"
+    },
+    "warn": "noAnim"
+   },
+   {
+    "model": 60,
+    "anim": 61,
+    "name": {
+     "en": "Caves (other regions)",
+     "zh": "洞穴（其他地区）",
+     "es": "Cuevas (otras regiones)"
+    },
+    "warn": "noAnim"
+   },
+   {
+    "model": 62,
+    "anim": 63,
+    "name": {
+     "en": "Surf / fishing (all regions)",
+     "zh": "冲浪/钓鱼（所有地区）",
+     "es": "Surf / pesca (todas las regiones)"
+    }
+   },
+   {
+    "model": 64,
+    "anim": 65,
+    "name": {
+     "en": "Buildings & PvP (Celestial Tower, Pokémon Tower …)",
+     "zh": "建筑与 PvP（天堂塔、宝可梦塔等）",
+     "es": "Edificios y PvP (Torre Celeste, Torre Pokémon …)"
+    }
+   },
+   {
+    "model": 66,
+    "anim": 67,
+    "name": {
+     "en": "Desert",
+     "zh": "沙漠",
+     "es": "Desierto"
+    }
+   },
+   {
+    "model": 68,
+    "anim": 69,
+    "name": {
+     "en": "Slot 68 (unconfirmed)",
+     "zh": "槽位 68（未确认）",
+     "es": "Ranura 68 (sin confirmar)"
+    }
+   },
+   {
+    "model": 70,
+    "anim": 71,
+    "name": {
+     "en": "Elite Four · Shauntal",
+     "zh": "四天王·婉龙",
+     "es": "Alto Mando · Anís"
+    }
+   },
+   {
+    "model": 72,
+    "anim": 73,
+    "name": {
+     "en": "Elite Four · Marshal",
+     "zh": "四天王·连武",
+     "es": "Alto Mando · Lotto"
+    }
+   },
+   {
+    "model": 74,
+    "anim": 75,
+    "name": {
+     "en": "Elite Four · Grimsley",
+     "zh": "四天王·越橘",
+     "es": "Alto Mando · Aza"
+    }
+   },
+   {
+    "model": 76,
+    "anim": 77,
+    "name": {
+     "en": "Elite Four · Caitlin",
+     "zh": "四天王·嘉德丽雅",
+     "es": "Alto Mando · Catleya"
+    }
+   },
+   {
+    "model": 78,
+    "anim": 79,
+    "name": {
+     "en": "N / Ghetsis finale (1)",
+     "zh": "N / 魁奇思 决战（1）",
+     "es": "Final N / Ghechis (1)"
+    }
+   },
+   {
+    "model": 80,
+    "anim": 81,
+    "name": {
+     "en": "N / Ghetsis finale (2)",
+     "zh": "N / 魁奇思 决战（2）",
+     "es": "Final N / Ghechis (2)"
+    }
+   },
+   {
+    "model": 82,
+    "anim": 83,
+    "name": {
+     "en": "Champion Alder",
+     "zh": "冠军·阿戴克",
+     "es": "Campeón Mirto"
+    }
+   }
+  ],
+  "scenes": [
+   {
+    "id": "bg-n-castle",
+    "name": {
+     "en": "N's Castle & Reshiram",
+     "zh": "N之城与莱希拉姆",
+     "es": "Castillo de N y Reshiram"
+    },
+    "by": "MaToRiuKo",
+    "model": "9dd06c9eee1223fc.nsbmd",
+    "anim": "ea4dcb6c3afe92b7.nsbca",
+    "native": [
+     78,
+     80
+    ],
+    "sources": [
+     "community/mato-bg/Ns_Castle_and_Reshiram_Model.nsbmd",
+     "community/mato-bg/Ns_Castle_and_Reshiram_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-pwt",
+    "name": {
+     "en": "PWT tournament",
+     "zh": "PWT 世界锦标赛",
+     "es": "Torneo PWT"
+    },
+    "by": "MaToRiuKo",
+    "model": "ca875109b6f65ce8.nsbmd",
+    "anim": "6410ec5aecfecda7.nsbca",
+    "sources": [
+     "community/mato-bg/PWT_Tournament_Model.nsbmd",
+     "community/mato-bg/PWT_Tournament_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-distortion-giratina",
+    "name": {
+     "en": "Distortion World & Giratina",
+     "zh": "反转世界与骑拉帝纳",
+     "es": "Mundo Distorsión y Giratina"
+    },
+    "by": "MaToRiuKo",
+    "model": "04e2970f00f955a2.nsbmd",
+    "anim": "725ebc47ede9289e.nsbca",
+    "native": [
+     56
+    ],
+    "sources": [
+     "community/mato-bg/Distortion_World_and_Giratina_Model.nsbmd",
+     "community/mato-bg/Distortion_World_and_Giratina_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-alder",
+    "name": {
+     "en": "Champion Alder's room",
+     "zh": "合众冠军阿戴克",
+     "es": "Sala del Campeón Mirto"
+    },
+    "by": "MaToRiuKo",
+    "model": "3b289c458dcb9593.nsbmd",
+    "modelOnly": true,
+    "native": [
+     82
+    ],
+    "sources": [
+     "community/mato-bg/Unova_Champion_Alder_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-groudon-lava",
+    "name": {
+     "en": "Groudon lava cave",
+     "zh": "固拉多熔岩洞穴",
+     "es": "Cueva de lava de Groudon"
+    },
+    "by": "MaToRiuKo",
+    "model": "830565941648905f.nsbmd",
+    "anim": "d0c5ed5a5d489cbe.nsbca",
+    "native": [
+     54,
+     60
+    ],
+    "sources": [
+     "community/mato-bg/Groudon_Lava_Cave_Model.nsbmd",
+     "community/mato-bg/Groudon_Lava_Cave_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-champion-mirror",
+    "name": {
+     "en": "Pokémon Champion arena (mirror floor)",
+     "zh": "宝可梦冠军（镜面地板）",
+     "es": "Arena del Campeón (suelo espejo)"
+    },
+    "by": "MaToRiuKo",
+    "model": "454209de5aacc43a.nsbmd",
+    "anim": "3f9a4234516015b3.nsbca",
+    "native": [
+     64
+    ],
+    "sources": [
+     "community/mato-bg/Mirror_Floor_Model.nsbmd",
+     "community/mato-bg/Mirror_Floor_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-champion",
+    "name": {
+     "en": "Pokémon Champion arena",
+     "zh": "宝可梦冠军",
+     "es": "Arena del Campeón"
+    },
+    "by": "MaToRiuKo",
+    "model": "7b24df535dd1e690.nsbmd",
+    "anim": "6ac7f685bda8e2cf.nsbca",
+    "sources": [
+     "community/mato-bg/Champion_NoMirror_Model.nsbmd",
+     "community/mato-bg/Champion_NoMirror_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-e4-ghost",
+    "name": {
+     "en": "Elite Four · Ghost room",
+     "zh": "幽灵系天王",
+     "es": "Alto Mando · Sala Fantasma"
+    },
+    "by": "MaToRiuKo",
+    "model": "a42014dc38aa9e77.nsbmd",
+    "anim": "3e68e6fc0d1d3453.nsbca",
+    "native": [
+     70
+    ],
+    "sources": [
+     "community/mato-bg/Ghost_Elite_Four_Model.nsbmd",
+     "community/mato-bg/Ghost_Elite_Four_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-e4-dark",
+    "name": {
+     "en": "Elite Four · Dark room",
+     "zh": "恶系天王",
+     "es": "Alto Mando · Sala Siniestra"
+    },
+    "by": "MaToRiuKo",
+    "model": "e58197c07570ebe3.nsbmd",
+    "anim": "e2612c917c84ecdd.nsbca",
+    "native": [
+     74
+    ],
+    "sources": [
+     "community/mato-bg/Dark_Elite_Four_Model.nsbmd",
+     "community/mato-bg/Dark_Elite_Four_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-e4-fighting",
+    "name": {
+     "en": "Elite Four · Fighting room",
+     "zh": "格斗系天王",
+     "es": "Alto Mando · Sala Lucha"
+    },
+    "by": "MaToRiuKo",
+    "model": "1a02cb797d738462.nsbmd",
+    "anim": "014db79e87797e73.nsbca",
+    "native": [
+     72
+    ],
+    "sources": [
+     "community/mato-bg/Fighting_Elite_Four_Model.nsbmd",
+     "community/mato-bg/Fighting_Elite_Four_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-forest-celebi-mew",
+    "name": {
+     "en": "Forest with Celebi & Mew",
+     "zh": "森林与时拉比、梦幻",
+     "es": "Bosque con Celebi y Mew"
+    },
+    "by": "MaToRiuKo",
+    "model": "8c8c8437c24f2c3b.nsbmd",
+    "anim": "59df366a07b96b00.nsbca",
+    "native": [
+     58
+    ],
+    "sources": [
+     "community/mato-bg/Forest_Celebi_and_Mew_Model.nsbmd",
+     "community/mato-bg/Forest_Celebi_and_Mew_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-lugia-temple",
+    "name": {
+     "en": "Undersea Temple & Lugia",
+     "zh": "海底神殿与洛奇亚",
+     "es": "Templo submarino y Lugia"
+    },
+    "by": "MaToRiuKo",
+    "model": "03bdd00bce711694.nsbmd",
+    "anim": "769a54091fe14b89.nsbca",
+    "native": [
+     44,
+     62
+    ],
+    "sources": [
+     "community/mato-bg/Undersea_Temple_and_Lugia_Model.nsbmd",
+     "community/mato-bg/Undersea_Temple_and_Lugia_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-e4-psychic",
+    "name": {
+     "en": "Elite Four · Psychic room",
+     "zh": "超能系天王",
+     "es": "Alto Mando · Sala Psíquica"
+    },
+    "by": "MaToRiuKo",
+    "model": "bd5a740a26b35c4f.nsbmd",
+    "anim": "eb4684f333b359dc.nsbca",
+    "native": [
+     76
+    ],
+    "sources": [
+     "community/mato-bg/Psychic_Elite_Four_Model.nsbmd",
+     "community/mato-bg/Psychic_Elite_Four_Anim.nsbca"
+    ]
+   },
+   {
+    "id": "bg-transparent",
+    "name": {
+     "en": "Transparent (no background)",
+     "zh": "透明（无背景）",
+     "es": "Transparente (sin fondo)"
+    },
+    "by": "MaToRiuKo",
+    "model": "592d4fe357c253d4.nsbmd",
+    "anim": null,
+    "modelOnly": true,
+    "sources": [
+     "transparent battle background.nsbmd"
+    ]
+   }
+  ],
+  "sets": [
+   {
+    "id": "mato-2026",
+    "name": {
+     "en": "MaToRiuKo's collection (current game version)",
+     "zh": "MaToRiuKo 战斗背景合集（当前版本）",
+     "es": "Colección de MaToRiuKo (versión actual)"
+    },
+    "by": "MaToRiuKo",
+    "extras": [],
+    "assign": {
+     "44": "bg-lugia-temple",
+     "54": "bg-groudon-lava",
+     "56": "bg-distortion-giratina",
+     "58": "bg-forest-celebi-mew",
+     "60": "bg-groudon-lava",
+     "62": "bg-lugia-temple",
+     "64": "bg-champion-mirror",
+     "70": "bg-e4-ghost",
+     "72": "bg-e4-fighting",
+     "74": "bg-e4-dark",
+     "76": "bg-e4-psychic",
+     "78": "bg-n-castle",
+     "80": "bg-n-castle",
+     "82": "bg-alder"
+    }
+   }
+  ]
+ },
+ "files": {
+  "014db79e87797e73.nsbca": "143696:B9577CF2",
+  "03bdd00bce711694.nsbmd": "249260:39F049CF",
+  "048b878dc20e1ef7.nsbmd": "2408:0C028AEC",
+  "04e2970f00f955a2.nsbmd": "717252:34F3B9AF",
+  "0809efb8c3b1d88e.nsbmd": "493648:649E8D7B",
+  "0d3d61b940b9f125.nsbmd": "8528:3A4A315D",
+  "0d62bae22237c391.nsbmd": "2408:FDD72E89",
+  "0d713be82249b06f.nsbmd": "2408:64D999A0",
+  "0e18d1525385f3b1.nsbmd": "2248:0B1871EA",
+  "0f1f3185decf9a55.nsbmd": "2408:6832FA6C",
+  "12608d3062277041.nsbmd": "30704:ADC53062",
+  "19ec28540771499b.nsbmd": "2408:B6AB85EA",
+  "1a02cb797d738462.nsbmd": "177328:4EDA0DDA",
+  "1a3716b8da89befc.nsbmd": "2248:5A7267E9",
+  "22463d1cfa1c83f5.nsbmd": "564304:9B1791A5",
+  "226ebd1aa32d5245.nsbmd": "1243216:67D0747F",
+  "29048375b46a2a3d.nsbmd": "308400:83027BE2",
+  "2981d8d222a55867.nsbmd": "372880:34E83E43",
+  "2b61997cea3993d9.nsbmd": "2408:BE362EDD",
+  "2e08f99cc66f0710.nsbmd": "813124:7DE1A82C",
+  "2ec4ca7b3a94d6d2.nsbmd": "379760:3ED3F174",
+  "300da5cbcceea2d9.nsbmd": "33200:0BE38F79",
+  "3362b4e306c63202.nsbca": "39920:C1D4443A",
+  "3807f9454c534fc2.nsbmd": "668496:261FFD48",
+  "3b1c10c09ef85723.nsbmd": "2248:E53469C2",
+  "3b289c458dcb9593.nsbmd": "48720:6A462EEA",
+  "3e68e6fc0d1d3453.nsbca": "168080:8B012E17",
+  "3f9a4234516015b3.nsbca": "70928:D2E72429",
+  "4231284448a7b119.nsbmd": "33744:0808A37A",
+  "4504a05db77a42f5.nsbmd": "365264:7C36D13A",
+  "454209de5aacc43a.nsbmd": "820052:A04174A8",
+  "46ffe664911a0a82.nsbmd": "639408:9669BD42",
+  "47753100b6e04273.nsbmd": "880:BA898BD2",
+  "4a735d42fc92b554.nsbmd": "834008:D8B35232",
+  "4fd5e8a51de8e6f8.nsbmd": "362400:E8949015",
+  "54045d3c9473dbd8.nsbmd": "30544:0232F3E4",
+  "54372d19e0318e56.nsbmd": "2248:53D148E3",
+  "545cc8f181fba2bb.nsbmd": "2408:951D1CE0",
+  "55578d24ac15e914.nsbmd": "694096:0501FB16",
+  "55faed7937b4b1c5.nsbmd": "9584:F53E74FA",
+  "5708bedddac9ef5e.nsbmd": "30704:AF1A5BB5",
+  "592d4fe357c253d4.nsbmd": "25320:1DE3311F",
+  "59df366a07b96b00.nsbca": "149360:55C34BE0",
+  "60dba8c87493841a.nsbmd": "2408:CADD9F0B",
+  "61059ea7831bdb6e.nsbmd": "5576:4F42D13F",
+  "618b2be41ab9df94.nsbmd": "1968:82AB965D",
+  "6410ec5aecfecda7.nsbca": "119312:28641B7A",
+  "6ac7f685bda8e2cf.nsbca": "61296:B60CF523",
+  "6d58c6bdde966992.nsbmd": "33200:3C2B260A",
+  "6dfe72c9ace9af93.nsbmd": "12976:43124597",
+  "6e353b9c9115b47d.nsbmd": "2248:CAE28170",
+  "6ed0f06bc6905f9f.nsbmd": "2408:397F4BA4",
+  "6f653f71ce648b2d.nsbmd": "2408:E11FB535",
+  "725ebc47ede9289e.nsbca": "324464:E4836107",
+  "72d706a1c74e823a.nsbmd": "1484:D2AC3C58",
+  "733633f07d5a2804.nsbca": "11152:175C10B0",
+  "769a54091fe14b89.nsbca": "269936:DBFF6844",
+  "7a1fc302d1d33e78.nsbmd": "388912:AEC0A54D",
+  "7a6074e2e9f38473.nsbmd": "9584:1FD17416",
+  "7b24df535dd1e690.nsbmd": "619252:DA38EBD4",
+  "7be34c7db107f7f7.nsbmd": "30704:D1BF7E6C",
+  "7e969f153894905c.nsbmd": "1051532:5DD8B363",
+  "829fa3f77a3b38dd.nsbmd": "2408:58FF4293",
+  "830565941648905f.nsbmd": "116304:8FDF1DEF",
+  "83b4fadf20164863.nsbmd": "9700:77ECD674",
+  "846bcb29de2974a5.nsbmd": "9584:F61E2F14",
+  "8709b8e3b3cc0c78.nsbmd": "2408:881EE962",
+  "8814f5eea4ec3232.nsbmd": "2248:E1C00385",
+  "8a7a78c97402f4b9.nsbmd": "23440:9E5686FA",
+  "8c8c8437c24f2c3b.nsbmd": "485104:52B443CC",
+  "8f27b37634faff5b.nsbmd": "201232:5E92A87D",
+  "8f99e4abe043176d.nsbmd": "2408:B1142F1A",
+  "91c36ff1ad42ffa5.nsbmd": "2408:E084560A",
+  "97982c8c00287548.nsbmd": "474352:DB499560",
+  "991f7776bbc4544e.nsbmd": "2408:D90CA9CC",
+  "9a05709eeaaf4868.nsbmd": "2408:931FADF7",
+  "9a184bc30fe7a4dd.nsbmd": "9584:BECCC43A",
+  "9c125cc20a65ca33.nsbmd": "9584:D8338C96",
+  "9cf6cb6ae4f31be5.nsbmd": "2256:7CAF322B",
+  "9dcb4e9dd6faf09f.nsbmd": "2248:1F7F9E7F",
+  "9dd06c9eee1223fc.nsbmd": "231376:87838C58",
+  "9fe14bc591b46152.nsbmd": "2248:9690B991",
+  "a42014dc38aa9e77.nsbmd": "141508:3446B6B3",
+  "a68a898bd90a4c97.nsbca": "18608:136BB0AD",
+  "a8a03ad276439802.nsbmd": "9764:562E071A",
+  "a9306785ca53888f.nsbmd": "369808:D8AFE51C",
+  "a9c1da5ec48c73f1.nsbmd": "10592:FA0A8475",
+  "ad4a81a4d3aa6ea2.nsbmd": "390796:AC6E6487",
+  "af50568e9fc75184.nsbmd": "200336:8C2D721F",
+  "b3c3cab4b08b9050.nsbmd": "391920:2A8DE054",
+  "b43f68594a61f5f7.nsbmd": "2248:5BDB1F6B",
+  "b45e970704a4ce18.nsbmd": "438672:B426B7AA",
+  "baa3cad27580159a.nsbmd": "2408:1945CE4C",
+  "bba503a5bfdea1e6.nsbmd": "592336:AC4C140C",
+  "bd5a740a26b35c4f.nsbmd": "69616:2E93B447",
+  "c23ca61e22002849.nsbmd": "1236:2FE95811",
+  "c3e56d58dc500575.nsbmd": "2408:1457BCF8",
+  "c573bc5d65ef2087.nsbmd": "9584:800F8831",
+  "c7c401248fdf7bf8.nsbmd": "396752:FA0E2333",
+  "ca875109b6f65ce8.nsbmd": "150548:B0178BD9",
+  "cdc5dae593cf8ac0.nsbmd": "9584:26B3B58D",
+  "cfa135fef758ae6e.nsbmd": "824212:B70E8F60",
+  "cff61fc40c5a6521.nsbmd": "2408:5065A1A0",
+  "d0709cb09404903a.nsbmd": "2408:04CC0897",
+  "d0c5ed5a5d489cbe.nsbca": "538192:2210F303",
+  "d7c4c1d6f96d3778.nsbmd": "2248:C90107E9",
+  "d9d6fc5187c9720b.nsbmd": "473520:71710A59",
+  "dab5ed0f95090df6.nsbmd": "987076:88D12BE1",
+  "e1474273a159c96f.nsbmd": "2248:789F4BC7",
+  "e2612c917c84ecdd.nsbca": "151152:39BC3C63",
+  "e58197c07570ebe3.nsbmd": "117328:655C04B2",
+  "ea4dcb6c3afe92b7.nsbca": "120464:827857F2",
+  "ea65f1d0e9d2b973.nsbmd": "403088:E39C54BA",
+  "eb4684f333b359dc.nsbca": "107856:B28C874F",
+  "ebd743212a1bf6c9.nsbmd": "2248:BBCB3CD2",
+  "f1d1c4653159b078.nsbmd": "2248:CFB58465",
+  "f22dd08423e8bf21.nsbmd": "234672:725B1736",
+  "fa7c0e30bb657120.nsbmd": "2408:FAF27F33",
+  "fd9d72407f22d752.nsbca": "8592:94541858"
+ },
+ "thumbs": [
+  "bg-alder",
+  "bg-champion",
+  "bg-champion-mirror",
+  "bg-distortion-giratina",
+  "bg-e4-dark",
+  "bg-e4-fighting",
+  "bg-e4-ghost",
+  "bg-e4-psychic",
+  "bg-forest-celebi-mew",
+  "bg-groudon-lava",
+  "bg-lugia-temple",
+  "bg-n-castle",
+  "bg-pwt",
+  "disc-pixel-set",
+  "fly-legendary",
+  "fly-mega-charizard-y",
+  "fly-xianxia-sword",
+  "surf-ace-furled",
+  "surf-ace-striker",
+  "surf-dudunsparce",
+  "surf-groudon",
+  "surf-gyarados",
+  "surf-kyogre",
+  "surf-kyogre-big",
+  "surf-lapras",
+  "surf-lapras-paddle",
+  "surf-mega-charizard-x",
+  "surf-mini-merry",
+  "surf-miraidon",
+  "surf-nyan-cat",
+  "surf-player-only",
+  "surf-wailmer",
+  "surf-wailord",
+  "surf-xianxia-sword",
+  "title-cynthia",
+  "title-legendary",
+  "world-ace-monument",
+  "world-whitebeard-monument"
+ ],
+ "templates": [
+  {
+   "id": "bgt-floor",
+   "by": "MaToRiuKo",
+   "file": "8f27b37634faff5b.nsbmd",
+   "name": {
+    "en": "Floor + backdrop",
+    "zh": "有地板（地板 + 背景）",
+    "es": "Suelo + fondo"
+   },
+   "slots": [
+    {
+     "tex": "cs1_png",
+     "name": {
+      "en": "Floor",
+      "zh": "地板",
+      "es": "Suelo"
+     },
+     "width": 512,
+     "height": 512,
+     "colors": 16
+    },
+    {
+     "tex": "_024_png",
+     "name": {
+      "en": "Backdrop",
+      "zh": "背景",
+      "es": "Fondo"
+     },
+     "width": 512,
+     "height": 256,
+     "colors": 16
+    }
+   ]
+  },
+  {
+   "id": "bgt-screen",
+   "by": "MaToRiuKo",
+   "file": "7e969f153894905c.nsbmd",
+   "name": {
+    "en": "One full picture (no floor)",
+    "zh": "无地板（整张画面）",
+    "es": "Una imagen completa (sin suelo)"
+   },
+   "slots": [
+    {
+     "tex": "_11",
+     "name": {
+      "en": "Picture",
+      "zh": "画面",
+      "es": "Imagen"
+     },
+     "width": 1024,
+     "height": 1024,
+     "colors": 256
+    }
+   ]
+  }
+ ]
+}

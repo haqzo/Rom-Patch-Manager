@@ -1,0 +1,328 @@
+[
+  {
+    "id": "surf-wailmer",
+    "cat": "surf",
+    "name": {
+      "en": "Wailmer",
+      "zh": "吼吼鲸",
+      "es": "Wailmer"
+    },
+    "by": "Haqzo",
+    "desc": {
+      "en": "Pokémon X/Y Wailmer, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+      "zh": "来自《宝可梦 X/Y》的吼吼鲸，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+      "es": "Wailmer de Pokémon X/Y, convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Wailmer_Surf.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Wailmer_Surf.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-lapras-paddle",
+    "cat": "surf",
+    "name": {
+      "en": "Lapras Paddle",
+      "zh": "乘骑拉普拉斯",
+      "es": "Lapras Paddle"
+    },
+    "by": "Haqzo",
+    "desc": {
+      "en": "Pokémon Sun/Moon Poké Ride Lapras with its saddle, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+      "zh": "来自《宝可梦 太阳/月亮》宝可梦坐骑的乘骑拉普拉斯，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+      "es": "Lapras Paddle de Pokémon Sol/Luna (Poké Montura), convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Lapras_Paddle_Surf.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Lapras_Paddle_Surf.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-wailord",
+    "cat": "surf",
+    "name": {
+      "en": "Wailord",
+      "zh": "吼鲸王",
+      "es": "Wailord"
+    },
+    "by": "Haqzo",
+    "desc": {
+      "en": "Pokémon X/Y Wailord, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+      "zh": "来自《宝可梦 X/Y》的吼鲸王，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+      "es": "Wailord de Pokémon X/Y, convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Wailord_Surf.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Wailord_Surf.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-gyarados",
+    "cat": "surf",
+    "name": {
+      "en": "Gyarados",
+      "zh": "暴鲤龙",
+      "es": "Gyarados"
+    },
+    "by": "Haqzo",
+    "desc": {
+      "en": "Pokémon X/Y Gyarados, converted with tools/model-pipeline and CTRMap-CE. Tested in PokeMMO.",
+      "zh": "来自《宝可梦 X/Y》的暴鲤龙，经 tools/model-pipeline 与 CTRMap-CE 转换，已在 PokeMMO 中测试。",
+      "es": "Gyarados de Pokémon X/Y, convertido con tools/model-pipeline y CTRMap-CE. Probado en PokeMMO."
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Gyarados_Surf.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Gyarados_Surf.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "disc-pixel-set",
+    "cat": "platforms",
+    "name": {
+      "en": "Pixel battle grounds (set)",
+      "zh": "像素风战斗圆盘（整套）",
+      "es": "Plataformas pixeladas (set)"
+    },
+    "by": "Haqzo",
+    "desc": {
+      "en": "15 pixel-art grounds with 3D grass, rocks and snow. Each battle location gets its own: grass, forest, water, cave, snow, sand, wood, paved… The first (smooth) disc test worked in PokeMMO; this pixel set uses the same size and method.",
+      "zh": "15 种像素风圆盘，带立体草叶、岩石与积雪。每种战斗地点各用一种：草地、森林、水面、洞穴、雪地、沙地、木板、石板……第一版（平滑）圆盘已在 PokeMMO 中测试成功；这套像素圆盘使用相同的尺寸和方法。",
+      "es": "15 plataformas pixeladas con hierba, rocas y nieve en 3D. Cada lugar de combate tiene la suya: hierba, bosque, agua, cueva, nieve, arena, madera, pavimento… La primera prueba (discos lisos) funcionó en PokeMMO; este set usa el mismo tamaño y método."
+    },
+    "writes": [
+      {
+        "path": "a/0/1/1",
+        "member": 0,
+        "file": "grounds/Ground_Light_Path.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 1,
+        "file": "grounds/Ground_Green_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 2,
+        "file": "grounds/Ground_Green_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 3,
+        "file": "grounds/Ground_Autumn_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 4,
+        "file": "grounds/Ground_Snowy_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 5,
+        "file": "grounds/Ground_Rocks_Brown.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 6,
+        "file": "grounds/Ground_Paved.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 7,
+        "file": "grounds/Ground_Cave_Pool.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 8,
+        "file": "grounds/Ground_Pale_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 9,
+        "file": "grounds/Ground_Forest.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 10,
+        "file": "grounds/Ground_Forest.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 11,
+        "file": "grounds/Ground_Autumn_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 12,
+        "file": "grounds/Ground_Snowy_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 13,
+        "file": "grounds/Ground_Dirt_Path.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 14,
+        "file": "grounds/Ground_River.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 15,
+        "file": "grounds/Ground_Cave_Pool.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 16,
+        "file": "grounds/Ground_Light_Path.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 17,
+        "file": "grounds/Ground_Light_Path.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 18,
+        "file": "grounds/Ground_River.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 19,
+        "file": "grounds/Ground_Snow.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 20,
+        "file": "grounds/Ground_Paved.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 21,
+        "file": "grounds/Ground_Rocks_Grey.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 22,
+        "file": "grounds/Ground_Ice.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 23,
+        "file": "grounds/Ground_Paved.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 24,
+        "file": "grounds/Ground_Wood.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 25,
+        "file": "grounds/Ground_Paved.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 26,
+        "file": "grounds/Ground_Paved.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 27,
+        "file": "grounds/Ground_Dirt_Path.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 28,
+        "file": "grounds/Ground_Forest.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 29,
+        "file": "grounds/Ground_Forest.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 30,
+        "file": "grounds/Ground_Autumn_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 31,
+        "file": "grounds/Ground_Snowy_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 32,
+        "file": "grounds/Ground_Green_Grass.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 33,
+        "file": "grounds/Ground_Paved.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "grounds/Ground_Green_Grass.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "surf-nyan-cat",
+    "cat": "surf",
+    "name": {
+      "en": "Nyan Cat",
+      "zh": "彩虹猫",
+      "es": "Nyan Cat"
+    },
+    "by": "MaToRiuKo",
+    "linked": {
+      "en": "Includes its own rainbow water splash",
+      "zh": "包含配套的彩虹水花特效",
+      "es": "Incluye su propio efecto de agua arcoíris"
+    },
+    "writes": [
+      {
+        "path": "a/0/7/5",
+        "member": 49,
+        "file": "Rainbow_Cat_Model.nsbmd"
+      },
+      {
+        "path": "a/0/7/5",
+        "member": 54,
+        "file": "Rainbow_Splash_Model.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "Rainbow_Cat_Model.nsbmd",
+      "kind": "object"
+    }
+  }
+]

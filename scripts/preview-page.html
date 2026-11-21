@@ -1,0 +1,14 @@
+<!doctype html><html><body style="margin:0;background:#000"><canvas id=c style="width:100vw;height:100vh;display:block"></canvas>
+<script type=module>
+import { ModelViewer, loadModel } from '../app/viewer.js';
+const q=new URLSearchParams(location.search);
+const get=async u=>u?new Uint8Array(await (await fetch(u)).arrayBuffer()):null;
+try{
+const L=loadModel(await get(q.get('m')), await get(q.get('a')));
+const v=new ModelViewer(document.getElementById('c'));
+v.show(L, q.get('k')||'object');
+if(q.get('yaw')) {v.cam.yaw=+q.get('yaw'); v.cam.pitch=+q.get('pitch'); v.cam.zoom=+q.get('zoom'); }
+if(q.get('f')) { v.setFrame(+q.get('f')); v.fit(); } else v.draw();
+window.DONE='ok '+JSON.stringify(v.box)+' frames '+v.frames;
+}catch(e){window.DONE='ERR '+e.stack}
+</script></body></html>
