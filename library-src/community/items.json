@@ -475,5 +475,27 @@
       "model": "Mantine_Shiny_Model.nsbmd",
       "kind": "object"
     }
+  },
+  {
+    "id": "hm-pink-leaves",
+    "cat": "hmbg",
+    "name": {
+      "en": "Pink Fallen Leaves",
+      "zh": "粉色落叶",
+      "es": "Hojas rosadas"
+    },
+    "by": "MaToRiuKo",
+    "desc": {
+      "en": "Made with a custom template.",
+      "zh": "使用自定义模板生成。",
+      "es": "Hecho con una plantilla personalizada."
+    },
+    "writes": [
+      {
+        "path": "a/1/1/5",
+        "member": 25,
+        "file": "mato-bg/Pink_Fallen_Leaves_Model.nsbmd"
+      }
+    ]
   }
 ]
