@@ -1,0 +1,17 @@
+{
+  "name": "rom-patch-manager",
+  "version": "1.0.0",
+  "description": "Mod your Pokémon Black/White ROM for PokeMMO in the browser: Surf, Fly, battle backgrounds and more from raw creator files, 3D previews, export .nds or .bps.",
+  "author": "Haqzo & MaToRiuKo",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 serve.py",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "library": "node scripts/build-library.mjs",
+    "previews": "node scripts/render-previews.mjs",
+    "nitro": "tsc -p tsconfig.vendor.json"
+  },
+  "engines": { "node": ">=20" }
+}

@@ -1,0 +1,14 @@
+{
+  "note": "Name fixes and removals from MaToRiuKo (18 Nov 2026). Applied by scripts/add-community.mjs. 'remove': items taken out of the library (surf-big-truck = a Cynthia model uploaded by mistake, not a Surf model).",
+  "items": {},
+  "slots": {
+    "64": {
+      "en": "Buildings & PvP (Celestial Tower, Pokémon Tower …)",
+      "zh": "建筑与 PvP（天堂塔、宝可梦塔等）",
+      "es": "Edificios y PvP (Torre Celeste, Torre Pokémon …)"
+    }
+  },
+  "remove": [
+    "surf-big-truck"
+  ]
+}
