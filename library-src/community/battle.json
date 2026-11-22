@@ -46,7 +46,8 @@
     { "id": "bg-red-battle-room", "name": { "en": "Red Battle Room", "zh": "红色战斗房间", "es": "Sala de Combate Roja" }, "by": "MaToRiuKo", "model": "mato-bg/Red_Battle_Room_Model.nsbmd", "modelOnly": true, "preview": "16_Red_Battle_Room/Preview.png" },
     { "id": "bg-blue-battle-room", "name": { "en": "Blue Battle Room", "zh": "蓝色战斗房间", "es": "Sala de Combate Azul" }, "by": "MaToRiuKo", "model": "mato-bg/Blue_Battle_Room_Model.nsbmd", "modelOnly": true, "preview": "17_Blue_Battle_Room/Preview.png" },
     { "id": "bg-dragonspiral-rayquaza", "name": { "en": "Dragonspiral Tower & Rayquaza", "zh": "龙螺旋塔和裂空座", "es": "Torre Esquirla y Rayquaza" }, "by": "MaToRiuKo", "model": "mato-bg/Dragonspiral_and_Rayquaza_Model.nsbmd", "anim": "mato-bg/Dragonspiral_and_Rayquaza_Anim.nsbca", "preview": "18_Dragonspiral_and_Rayquaza/Preview.png" },
-    { "id": "bg-skyarrow-kyogre", "name": { "en": "Skyarrow Bridge & Kyogre", "zh": "天之箭桥下与盖欧卡", "es": "Puente Skyarrow y Kyogre" }, "by": "MaToRiuKo", "model": "mato-bg/Skyarrow_and_Kyogre_Model.nsbmd", "anim": "mato-bg/Skyarrow_and_Kyogre_Anim.nsbca", "preview": "19_Skyarrow_and_Kyogre/Preview.png" }
+    { "id": "bg-skyarrow-kyogre", "name": { "en": "Skyarrow Bridge & Kyogre", "zh": "天之箭桥下与盖欧卡", "es": "Puente Skyarrow y Kyogre" }, "by": "MaToRiuKo", "model": "mato-bg/Skyarrow_and_Kyogre_Model.nsbmd", "anim": "mato-bg/Skyarrow_and_Kyogre_Anim.nsbca", "preview": "19_Skyarrow_and_Kyogre/Preview.png" },
+    { "id": "bg-champion-training", "name": { "en": "Pokémon Champion Training Ground", "zh": "宝冠军训练场", "es": "Campo de entrenamiento del Campeón" }, "by": "YOKA", "model": "mato-bg/Champion_Training_Ground.nsbmd", "modelOnly": true, "preview": "bg-champion-training.jpg" }
   ],
   "sets": [
     { "id": "mato-2026", "name": { "en": "MaToRiuKo's collection (current game version)", "zh": "MaToRiuKo 战斗背景合集（当前版本）", "es": "Colección de MaToRiuKo (versión actual)" }, "by": "MaToRiuKo", "fromNative": true, "extras": [] }
