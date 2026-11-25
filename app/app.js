@@ -2,7 +2,7 @@
  * Rom Patch Manager — UI.
  * Open ROM → pick complete visual features (or import raw files) → preview → export .nds / .bps.
  */
-import { t, L, setLang, getLang, LANGS } from './i18n.js';
+import { t, L, setLang, getLang, LANGS, authorName } from './i18n.js';
 import * as rom from './core/rom.js';
 import { changesFor, overlaps, sizeGrowth, scanInstalled } from './core/plan.js';
 import { ModelViewer, loadModel } from './viewer.js';
@@ -59,6 +59,7 @@ const S = {
   mapNames: null,
   changes: [],
   filter: { q: '', by: '' },
+  staticOnly: false,
   bgt: { tpl: null, imgs: {}, colors: {}, open: false },
 };
 
@@ -96,6 +97,26 @@ function toast(msg, kind = '', action = null) {
   setTimeout(() => el.remove(), kind === 'bad' ? 9000 : 5500);
 }
 const busy = (text) => { $('busyText').textContent = text || ''; $('busy').hidden = !text; };
+
+/** Small decision dialog. buttons: [{id, label, kind}] → resolves to the clicked id. */
+function ask(title, body, buttons) {
+  return new Promise((resolve) => {
+    const m = $('askModal');
+    $('askTitle').textContent = title;
+    $('askBody').textContent = body;
+    const box = $('askBtns');
+    box.innerHTML = '';
+    for (const b of buttons) {
+      const el = document.createElement('button');
+      el.className = b.kind || 'secondary';
+      el.textContent = b.label;
+      el.onclick = () => { m.hidden = true; resolve(b.id); };
+      box.appendChild(el);
+    }
+    m.hidden = false;
+    box.lastChild?.focus();
+  });
+}
 
 // ---------------------------------------------------------------- static text
 function applyStatic() {
@@ -272,7 +293,7 @@ function filterBar(list) {
   const people = [...new Set(list.map((x) => x.by).filter(Boolean))].sort();
   if (S.filter.by && !people.includes(S.filter.by)) S.filter.by = '';
   return `<div class="filter-bar"><input type="search" id="fq" placeholder="${esc(t('search'))}" value="${esc(S.filter.q)}" aria-label="${esc(t('search'))}">
-    <div class="seg" id="fby"><button data-by="" class="${S.filter.by ? '' : 'on'}">${esc(t('everyone'))}</button>${people.map((p) => `<button data-by="${esc(p)}" class="${S.filter.by === p ? 'on' : ''}">${esc(p)}</button>`).join('')}</div>
+    <div class="seg" id="fby"><button data-by="" class="${S.filter.by ? '' : 'on'}">${esc(t('everyone'))}</button>${people.map((p) => `<button data-by="${esc(p)}" class="${S.filter.by === p ? 'on' : ''}">${esc(authorName(p))}</button>`).join('')}</div>
     <span class="muted" id="fcount"></span></div>`;
 }
 function applyFilter(body) {
@@ -301,7 +322,7 @@ function itemCard(it, cat) {
     <div class="thumb">${thumbHtml(it.id, cat.icon)}
       <div class="flag">${sel ? `<span class="pill sel">${icon('check')}${esc(t('selected'))}</span>` : ''}${inRom ? `<span class="pill in">${esc(t('installed'))}</span>` : ''}${it.archived ? '<span class="pill">Archived</span>' : ''}</div>
       ${it.view ? `<button class="peek" title="${esc(t('preview'))}" aria-label="${esc(t('preview'))}">${icon('eye')}</button>` : ''}</div>
-    <div class="meta"><div class="name">${esc(L(it.name))}</div><div class="by">${esc(t('by'))} ${esc(it.by)}</div>
+    <div class="meta"><div class="name">${esc(L(it.name))}</div><div class="by">${esc(t('by'))} ${esc(authorName(it.by))}</div>
       ${it.desc ? `<div class="note">${esc(L(it.desc))}</div>` : ''}
       ${it.linked ? `<div class="note">${icon('box')} ${esc(L(it.linked))}</div>` : ''}</div></div>`;
 }
@@ -315,13 +336,19 @@ async function toggleItem(cat, id) {
 // ---------------------------------------------------------------- battle backgrounds
 const sceneById = (id) => S.lib.battle.scenes.find((x) => x.id === id);
 const slotName = (m) => L(S.lib.battle.slots.find((s) => s.model === m)?.name);
+/** Slots whose animation was broken by PokeMMO's battle-camera update: 58 (Unova forest) and 60 (caves). */
+const PROTECTED_SLOTS = [58, 60];
+/** A scene counts as animated when it carries a skeletal animation and is not a model-only swap. */
+const isAnimated = (s) => !!(s?.anim && !s.modelOnly);
+const slotList = (arr) => arr.map((m) => `${m} ${L(S.lib.battle.slots.find((s) => s.model === m)?.name) || ''}`).join(' · ');
 
 function renderBattle(body) {
   const B = S.lib.battle;
+  const list = B.scenes.filter(shown).filter((s) => !S.staticOnly || !isAnimated(s));
   // one group per creator (scenes that belong to an old-style set get that set's name)
   const groups = [];
-  for (const sc of B.scenes.filter(shown)) {
-    const title = sc.set ? L(B.sets.find((x) => x.id === sc.set)?.name) || sc.set : sc.by || '—';
+  for (const sc of list) {
+    const title = sc.set ? L(B.sets.find((x) => x.id === sc.set)?.name) || sc.set : authorName(sc.by) || '—';
     let g = groups.find((x) => x.title === title);
     if (!g) groups.push((g = { title, scenes: [] }));
     g.scenes.push(sc);
@@ -335,13 +362,16 @@ function renderBattle(body) {
     <div class="group-title">${esc(t('slots'))} <span class="muted">— ${esc(t('slotsHint'))}</span>
       <button class="ghost small" id="slotAll">${esc(t('selectAll'))}</button><button class="ghost small" id="slotNone">${esc(t('selectNone'))}</button></div>
     ${selWarn ? `<div class="callout">${icon('warn')}<span>${esc(t('noAnimSlot'))}</span></div>` : ''}
+    ${S.staticOnly ? `<div class="callout ok">${icon('box')}<span>${esc(t('staticOnly'))}</span><button class="link" id="staticAll">${esc(t('staticAll'))}</button></div>` : ''}
     <div class="slots">${B.slots.map(slotTile).join('')}</div>
     ${bgtHtml()}
     <div class="group-title">${esc(t('sets'))}</div>
     <div class="row">${B.sets.map((s) => `<button class="secondary small" data-set="${esc(s.id)}">${esc(L(s.name))}</button>`).join('')}</div>
-    <div class="group-title">${esc(t('library'))}</div>${filterBar(B.scenes.filter(shown))}
+    <div class="group-title">${esc(t('library'))}</div>${filterBar(list)}
     ${groups.map((g) => `<div class="fgroup"><div class="group-title">${esc(g.title)}</div><div class="grid">${g.scenes.map(sceneCard).join('')}</div></div>`).join('')}<p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
   wireFilter(body);
+  const allBtn = $('staticAll');
+  if (allBtn) allBtn.onclick = () => { S.staticOnly = false; renderPanel(); };
   for (const b of body.querySelectorAll('#modeSeg button')) b.onclick = () => { S.battleMode = b.dataset.m; renderPanel(); };
   $('slotAll').onclick = () => { B.slots.forEach((s) => S.selSlots.add(s.model)); renderPanel(); };
   $('slotNone').onclick = () => { S.selSlots.clear(); renderPanel(); };
@@ -384,18 +414,31 @@ function slotTile(s) {
 function sceneCard(s) {
   const used = Object.values(S.picks.battle).filter((a) => a.scene === s.id).length;
   const native = (s.native || []).map(slotName).filter(Boolean);
+  const animated = isAnimated(s);
   return `<div class="card ${used ? 'sel' : ''}" data-id="${esc(s.id)}" data-f="${esc(filterKey(s))}" data-by="${esc(s.by)}" role="button" tabindex="0">
     <div class="thumb">${thumbHtml(s.id, 'mountain')}
+      <span class="motion-tag ${animated ? 'anim' : 'static'}">${icon(animated ? 'spark' : 'box')}${esc(t(animated ? 'badgeAnim' : 'badgeStatic'))}</span>
       <div class="flag">${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}${s.archived ? '<span class="pill">Archived</span>' : ''}</div>
       <button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button></div>
-    <div class="meta"><div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(s.by)}${!s.anim || s.modelOnly ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
+    <div class="meta"><div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(authorName(s.by))}${!animated ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
       ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}${s.desc ? `<div class="note">${esc(L(s.desc))}</div>` : ''}</div></div>`;
 }
 
 async function assignScene(id) {
   if (!S.selSlots.size) { toast(t('pickSlotsFirst'), 'warn'); return; }
   const s = sceneById(id);
-  const mode = s.anim && !s.modelOnly ? S.battleMode : 'model';
+  const risky = [...S.selSlots].filter((m) => PROTECTED_SLOTS.includes(m));
+  // model-only swaps never touch the animation, so they are safe on 58 / 60
+  if (risky.length && isAnimated(s) && S.battleMode !== 'model') {
+    const c = await ask(t('slotAskTitle'), t('slotAskBody').replace('{slots}', risky.join(' / ')), [
+      { id: 'cancel', label: t('slotAskCancel'), kind: 'ghost' },
+      { id: 'use', label: t('slotAskUse'), kind: 'secondary' },
+      { id: 'static', label: t('slotAskStatic'), kind: 'primary' },
+    ]);
+    if (c === 'cancel') return;
+    if (c === 'static') { S.staticOnly = true; renderPanel(); return; }
+  }
+  const mode = isAnimated(s) ? S.battleMode : 'model';
   for (const m of S.selSlots) S.picks.battle[m] = { scene: id, mode };
   renderPanel();
   await refreshChanges();
@@ -423,8 +466,18 @@ function renderPresets(head, body) {
 }
 async function applyPreset(id) {
   const p = S.lib.presets.find((x) => x.id === id); if (!p) return;
+  const risky = Object.entries(p.battle || {}).filter(([m, a]) => PROTECTED_SLOTS.includes(+m) && isAnimated(sceneById(a.scene))).map(([m]) => +m);
+  let skip = false;
+  if (risky.length) {
+    const c = await guardSet(risky);
+    if (c === 'cancel') return;
+    skip = c === 'skip';
+  }
   for (const [cat, iid] of Object.entries(p.items || {})) if (S.lib.items.some((x) => x.id === iid)) S.picks.items[cat] = iid;
-  for (const [m, a] of Object.entries(p.battle || {})) if (sceneById(a.scene)) S.picks.battle[m] = { scene: a.scene, mode: a.mode || 'both' };
+  for (const [m, a] of Object.entries(p.battle || {})) {
+    if (skip && PROTECTED_SLOTS.includes(+m)) continue;
+    if (sceneById(a.scene)) S.picks.battle[m] = { scene: a.scene, mode: a.mode || 'both' };
+  }
   toast(t('presetApplied').replace('{n}', L(p.name)), 'ok');
   renderPanel(); await refreshChanges();
 }
@@ -455,9 +508,33 @@ async function checkLibrary() {
   } catch { /* offline: keep what we have */ }
 }
 
+/** Ask before an animated background lands on the protected slots. Returns 'ok' | 'skip' | 'cancel'. */
+async function guardSet(ids) {
+  const c = await ask(
+    t('setAskTitle').replace('{slots}', ids.join(' / ')),
+    t('setAskBody'),
+    [
+      { id: 'cancel', label: t('setAskCancel'), kind: 'ghost' },
+      { id: 'skip', label: t('setAskSkip').replace('{slots}', ids.join(' / ')), kind: 'secondary' },
+      { id: 'ok', label: t('setAskUse'), kind: 'primary' },
+    ],
+  );
+  return c || 'cancel';
+}
+
 async function applySet(id) {
   const set = S.lib.battle.sets.find((x) => x.id === id);
-  for (const [m, sid] of Object.entries(set.assign)) { const s = sceneById(sid); S.picks.battle[m] = { scene: sid, mode: s.anim && !s.modelOnly ? 'both' : 'model' }; }
+  const risky = Object.entries(set.assign).filter(([m, sid]) => PROTECTED_SLOTS.includes(+m) && isAnimated(sceneById(sid))).map(([m]) => +m);
+  let skip = false;
+  if (risky.length) {
+    const c = await guardSet(risky);
+    if (c === 'cancel') return;
+    skip = c === 'skip';
+  }
+  for (const [m, sid] of Object.entries(set.assign)) {
+    if (skip && PROTECTED_SLOTS.includes(+m)) continue;
+    const s = sceneById(sid); S.picks.battle[m] = { scene: sid, mode: isAnimated(s) ? 'both' : 'model' };
+  }
   if (set.extras.length && !S.picks.extras.includes(id)) S.picks.extras.push(id);
   renderPanel();
   await refreshChanges();
@@ -469,9 +546,8 @@ function bgtHtml() {
   const T = S.lib.templates || [];
   if (!T.length) return '';
   const tp = bgtTpl(), B = S.bgt;
-  return `<details class="bgt panel" id="bgt" ${B.open ? 'open' : ''}><summary><b>${esc(t('bgtTitle'))}</b> <span class="muted">— ${esc(t('by'))} ${esc(tp.by)}</span></summary>
-    <p class="muted" style="margin:6px 0 10px">${esc(t('bgtHint'))}</p>
-    <div class="row"><label class="field"><span>${esc(t('bgtTemplate'))}</span><select id="bgtTpl">${T.map((x) => `<option value="${esc(x.id)}" ${x.id === tp.id ? 'selected' : ''}>${esc(L(x.name))}</option>`).join('')}</select></label></div>
+  return `<details class="bgt panel" id="bgt" ${B.open ? 'open' : ''}><summary><b>${esc(t('bgtTitle'))}</b> <span class="muted">— ${esc(t('by'))} ${esc(authorName(tp.by))}</span></summary>
+    <p class="muted" style="margin:6px 0 10px">${esc(t('bgtHint'))}</p>    <div class="row"><label class="field"><span>${esc(t('bgtTemplate'))}</span><select id="bgtTpl">${T.map((x) => `<option value="${esc(x.id)}" ${x.id === tp.id ? 'selected' : ''}>${esc(L(x.name))}</option>`).join('')}</select></label></div>
     <div class="bgt-slots">${tp.slots.map((sl) => { const im = B.imgs[sl.tex]; const sizes = legalSizes(sl.width, sl.height).map((z) => `${z.width}×${z.height}`).join(', ');
       return `<div class="bgt-slot"><div class="bgt-pic">${im ? `<img src="${im.url}" alt="">` : `<span class="muted">${esc(t('bgtKeep'))}</span>`}</div>
         <div><b>${esc(L(sl.name))}</b> <span class="muted">${sl.width}×${sl.height}</span>

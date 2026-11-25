@@ -145,6 +145,15 @@ button:disabled { opacity: .4; cursor: not-allowed; }
 .peek { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; border-radius: 9px; border: 0; background: rgba(18, 24, 38, .78); color: var(--text); display: grid; place-items: center; opacity: 0; transition: opacity .15s; }
 .card:hover .peek, .card:focus-within .peek, .slot:hover .peek { opacity: 1; }
 .peek:hover { background: var(--cyan); color: #06222c; }
+/* animated / static tag on background cards */
+.motion-tag { position: absolute; left: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 650; backdrop-filter: blur(6px); background: rgba(18, 24, 38, .82); border: 1px solid rgba(255, 255, 255, .07); }
+.motion-tag svg { width: 13px; height: 13px; stroke-width: 1.8; }
+.motion-tag.anim { color: #8cf0cd; }
+.motion-tag.anim svg { color: var(--green); animation: tagPulse 2.4s ease-in-out infinite; }
+.motion-tag.static { color: #a6b6cd; }
+.motion-tag.static svg { color: #8fa3bf; }
+@keyframes tagPulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .motion-tag.anim svg { animation: none; } }
 .group-title { margin: 22px 0 10px; font-size: 13.5px; color: var(--muted); font-weight: 600; display: flex; align-items: center; gap: 10px; }
 .group-title:first-child { margin-top: 4px; }
 .group-title .ghost:first-of-type { margin-left: auto; }
@@ -174,6 +183,9 @@ button:disabled { opacity: .4; cursor: not-allowed; }
 .callout svg { color: var(--amber); margin-top: 1px; }
 .callout.info { background: var(--cyan-soft); color: #bde9f5; }
 .callout.info svg { color: var(--cyan); }
+.callout.ok { background: rgba(79, 214, 139, .12); color: #a9ecc7; }
+.callout.ok svg { color: var(--green); }
+.callout .link { margin-left: auto; white-space: nowrap; }
 
 /* ---------- import ---------- */
 .imp { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
@@ -215,6 +227,10 @@ button:disabled { opacity: .4; cursor: not-allowed; }
 .spinner { width: 34px; height: 34px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--cyan); animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .about-card { padding: 26px; max-width: 420px; text-align: center; display: grid; gap: 10px; justify-items: center; }
+.ask-card { padding: 22px; width: min(460px, 92vw); display: grid; gap: 12px; }
+.ask-card h3 { margin: 0; font-size: 16px; line-height: 1.35; }
+.ask-card p { margin: 0; color: #b5c1d6; font-size: 13px; line-height: 1.55; }
+.ask-btns { justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
 .about-card p { margin: 0; color: #b5c1d6; }
 .about-logo { width: 64px; height: 64px; border-radius: 14px; }
 .ver { color: var(--muted); font-size: 12.5px; }
