@@ -180,6 +180,8 @@ Therefore, a normal replacement of one platform model member affects both sides.
 
 This conclusion is grounded in vanilla Pokémon Black/White source. PokeMMO's internal engine is not available for inspection here, and no PokeMMO battle log is required or assumed. Treat the PokeMMO-specific equivalence as strongly suggested by its use of these ROM assets, not as independently verified engine behavior.
 
+**Special-mode caveat:** the decompilation has a `mode == 3` branch that bypasses the normal stage lookup and loads fixed model/animation resource IDs `0x56` and `0x57`. The available evidence here does not establish whether PokeMMO uses that mode or which archive members those IDs resolve to in the target ROM. The local ROM audit must identify this path before the feature claims coverage of every special battle mode.
+
 ### 3.3 Do not copy Black 2 / White 2 assumptions
 
 Black 2 / White 2 is a separate decompilation and resource layout. Do not import its stage table or its resource-member mapping into this Black/White tool. Use the Black/White source and the user's clean Black/White ROMs.
