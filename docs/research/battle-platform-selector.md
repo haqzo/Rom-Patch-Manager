@@ -609,3 +609,24 @@ Each available profile passed no-op, individual replacement, all three complete 
 5. Include ordinary encounters on both editions where useful, and document any exceptions from PvP or special battle modes. Leave group 02/member 5 and special members #86/87 unconfirmed unless observed. Record evidence in Dev Mode and keep suggested models advisory.
 
 Actual PokeMMO gameplay verification of the selector and its environment labels remains pending.
+
+## 15. Owner-test refinement
+
+Started at `8d6f45ae3fa59ca968bab3914da2ee7e606c0af5`. The refinement is implemented at `23403f1cd212a17d6fa29bde2be9638a7ec0fffc`.
+
+- The first view shows all three packs with preview and Apply controls. Pixel uses the actual representative creator model. No Battle Ground and Transparent Discs identify their intentionally hidden output. The model shelf and the compact destination chooser can be opened independently. Destination details retain the numeric IDs and evidence.
+- Current and effective pictures follow the selected member and the loaded bytes. Mixed groups identify their representative member. Clean stock and unknown installed assets are rendered only in the browser. The planner still targets only `a/0/1/1` members #0–33 for platform writes. The previous 12-profile verification in Section 14 continues to apply to that pipeline. Both English editions were rechecked in this refinement.
+- The destination and Changes views distinguish inherited set choices, individual model overrides, explicit Keep Current, and verified stock restoration. A destination without a pending assignment shows Unchanged. The build discards a stale platform picture when a creator replaces the corresponding NSBMD without supplying a new preview. Dev Mode can generate a local preview or use an explicitly registered image.
+- The isolated owner build follows the Pages merge and missing-preview steps and includes all 15 Pixel model pictures. Its service worker was verified with the refinement cache and a local offline reload. The checkout at `batch05-owner-preview` beside the feature worktree is served on loopback at [127.0.0.1:8775/Rom-Patch-Manager/](http://127.0.0.1:8775/Rom-Patch-Manager/). From the directory containing that isolated build, restart it with:
+
+  ```sh
+  python3 -m http.server 8775 --bind 127.0.0.1 --directory batch05-owner-preview
+  ```
+
+  [Open Dev Mode](http://127.0.0.1:8775/Rom-Patch-Manager/?dev). The public version is unchanged. The draft is awaiting owner review and in-game verification. Korean Black and White remain unverified.
+
+Node 22.23.5 recorded **29 passed and 14 skipped** on the refinement with English Black and White. The skipped cases use other regional or modified ROM inputs. Chromium exercised the production-style build with a local clean ROM, a disposable modified ROM, a matching stock donor, a rejected donor from the other edition, and NDS and BPS exports. A separate browser profile covered localized Dev Mode edits, verification notes, a user-supplied preview, draft reload and offline browsing. All captures linked below use creator assets.
+
+[Public selector](battle-platform-refinement/public-selector.png) · [Mixed assignments](battle-platform-refinement/mixed-set-overrides.png) · [Model library](battle-platform-refinement/model-catalog.png) · [Pixel preview](battle-platform-refinement/pixel-model.png) · [Transparent preview](battle-platform-refinement/transparent-model.png)
+
+[Dev environment editor](battle-platform-refinement/dev-environment.png) · [Dev model registration](battle-platform-refinement/dev-model.png) · [Spanish narrow offline](battle-platform-refinement/offline-narrow-es.png) · [Simplified Chinese mobile](battle-platform-refinement/mobile-zh.png)
