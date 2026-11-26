@@ -7,6 +7,12 @@ export const LANGS = [
 
 const S = {
   en: {
+    bpMixedInstalled: 'Mixed installed models',
+    bpDetails: "Details",
+    bpMixedAssignments: "Mixed assignments",
+    bpApplySet: "Apply set",
+    bpBrowseModels: "Browse models",
+    bpChooseDestinations: "Choose destinations",
     bpSelectedOne: '1 member selected',
     bpAssigned: 'Assigned to {n}',
     bpCompatible: 'Compatible members {members}',
@@ -257,6 +263,12 @@ const S = {
     langName: 'Language',
   },
   zh: {
+    bpMixedInstalled: '已安装的模型不同',
+    bpDetails: "详情",
+    bpMixedAssignments: "混合分配",
+    bpApplySet: "应用套装",
+    bpBrowseModels: "浏览模型",
+    bpChooseDestinations: "选择目标",
     bpSelectedOne: '已选择 1 个成员',
     bpAssigned: '已分配给 {n} 个成员',
     bpCompatible: '兼容成员 {members}',
@@ -504,6 +516,12 @@ const S = {
     langName: '语言',
   },
   es: {
+    bpMixedInstalled: 'Modelos instalados variados',
+    bpDetails: "Detalles",
+    bpMixedAssignments: "Asignaciones mixtas",
+    bpApplySet: "Aplicar conjunto",
+    bpBrowseModels: "Ver modelos",
+    bpChooseDestinations: "Elegir destinos",
     bpSelectedOne: '1 miembro seleccionado',
     bpAssigned: 'Asignado a {n}',
     bpCompatible: 'Miembros compatibles {members}',

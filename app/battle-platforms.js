@@ -14,8 +14,16 @@ export function memberRanges(members) {
   }
   return runs.map(([first, last]) => first === last ? `#${first}` : `#${first}–#${last}`).join(', ');
 }
-const assignName = (a) => a?.kind === 'inherit' ? L(a.set.name) : a?.kind === 'model' ? L(a.model.name) :
-  t(a?.kind === 'stock' ? 'bpStock' : 'bpKeep');
+export const assignmentState = (assignment) => ({
+  inherit: 'bpInherited', model: 'bpOverride', keep: 'bpKeep', stock: 'bpStock',
+})[assignment?.kind] || 'bpUnchanged';
+
+export function groupAssignment(members, assignments) {
+  const entries = members.map(member => assignments.get(member));
+  const signature = a => [a?.kind, a?.file, a?.set?.id, a?.model?.id].join('|');
+  return entries.every(a => signature(a) === signature(entries[0]))
+    ? { mixed: false, assignment: entries[0] } : { mixed: true };
+}
 
 function installedName(S, member) {
   const entry = S.scan?.platforms[member];
@@ -29,7 +37,7 @@ function metaLine(meta, esc) {
 }
 
 export function platformPicker(body, C) {
-  const { S, esc, icon, updated, ask, chooseDonor, preview, thumb, filterBar, filterKey } = C;
+  const { S, esc, icon, updated, ask, chooseDonor, preview, thumb, hasThumb, filterBar, filterKey } = C;
   const lib = S.lib;
   if (lib.platforms?.version !== 1) {
     body.innerHTML = `<p class="callout">${esc(t('bpLibraryUpdate'))}</p>`;
@@ -45,7 +53,6 @@ export function platformPicker(body, C) {
   const groups = target?.groupSafe && !S.platformRaw;
   const groupMeta = lib.platforms.groups;
   const slotMeta = lib.platforms.slots;
-  const state = a => t(a?.kind === 'inherit' ? 'bpInherited' : a ? 'bpOverride' : 'bpUnchanged');
   const button = (action, text, disabled = false) =>
     `<button type="button" class="ghost small" data-bp="${action}" ${disabled ? 'disabled' : ''}>${esc(text)}</button>`;
   const peek = (action, text, disabled = false) =>
@@ -54,48 +61,67 @@ export function platformPicker(body, C) {
   const suggested = meta => meta?.suggested && modelName(meta.suggested)
     ? `<span class="muted small">${esc(t('bpSuggested'))} ${esc(modelName(meta.suggested))}</span>` : '';
   const knownModel = (file, member) => lib.platforms.models.find(m => modelFile(m, member, lib) === file);
-  const picture = (member) => {
+  const picture = (member, representative = false) => {
     const a = assignments.get(member);
     const installed = S.scan?.platforms[member];
     const model = a?.file ? a.model || knownModel(a.file, member) :
       a?.kind === 'stock' ? null : lib.platforms.models.find(m => m.id === installed?.id);
     const usable = a?.kind === 'stock' ? S.stockPlatforms && available.includes(member) :
       a?.file || target?.valid.includes(member);
-    const pending = model?.empty || (!usable || lib.thumbs?.includes(model?.id)) ? '' :
+    const pending = model?.empty || (!usable || hasThumb(model?.id)) ? '' :
       a?.file ? 'file:' + a.file : (a?.kind === 'stock' ? 'stock:' : 'rom:') + member;
     const label = `${t('bpPreviewEffective')} · ${platformName(lib, member)}`;
     const visible = model?.empty ? `<span class="small muted">${esc(t('bpIntentionalEmpty'))}</span>` :
-      lib.thumbs?.includes(model?.id) ? thumb(model.id, 'disc') : icon('disc', 'glyph');
-    return `<button type="button" class="bp-picture" data-bp="effective-${member}"
+      hasThumb(model?.id) ? thumb(model.id, 'disc') : icon('disc', 'glyph');
+    return `<button type="button" class="bp-picture" data-bp="effective-${member}" ${representative ? `data-preview-member="#${numbered(member)}"` : ''}
       ${pending ? `data-platform-photo="${esc(pending)}"` : ''} ${usable ? '' : 'disabled'}
       aria-label="${esc(label)}" title="${esc(label)}">${visible}</button>`;
   };
+  const assignmentLabel = (a, member) => [
+    t(assignmentState(a)), a?.model ? L(a.model.name) : a?.set ? L((knownModel(a.file, member) || a.set).name) : null,
+  ].filter(Boolean).join(' · ');
+  const toggleDetails = (id, nav, contents) => `<details class="bp-meta" data-bp-meta="${id}" ${S.platformDetails.has(id) ? 'open' : ''}>
+    <summary>${esc(t('bpDetails'))}</summary>
+    <div class="bp-meta-body">${nav}${contents}</div></details>`;
+  const memberRow = (member) => {
+    const a = assignments.get(member);
+    const { group, variant } = SLOT[member];
+    return `<span class="muted small">#${numbered(member)} · ${esc(groupName(lib, group))} · ${esc(title('bpVariant', variant))}</span>
+      ${member === 5 ? `<span class="muted small">${esc(t('bpNoOrdinaryLookup'))}</span>` : ''}
+      ${metaLine(slotMeta[member], esc)}${suggested(slotMeta[member])}
+      <span class="small">${esc(t('bpInstalled'))} · ${esc(installedName(S, member))}</span>
+      <div class="row">${peek('current-' + member, t('bpPreviewCurrent'), !target || !available.includes(member))}
+        ${a && a.kind !== 'inherit' ? button('clear-' + member, t('bpClearOverride')) : ''}</div>`;
+  };
   const members = () => MEMBERS.map(member => {
     const valid = available.includes(member), a = assignments.get(member);
-    const { group, variant } = SLOT[member];
     return `<article class="bp-entry" data-member="${member}">
       ${picture(member)}
       <label class="bp-select"><input type="checkbox" data-member-select="${member}" ${S.selPlatforms.has(member) ? 'checked' : ''} ${valid ? '' : 'disabled'}>
         <b>${esc(platformName(lib, member))}</b></label>
-      <span class="muted small">#${numbered(member)} · ${esc(groupName(lib, group))} · ${esc(title('bpVariant', variant))}</span>
-      ${member === 5 ? `<span class="muted small">${esc(t('bpNoOrdinaryLookup'))}</span>` : ''}
-      ${metaLine(slotMeta[member], esc)}${suggested(slotMeta[member])}
-      <span class="small">${esc(t('bpInstalled'))} · ${esc(installedName(S, member))}</span>
-      <span class="small">${esc(state(a))} · ${esc(assignName(a))}</span>
-      <div class="row">${peek('current-' + member, t('bpPreviewCurrent'), !target || !valid)}
-        ${a && a.kind !== 'inherit' ? button('clear-' + member, t('bpClearOverride')) : ''}</div>
+      <span class="small bp-assignment" data-assignment="${a?.kind || 'unchanged'}">${esc(assignmentLabel(a, member))}</span>
+      ${toggleDetails('member-' + member, '', memberRow(member))}
     </article>`;
   }).join('');
   const groupCards = () => GROUPS.map((members, group) => {
     const count = members.filter(m => S.selPlatforms.has(m)).length;
-    return `<article class="bp-entry">
-      ${picture(members[0])}
+    const { mixed, assignment } = groupAssignment(members, assignments);
+    const first = members[0];
+    const installed = members.map(m => S.scan?.platforms[m]);
+    const mixedInstalled = new Set(installed.map(entry => [entry?.kind, entry?.id].join('|'))).size > 1;
+    return `<article class="bp-entry" data-group="${group}">
+      ${picture(first, mixed)}
       <label class="bp-select"><input type="checkbox" data-group-select="${group}" ${count === members.length ? 'checked' : ''}>
         <b>${esc(groupName(lib, group))}</b></label>
-      <span class="muted small">${esc(groupMeta[group]?.name ? title('bpGroup', group) + ' · ' : '')}${members.map(m => '#' + numbered(m)).join(', ')}</span>
-      ${metaLine(groupMeta[group], esc)}${suggested(groupMeta[group])}
-      ${!target.groupUsed.includes(group) ? `<span class="muted small">${esc(t('bpNoOrdinaryLookup'))}</span>` : ''}
-      ${members.map(m => `<span class="small">#${numbered(m)} · ${esc(installedName(S, m))} → ${esc(assignName(assignments.get(m)))}</span>`).join('')}
+      <span class="small bp-assignment" data-assignment="${mixed ? 'mixed' : assignment?.kind || 'unchanged'}">
+        ${esc(mixed ? t('bpMixedAssignments') : assignmentLabel(assignment, first))}</span>
+      ${mixedInstalled ? `<span class="muted small">${esc(t('bpMixedInstalled'))}</span>` : ''}
+      ${toggleDetails('group-' + group, `<span class="muted small">${esc(title('bpGroup', group))} · ${memberRanges(members)}</span>
+        ${metaLine(groupMeta[group], esc)}${suggested(groupMeta[group])}
+        ${!target.groupUsed.includes(group) ? `<span class="muted small">${esc(t('bpNoOrdinaryLookup'))}</span>` : ''}`,
+        members.map(m => `<div class="bp-member-detail"><strong>#${numbered(m)} · ${esc(assignmentLabel(assignments.get(m), m))}</strong>
+          ${peek('effective-' + m, t('bpPreviewEffective'), assignments.get(m)?.kind === 'stock' && !S.stockPlatforms)}
+          ${memberRow(m)}</div>`).join(''))}
     </article>`;
   }).join('');
   const sets = lib.items.filter(it => it.cat === 'platforms' && !it.archived);
@@ -104,7 +130,7 @@ export function platformPicker(body, C) {
     const compatible = selected.every(member => !!modelFile(m, member, lib));
     const pending = [...assignments.values()].filter(a => a.model?.id === m.id).length;
     return `<article class="card bp-model ${pending ? 'sel' : ''}" data-platform-model="${esc(m.id)}" data-f="${esc(filterKey(m))}" data-by="${esc(m.by)}">
-      <div class="thumb">${m.empty ? `<span class="muted small">${esc(t('bpIntentionalEmpty'))}</span>` : thumb(m.id, 'disc')}</div>
+      <div class="thumb" ${!m.empty && m.file && !hasThumb(m.id) ? `data-platform-photo="file:${esc(m.file)}"` : ''}>${m.empty ? `<span class="muted small">${esc(t('bpIntentionalEmpty'))}</span>` : thumb(m.id, 'disc')}</div>
       <div class="meta"><b>${esc(L(m.name))}</b><span class="muted small">${esc(authorName(m.by))}</span>
         ${m.desc ? `<div class="small">${esc(L(m.desc))}</div>` : ''}
         ${m.members ? `<div class="muted small">${esc(t('bpCompatible').replace('{members}', memberRanges(m.members)))}</div>` : ''}
@@ -115,23 +141,28 @@ export function platformPicker(body, C) {
   }).join('');
   body.innerHTML = `<div class="bp-ui">
     <p class="callout">${esc(t('bpShared'))}</p>
-    <section class="panel bp-panel"><h3>${esc(t('bpSets'))}</h3>
-      <p class="muted small">${esc(t('bpSetHint'))}</p>
-      <div class="bp-setline">${sets.map(it => `<div class="row">
-        <button class="${base?.id === it.id ? 'primary' : 'ghost'} small" aria-pressed="${base?.id === it.id}" data-bp="set-${esc(it.id)}"
-          ${target && !it.writes.every(w => available.includes(w.member)) ? 'disabled' : ''}>
-          ${lib.thumbs?.includes(it.id) ? `<span class="bp-set-thumb">${thumb(it.id, 'disc')}</span>` : ''}${esc(L(it.name))}</button>
-        ${peek('preview-set-' + it.id, t('preview'))}</div>`).join('')}
-        ${button('reset', t('bpReset'), !base && !Object.keys(S.picks.platforms).length)}</div>
+    <section class="bp-panel"><div class="bp-heading"><h3>${esc(t('bpSets'))}</h3>
+      ${button('reset', t('bpReset'), !base && !Object.keys(S.picks.platforms).length)}</div>
+      <div class="bp-sets">${sets.map(it => {
+        const empty = ['disc-none', 'disc-transparent'].includes(it.id);
+        return `<article class="card bp-set ${base?.id === it.id ? 'sel' : ''}">
+          <button class="thumb bp-pack-preview" data-bp="preview-set-${esc(it.id)}" aria-label="${esc(t('preview') + ' · ' + L(it.name))}">
+            ${empty ? `<span class="bp-hidden-model">${icon('disc')} ${esc(t('bpIntentionalEmpty'))}</span>` : thumb(it.id, 'disc')}
+          </button>
+          <div class="meta"><b>${esc(L(it.name))}</b><span class="muted small">${esc(authorName(it.by))}</span>
+            <button class="${base?.id === it.id ? 'primary' : 'ghost'} small" aria-pressed="${base?.id === it.id}" data-bp="set-${esc(it.id)}"
+              ${target && !it.writes.every(w => available.includes(w.member)) ? 'disabled' : ''}>${esc(t('bpApplySet'))}</button></div>
+        </article>`;
+      }).join('')}</div>
     </section>
     <details class="panel bp-panel" id="bpTargets" ${S.platformPickerOpen ? 'open' : ''}>
       <summary>${esc(t('bpDestinations'))} · <span class="bp-count">${esc(selectedLabel)}</span></summary>
-      <div class="bp-actions">${button('all', t('selectAll'), !available.length)}${button('none', t('selectNone'), !selected.length)}
+      <div class="bp-actions">${button('catalog', t('bpBrowseModels'))}${button('all', t('selectAll'), !available.length)}${button('none', t('selectNone'), !selected.length)}
         ${button('view', t(groups ? 'bpShowRaw' : 'bpShowGroups'), !target?.groupSafe)}</div>
       ${!target?.groupSafe ? `<p class="muted small">${esc(t('bpGroupsUnavailable'))}</p>` : ''}
-      <div class="bp-grid">${groups ? groupCards() : members()}</div>
+      <div class="bp-grid" id="bpGrid">${groups ? groupCards() : members()}</div>
     </details>
-    <section class="panel bp-panel"><h3>${esc(t('bpAssignments'))}</h3>
+    <section class="panel bp-panel" id="bpCustomize"><div class="bp-heading"><h3>${esc(t('bpAssignments'))}</h3>${button('destinations', t('bpChooseDestinations'))}</div>
       <p class="small" aria-live="polite">${esc(selected.length ? selectedLabel + ' · ' +
         memberRanges(selected) : t('bpChooseTargets'))}</p>
       <div class="bp-actions">${button('keep', t('bpKeep'), !selected.length)}${button('stock', t('bpStock'), !selected.length || !S.stockPlatforms)}
@@ -144,6 +175,9 @@ export function platformPicker(body, C) {
   </div>`;
   const destination = body.querySelector('#bpTargets');
   destination.ontoggle = () => { S.platformPickerOpen = destination.open; };
+  for (const meta of body.querySelectorAll('[data-bp-meta]')) meta.ontoggle = () => {
+    if (meta.open) S.platformDetails.add(meta.dataset.bpMeta); else S.platformDetails.delete(meta.dataset.bpMeta);
+  };
   const update = control => updated(control);
   for (const input of body.querySelectorAll('[data-member-select]')) input.onchange = () => {
     const m = Number(input.dataset.memberSelect);
@@ -161,6 +195,14 @@ export function platformPicker(body, C) {
   for (const b of body.querySelectorAll('[data-bp]')) b.onclick = async () => {
     const action = b.dataset.bp;
     if (action.startsWith('preview-') || action.startsWith('current-') || action.startsWith('effective-')) return preview(action);
+    if (action === 'catalog' || action === 'destinations') {
+      destination.open = action === 'destinations';
+      S.platformPickerOpen = destination.open;
+      const focus = action === 'catalog' ? body.querySelector('[data-bp="destinations"]') : destination.querySelector('summary');
+      focus.focus();
+      focus.scrollIntoView({ block: 'nearest' });
+      return;
+    }
     if (action === 'donor') return chooseDonor();
     if (action === 'all') S.selPlatforms = new Set(available);
     if (action === 'none') S.selPlatforms.clear();

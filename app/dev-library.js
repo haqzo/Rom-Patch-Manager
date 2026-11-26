@@ -108,6 +108,9 @@ export function initLibraryDev(C) {
   async function applyPreview() {
     const lib = applyEdits(clone(X.pristine), E(), resolveRef);
     lib.files = { ...lib.files };
+    const changedModels = new Set((lib.platforms?.models || [])
+      .filter(m => m.file !== X.pristine.platforms?.models.find(prior => prior.id === m.id)?.file).map(m => m.id));
+    lib.thumbs = (lib.thumbs || []).filter(id => !changedModels.has(id));
     for (const model of lib.platforms?.models || []) {
       const b = model.file?.startsWith('draft:') && X.draft.files[model.file.slice(6)];
       if (b) lib.files[model.file] = fingerprint(new Uint8Array(b));
@@ -426,6 +429,7 @@ export function initLibraryDev(C) {
           by: val(root, '[name="by"]'), desc: tri(root, 'desc') || {}, members: members.length ? members : null,
           empty: root.querySelector('[name="empty"]').checked, ...(file ? { file } : {}) };
         draft.remove = draft.remove.filter(x => x !== next);
+        if (file && cur?.file && file !== toRef(cur.file) && !preview) delete draft.previews[next];
         const errors = problems(draft).filter(p => p.level === 'error');
         if (errors.length) { toast(errors[0].msg, 'bad'); return; }
         if (preview && !draft.platformModels[next].empty) {

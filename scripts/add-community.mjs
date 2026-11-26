@@ -18,6 +18,7 @@ const SRC = 'library-src/community', OUT = 'app/library';
 const EXT = { BMD0: 'nsbmd', BCA0: 'nsbca' };
 
 export function addCommunity(lib, out = OUT) {
+  const priorModels = new Map((lib.platforms?.models || []).map(model => [model.id, model]));
   const defs = JSON.parse(fs.readFileSync(path.join(SRC, 'items.json'), 'utf8'));
   const put = (name) => {
     const b = new Uint8Array(fs.readFileSync(path.join(SRC, name)));
@@ -94,6 +95,7 @@ export function addCommunity(lib, out = OUT) {
   }
   // dev-mode edits (edits.json): item / scene / category edits, archive + remove, order, previews, presets
   const ep = path.join(SRC, 'edits.json');
+  const customPictures = new Set();
   if (fs.existsSync(ep)) {
     const E = JSON.parse(fs.readFileSync(ep, 'utf8'));
     const resolve = (ref) => {
@@ -103,7 +105,10 @@ export function addCommunity(lib, out = OUT) {
     const problems = validateEdits(lib, E, (ref) => (ref.startsWith('lib:') ? !!lib.files[ref.slice(4)] : fs.existsSync(path.join(SRC, ref)))).filter((x) => x.level === 'error');
     if (problems.length) throw new Error('edits.json:\n  ' + problems.map((x) => x.msg).join('\n  '));
     applyEdits(lib, E, resolve);
-    for (const [id, ref] of Object.entries(E.previews || {})) fs.copyFileSync(path.join(SRC, ref), path.join(out, 'previews', id + '.jpg'));
+    for (const [id, ref] of Object.entries(E.previews || {})) {
+      fs.copyFileSync(path.join(SRC, ref), path.join(out, 'previews', id + '.jpg'));
+      customPictures.add(id);
+    }
   }
   // Validate required platform models independently of the optional preview job.
   const modelIds = new Set();
@@ -119,6 +124,9 @@ export function addCommunity(lib, out = OUT) {
   for (const m of lib.platforms?.models || []) {
     if (modelIds.has(m.id) || (!!m.file === !!m.set)) throw new Error(`Invalid platform model ${m.id}`);
     modelIds.add(m.id);
+    const prior = priorModels.get(m.id);
+    if (prior && prior.file !== m.file && !customPictures.has(m.id))
+      fs.rmSync(path.join(out, 'previews', m.id + '.jpg'), { force: true });
     if (m.file) usedPlatform.add(m.file);
     if (m.set && !lib.items.some(it => it.id === m.set && it.cat === 'platforms')) throw new Error(`Missing platform set ${m.set}`);
   }

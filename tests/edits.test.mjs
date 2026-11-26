@@ -105,6 +105,14 @@ test('site build applies edits.json (rename, archive, preview, preset) and stays
   assert.deepEqual(L2, L1, 'running the build twice gives the same library');
   assert.equal(L1.platforms.models.find(m => m.id === 'platform-test').file, LIB.platforms.models[0].file);
   assert.deepEqual(L1.presets[0].platforms, E.presets[0].platforms);
+  const changedModel = L1.platforms.models.find(m => m.id === 'platform-pixel-green-grass');
+  E.platformModels[changedModel.id] = { file: `lib:${L1.platforms.models.find(m => m.id === 'platform-pixel-snow').file}` };
+  const jpgPath = path.join(dir, 'app/library/previews', changedModel.id + '.jpg');
+  assert.ok(fs.existsSync(jpgPath));
+  fs.writeFileSync(path.join(dir, 'library-src/community/edits.json'), JSON.stringify(E));
+  assert.ok(!run().thumbs.includes(changedModel.id));
+  assert.ok(!fs.existsSync(jpgPath));
+
   // a broken edits.json stops the build with a clear message
   fs.writeFileSync(path.join(dir, 'library-src/community/edits.json'), JSON.stringify({ ...EMPTY_EDITS(), presets: [{ id: 'x', name: { en: 'x' }, items: { surf: 'missing-item' } }] }));
   assert.throws(() => execFileSync('node', ['scripts/add-community.mjs'], { cwd: dir, stdio: 'pipe' }), /doesn't exist/);

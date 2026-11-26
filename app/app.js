@@ -5,7 +5,7 @@
 import { t, L, setLang, getLang, LANGS, authorName } from './i18n.js';
 import * as rom from './core/rom.js';
 import { changesFor, overlaps, sizeGrowth, scanInstalled } from './core/plan.js';
-import { platformPicker, platformName, memberRanges } from './battle-platforms.js';
+import { platformPicker, platformName, memberRanges, assignmentState } from './battle-platforms.js';
 import { MEMBERS, PLATFORM_PATH, inspectPlatforms, verifiedSource, donorCompatible, modelFile,
   platformAssignments, cleanPlatformPicks, platformProblems } from './core/platforms.js';
 import { ModelViewer, loadModel } from './viewer.js';
@@ -55,7 +55,8 @@ const S = {
   scan: null,
   picks: { items: {}, battle: {}, platforms: {}, extras: [], custom: [] },
   selPlatforms: new Set(),
-  platformPickerOpen: true,
+  platformPickerOpen: false,
+  platformDetails: new Set(),
   platformRaw: false,
   stockPlatforms: null,
   planError: null,
@@ -289,7 +290,8 @@ function renderPanel() {
   };
   if (cat.id === 'platforms') {
     platformPicker(body, { S, esc, icon, updated: updatePlatformPanel, ask, chooseDonor: choosePlatformDonor,
-      preview: previewPlatform, thumb: thumbHtml, filterBar, filterKey });
+      preview: previewPlatform, thumb: thumbHtml,
+      hasThumb: id => S.lib.thumbs?.includes(id) || !!S.dev?.thumbUrl(id), filterBar, filterKey });
     wireFilter(body);
     loadVisiblePlatformPictures(body);
     S.dev?.decorate(cat.id, head, body);
@@ -661,12 +663,15 @@ function updateScan() {
 function updatePlatformPanel(control) {
   const body = $('panel');
   const scroll = body.scrollTop;
+  const gridScroll = body.querySelector('#bpGrid')?.scrollTop || 0;
   const action = control?.dataset.bp;
   const member = control?.dataset.memberSelect;
   const group = control?.dataset.groupSelect;
   if (S.tab === 'platforms') {
     renderPanel();
     body.scrollTop = scroll;
+    const grid = body.querySelector('#bpGrid');
+    if (grid) grid.scrollTop = gridScroll;
     const match = [...body.querySelectorAll('[data-bp],[data-member-select],[data-group-select]')].find(el =>
       (action !== undefined && el.dataset.bp === action) ||
       (member !== undefined && el.dataset.memberSelect === member) ||
@@ -768,7 +773,7 @@ async function previewPlatform(action) {
       empty = model.empty;
     } else if (action.startsWith('preview-set-')) {
       const set = lib.items.find(it => it.id === action.slice(12));
-      const w = selected.map(m => set.writes.find(w => w.member === m)).find(Boolean) || set.writes[0];
+      const w = set.writes.find(w => w.file === set.view?.model) || set.writes[0];
       member = w?.member;
       file = w?.file;
       label = L(set.name);
@@ -786,7 +791,7 @@ async function previewPlatform(action) {
         bytes = target?.models[member];
         const installed = lib.platforms.models.find(m => m.id === S.scan?.platforms[member]?.id);
         empty = installed?.empty;
-        label = t('bpKeep'); local = true;
+        label = t(action.startsWith('current-') ? 'bpPreviewCurrent' : assignmentState(assignment)); local = true;
       }
     }
     if (file) bytes = await loadFile(file);
@@ -943,9 +948,10 @@ function changeView(c) {
   const lib = S.lib;
   if (c.kind === 'platform' || c.cat === 'platforms') {
     const model = c.item || c.model;
+    const state = c.item ? 'bpInherited' : c.model ? 'bpOverride' : assignmentState({ kind: c.assignment });
     return { thumb: model?.empty ? null : model?.id, glyph: 'disc',
-      title: model ? L(model.name) : t(c.assignment === 'stock' ? 'bpStock' : 'bpKeep'),
-      sub: `${memberRanges(c.members)} · ${nFiles(c.writes.length)}` };
+      title: model ? L(model.name) : t(state),
+      sub: `${model ? t(state) + ' · ' : ''}${memberRanges(c.members)} · ${nFiles(c.writes.length)}` };
   }
   if (c.kind === 'item') {
     const cat = lib.categories.find((x) => x.id === c.cat);

@@ -269,3 +269,20 @@ test('intentional overrides and keep-current exclusions resolve once before the 
     assert.throws(() => changesFor({ ...baseline(), platforms: { [m]: transparent } }, LIB, getFile), /Invalid platform assignment/);
   }
 });
+
+test('platform cards distinguish explicit choices and label mixed variants', async () => {
+  const { assignmentState, groupAssignment } = await import('../app/battle-platforms.js');
+  assert.equal(assignmentState(undefined), 'bpUnchanged');
+  for (const [kind, expected] of Object.entries({ inherit: 'bpInherited', model: 'bpOverride', keep: 'bpKeep', stock: 'bpStock' })) {
+    assert.equal(assignmentState({ kind }), expected);
+  }
+  const group = GROUPS[1];
+  assert.deepEqual(groupAssignment(group, new Map()), { mixed: false, assignment: undefined });
+  const picks = { items: { platforms: 'disc-pixel-set' }, platforms: { 2: { kind: 'keep' }, 3: { kind: 'stock' } } };
+  const assignments = platformAssignments(picks, LIB);
+  assert.deepEqual(groupAssignment(group, assignments), { mixed: true });
+  const inherited = platformAssignments({ items: { platforms: 'disc-pixel-set' } }, LIB);
+  assert.deepEqual(groupAssignment(group, inherited), { mixed: true });
+  const transparent = platformAssignments({ items: { platforms: 'disc-transparent' } }, LIB);
+  assert.equal(groupAssignment(group, transparent).assignment.set.id, 'disc-transparent');
+});
