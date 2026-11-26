@@ -6,6 +6,7 @@
  * battle scene in some battle types, …). Its writes always travel together.
  */
 import * as rom from './rom.js';
+import { inspectPlatforms, MEMBERS, modelFile, PLATFORM_PATH, platformWrites, verifiedSource } from './platforms.js';
 
 /**
  * picks = {
@@ -17,9 +18,10 @@ import * as rom from './rom.js';
  * getFile(name) -> Uint8Array (library file)
  * Returns [{ key, kind, label, writes:[{path, member, data}] }]
  */
-export function changesFor(picks, lib, getFile) {
+export function changesFor(picks, lib, getFile, context) {
   const out = [];
   for (const cat of lib.categories) {
+    if (cat.id === 'platforms') { out.push(...platformWrites(picks, lib, getFile, context)); continue; }
     const id = picks.items[cat.id];
     if (!id) continue;
     const it = lib.items.find((x) => x.id === id);
@@ -91,7 +93,7 @@ export function sizeGrowth(romBytes, R, changes) {
  * fps: Map(fileName -> fingerprint) of library files.
  * originals: { 'a/0/7/5#49': fingerprint, … } of clean data (optional).
  */
-export function scanInstalled(romBytes, R, lib, fps) {
+export function scanInstalled(romBytes, R, lib, fps, target, stock) {
   const cache = new Map();
   const memberFp = (path, m) => {
     const k = path + '#' + m;
@@ -101,12 +103,12 @@ export function scanInstalled(romBytes, R, lib, fps) {
     cache.set(k, v);
     return v;
   };
-  const result = { items: {}, battle: {} };
+  const result = { items: {}, battle: {}, platforms: {} };
   for (const cat of lib.categories) {
     if (cat.pick !== 'one') continue;
     const items = lib.items.filter((x) => x.cat === cat.id);
     let hit = null;
-    for (const it of items) if (it.writes.every((w) => memberFp(w.path, w.member) === fps.get(w.file))) { hit = it.id; break; }
+    for (const it of items) if (it.writes.length && it.writes.every((w) => fps.has(w.file) && memberFp(w.path, w.member) === fps.get(w.file))) { hit = it.id; break; }
     if (!hit) {
       const orig = lib.originals?.[cat.id];
       if (orig) hit = orig.every((o) => memberFp(o.path, o.member) === o.fp) ? 'original' : 'custom';
@@ -119,6 +121,23 @@ export function scanInstalled(romBytes, R, lib, fps) {
     const sc = lib.battle.scenes.find((x) => fps.get(x.model) === f);
     const o = lib.originals?.battle?.[s.model];
     result.battle[s.model] = sc ? sc.id : o && o === f ? 'original' : 'custom';
+  }
+  target ||= inspectPlatforms(romBytes, R);
+  if (stock === undefined && target.groupSafe) stock = verifiedSource(rom.describeRom(romBytes, R), target);
+  for (const member of MEMBERS) {
+    if (!target.valid.includes(member)) { result.platforms[member] = { kind: 'unavailable' }; continue; }
+    const fp = memberFp(PLATFORM_PATH, member);
+    if (stock?.models[member] && rom.bytesEqual(stock.models[member], target.models[member])) {
+      result.platforms[member] = { kind: 'stock' };
+      continue;
+    }
+    const model = lib.platforms?.models.find(m => fps.get(modelFile(m, member, lib)) === fp);
+    result.platforms[member] = model ? { kind: 'model', id: model.id } : { kind: 'unknown' };
+  }
+  if (lib.categories.some(cat => cat.id === 'platforms') && result.items.platforms === 'unknown') {
+    const kinds = new Set(Object.values(result.platforms).map(p => p.kind));
+    if (kinds.size === 1 && kinds.has('stock')) result.items.platforms = 'original';
+    else if (kinds.has('model') || kinds.has('stock')) result.items.platforms = 'mixed';
   }
   return result;
 }

@@ -7,6 +7,9 @@
  * - Battle platform slot builder: a different model for each of the 34 slots.
  * Not secret: anyone can add ?dev. It only adds tools; nothing private is on the site.
  */
+import { t } from './i18n.js';
+import { MEMBERS, PLATFORM_PATH, validMember } from './core/platforms.js';
+import { platformName } from './battle-platforms.js';
 import { initLibraryDev, gh, token, REPO } from './dev-library.js';
 
 const DB = 'rpm-dev', STORE = 'items';
@@ -29,10 +32,6 @@ const b64 = (u8) => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s 
 const unb64 = (s) => { const b = atob(s); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
 
 // Black/White platform slots (a/0/1/1 #0-33) and what kind of place each one is (see tools/model-pipeline/make-grounds.py)
-const PLATFORM_SLOTS = ['Plain route', 'Grass · spring', 'Grass · summer', 'Grass · autumn', 'Grass · winter', 'Rocky / sand', 'Building', 'Special (lavender)',
-  'Pale grass', 'Tall grass · spring', 'Tall grass · summer', 'Tall grass · autumn', 'Tall grass · winter', 'Dirt', 'Water (surf)', 'Deep water',
-  'Sand', 'Desert', 'Puddle / shallow', 'Snow', 'Indoor / paved', 'Cave', 'Ice', 'Special (red)', 'Bridge', 'Special (dark 1)', 'Special (dark 2)',
-  'Marsh / dust', 'Dark grass · spring', 'Dark grass · summer', 'Dark grass · autumn', 'Dark grass · winter', 'Grass (other)', 'Stone'];
 const GROUND_FOR_SLOT = { 0: 'Light_Path', 1: 'Green_Grass', 2: 'Green_Grass', 3: 'Autumn_Grass', 4: 'Snowy_Grass', 5: 'Rocks_Brown', 6: 'Paved', 7: 'Cave_Pool', 8: 'Pale_Grass',
   9: 'Forest', 10: 'Forest', 11: 'Autumn_Grass', 12: 'Snowy_Grass', 13: 'Dirt_Path', 14: 'River', 15: 'Cave_Pool', 16: 'Light_Path', 17: 'Light_Path', 18: 'River', 19: 'Snow',
   20: 'Paved', 21: 'Rocks_Grey', 22: 'Ice', 23: 'Paved', 24: 'Wood', 25: 'Paved', 26: 'Paved', 27: 'Dirt_Path', 28: 'Forest', 29: 'Forest', 30: 'Autumn_Grass', 31: 'Snowy_Grass', 32: 'Green_Grass', 33: 'Paved' };
@@ -88,6 +87,7 @@ export function initDev(C) {
   const load = async () => { D.items = (await allItems()).sort((a, b) => b.created - a.created); };
 
   async function saveChanges() {
+    if (S.changes.some(c => c.assignment === 'stock' && c.writes.length)) { toast(t('bpDevStockPack'), 'warn'); return; }
     const writes = S.changes.flatMap((c) => c.writes);
     if (!writes.length) { toast('Nothing in Your changes to save.', 'warn'); return; }
     const name = prompt('Name for this item:', S.changes.map((c) => C.changeTitle(c)).join(' + ').slice(0, 80));
@@ -116,11 +116,11 @@ export function initDev(C) {
   }
 
   function platWrites() {
-    return Object.entries(D.plat.map).filter(([, f]) => f !== '').map(([m, f]) => ({ path: 'a/0/1/1', member: +m, data: D.plat.files[+f].bytes }));
+    return Object.entries(D.plat.map).filter(([m, f]) => validMember(+m) && f !== '').map(([m, f]) => ({ path: PLATFORM_PATH, member: +m, data: D.plat.files[+f].bytes }));
   }
   function guessPlat() {
     D.plat.map = {};
-    for (let m = 0; m < 34; m++) {
+    for (const m of MEMBERS) {
       const want = GROUND_FOR_SLOT[m].toLowerCase();
       const i = D.plat.files.findIndex((f) => f.name.toLowerCase().replace(/\.nsbmd$/, '').endsWith(want));
       D.plat.map[m] = i >= 0 ? String(i) : (D.plat.files.length === 1 ? '0' : '');
@@ -150,11 +150,11 @@ export function initDev(C) {
           <p class="muted small" style="margin:0">Files: ${esc([...new Set(it.writes.map((w) => `${w.path} #${w.member ?? 'all'}`))].slice(0, 6).join(', '))}${it.writes.length > 6 ? ' …' : ''}. For a battle background the model goes on the battle types people pick; the slots in the item don't matter.</p>
           <div class="row"><button class="primary" id="pbGo" ${ghToken() ? '' : 'disabled'}>Publish for everyone</button><button class="ghost" id="pbCancel">Cancel</button><span class="muted small" id="pbMsg">${esc(D.pubMsg)}</span></div></div>`; })() : (D.pubMsg ? `<p class="small">${D.pubMsg}</p>` : '')}
       </details>
-      <details class="panel"><summary><h2>Battle platforms — one model per slot</h2></summary>
-        <p class="muted small" style="margin:0">Drop several .nsbmd. Files named like <code>Ground_Green_Grass.nsbmd</code> are matched to the right slots automatically; change any slot by hand.</p>
+      <details class="panel"><summary><h2>${esc(t('bpDevBuilder'))}</h2></summary>
+        <p class="muted small" style="margin:0">${esc(t('bpDevBuilderHint'))}</p>
         <div class="drop" id="dvPlatDrop" tabindex="0" role="button">${icon('upload', 'cart')}<b>Drop platform models</b><p>.nsbmd</p></div>
         ${pf.length ? `<ul class="filelist">${pf.map((f) => `<li><div><div>${esc(f.name)}</div><div class="kind">${(f.bytes.length / 1024).toFixed(1)} KB${f.fixed ? ' · counts fixed' : ''}</div>${(f.errors || []).map((e) => `<div class="err">${esc(e.code)} ${esc(e.detail || '')}</div>`).join('')}</div></li>`).join('')}</ul>
-        <div class="platgrid">${Array.from({ length: 34 }, (_, m) => `<label><span>#${m} ${esc(PLATFORM_SLOTS[m])}</span><select data-slot="${m}"><option value="">— keep —</option>${pf.map((f, i) => `<option value="${i}" ${D.plat.map[m] === String(i) ? 'selected' : ''}>${esc(f.name)}</option>`).join('')}</select></label>`).join('')}</div>
+        <div class="platgrid">${MEMBERS.map(m => `<label><span>#${m} ${esc(platformName(S.lib, m))}</span><select data-slot="${m}"><option value="">— keep —</option>${pf.map((f, i) => `<option value="${i}" ${D.plat.map[m] === String(i) ? 'selected' : ''}>${esc(f.name)}</option>`).join('')}</select></label>`).join('')}</div>
         <div class="row"><button class="primary" id="dvPlatAdd" ${used.length && !pf.some((f) => f.errors?.length) ? '' : 'disabled'}>Add to changes (${used.length} slots)</button><button class="ghost" id="dvPlatClear">Clear</button></div>` : ''}
       </details></div>`;
     LD.wire(body);

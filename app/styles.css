@@ -336,3 +336,28 @@ button.danger:hover { background: rgba(255, 90, 90, .12); }
 .a115-stage{margin-top:6px;overflow:auto;border-radius:10px;background:#0f141c;border:1px solid #2b3240;padding:8px}
 .a115-stage canvas{display:block;width:100%;max-width:512px;height:auto;image-rendering:pixelated}
 .a115-meta{font-size:12px;margin-top:8px}
+
+/* Battle platform destination and model controls */
+.bp-ui { display: grid; gap: 14px; min-width: 0; }
+.bp-ui h3, .bp-ui p { margin: 0; }
+.bp-panel { display: grid; gap: 10px; }
+.bp-panel[open] > summary, .bp-panel .bp-actions { margin-bottom: 8px; }
+.bp-panel summary { cursor: pointer; font-weight: 650; }
+.bp-count { font-weight: 400; }
+.bp-actions, .bp-setline { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.bp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr)); gap: 8px; }
+.bp-entry { display: grid; align-content: start; gap: 5px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; }
+.bp-select { display: flex; align-items: center; gap: 8px; cursor: pointer; min-width: 0; }
+.bp-select input { width: 1rem; height: 1rem; }
+.bp-entry:has(input:checked), .bp-entry:has(input:indeterminate) { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.bp-model { cursor: default; }
+.bp-model .thumb { display: grid; place-items: center; }
+.bp-model .meta { display: grid; gap: 6px; }
+.bp-ui :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.bp-picture { width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 6px;
+  background: var(--stage); display: grid; place-items: center; overflow: hidden; position: relative; }
+.bp-picture:not(:disabled):hover { box-shadow: inset 0 0 0 1px var(--cyan); }
+.bp-picture img { width: 100%; height: 100%; position: absolute; inset: 0; object-fit: cover; }
+.bp-picture .glyph { width: 26px; height: 26px; color: var(--muted); }
+.bp-set-thumb { display: inline-grid; width: 42px; height: 25px; margin-right: 6px; border-radius: 4px; overflow: hidden; vertical-align: middle; }
+.bp-set-thumb img { width: 100%; height: 100%; object-fit: cover; }

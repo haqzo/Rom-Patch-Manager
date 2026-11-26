@@ -7,9 +7,11 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import * as rom from '../app/core/rom.js';
-import { changesFor } from '../app/core/plan.js';
+import { changesFor, overlaps, sizeGrowth, scanInstalled } from '../app/core/plan.js';
 import { buildFromTemplate, parseTemplate, checkSize, nearestLegal, indexImage } from '../app/core/bgtemplate.js';
 import { checkModel } from '../app/core/check.js';
+import { GROUPS, SLOT, MEMBERS, PLATFORM_PATH, LOOKUP_PATH, inspectPlatforms, donorCompatible, modelFile,
+  platformAssignments, platformProblems } from '../app/core/platforms.js';
 
 const LIB = JSON.parse(fs.readFileSync('app/library/library.json', 'utf8'));
 const getFile = (n) => new Uint8Array(fs.readFileSync(path.join('app/library/files', n)));
@@ -19,27 +21,51 @@ const BTNF = (() => { const b = new Uint8Array(16); b.set([0x42, 0x54, 0x4E, 0x4
 const narc = (members) => rom.buildNarc({ hs: 16, head: NARC_HEAD, btnf: BTNF }, members);
 const blob = (n, seed) => { const b = new Uint8Array(n); for (let i = 0; i < n; i++) b[i] = (i * 31 + seed * 7) & 255; return b; };
 
-/** A tiny NDS: a/0/1/1 (84 members) and a/0/1/4 (282 members), real FNT/FAT. */
-function fakeRom() {
-  const a011 = narc(Array.from({ length: 84 }, (_, i) => blob(64 + i, i)));
-  const a014 = narc(Array.from({ length: 282 }, (_, i) => blob(96, 1000 + i)));
-  // FNT: root(F000) -> a(F001) -> 0(F002) -> 1(F003) -> files "1","4"
-  const sub = [[0x81, 0x61, 0x01, 0xF0, 0], [0x81, 0x30, 0x02, 0xF0, 0], [0x81, 0x31, 0x03, 0xF0, 0], [0x01, 0x31, 0x01, 0x34, 0]];
-  const dirs = 4, fntHead = dirs * 8;
-  const subBytes = sub.map((x) => Uint8Array.from(x));
-  const fnt = new Uint8Array(fntHead + subBytes.reduce((a, x) => a + x.length, 0));
+/** A synthetic NDS with unrelated members, maps and a generated platform lookup table. */
+function fakeRom({ alterStage = false, invalidMember = -1 } = {}) {
+  const replacement = getFile(LIB.platforms.models.find(m => m.id === 'platform-pixel-wood').file);
+  const stage = new Uint8Array(1700).fill(255);
+  for (const [group, members] of GROUPS.entries()) {
+    rom.w32(stage, group * 68, 0);
+    members.forEach((m, variant) => rom.w32(stage, group * 68 + 4 + 4 * variant, m));
+  }
+  if (alterStage) rom.w32(stage, 4, 1);
+  const files = [
+    narc(Array.from({ length: 222 }, (_, i) => i < 34 && i !== invalidMember ? replacement : blob(64 + i, i))),
+    narc(Array.from({ length: 282 }, (_, i) => blob(96, 1000 + i))),
+    narc([new Uint8Array(684), new Uint8Array(1280), stage]),
+  ];
+  // FNT: root -> a -> 0/1 with files "1","4"; a -> 1/5 with file "2".
+  const sub = [
+    [0x81, 0x61, 1, 0xF0, 0], [0x81, 0x30, 2, 0xF0, 0x81, 0x31, 4, 0xF0, 0],
+    [0x81, 0x31, 3, 0xF0, 0], [1, 0x31, 1, 0x34, 0], [0x81, 0x35, 5, 0xF0, 0], [1, 0x32, 0],
+  ];
+  const fntHead = sub.length * 8;
+  const fnt = new Uint8Array(fntHead + sub.reduce((n, x) => n + x.length, 0));
   let p = fntHead;
-  subBytes.forEach((sb, i) => { rom.w32(fnt, i * 8, p); rom.w16(fnt, i * 8 + 4, 0); rom.w16(fnt, i * 8 + 6, i === 0 ? dirs : 0xF000 + i - 1); fnt.set(sb, p); p += sb.length; });
-  const fntAt = 0x200, fatAt = rom.align(fntAt + fnt.length, 0x10), f0 = rom.align(fatAt + 16, 0x200), f1 = rom.align(f0 + a011.length, 0x200);
-  const size = rom.align(f1 + a014.length, 0x200) + 0x4000; // some free space at the end, like a real ROM
-  const b = new Uint8Array(size).fill(0xFF);
+  sub.forEach((sb, i) => {
+    rom.w32(fnt, i * 8, p);
+    rom.w16(fnt, i * 8 + 4, i === 5 ? 2 : 0);
+    rom.w16(fnt, i * 8 + 6, [sub.length, 0xF000, 0xF001, 0xF002, 0xF001, 0xF004][i]);
+    fnt.set(sb, p);
+    p += sb.length;
+  });
+  const fntAt = 0x200, fatAt = rom.align(fntAt + fnt.length, 16);
+  p = rom.align(fatAt + 8 * files.length, 512);
+  const offsets = files.map(file => { const at = p; p = rom.align(p + file.length, 512); return at; });
+  const b = new Uint8Array(p + 0x4000).fill(255);
   b.fill(0, 0, 0x200);
-  b.set([...'POKEMON B'].map((c) => c.charCodeAt(0)), 0); b.set([...'IRBO'].map((c) => c.charCodeAt(0)), 0x0C);
-  rom.w32(b, 0x40, fntAt); rom.w32(b, 0x44, fnt.length); rom.w32(b, 0x48, fatAt); rom.w32(b, 0x4C, 16);
+  b.set(new TextEncoder().encode('POKEMON B'), 0);
+  b.set(new TextEncoder().encode('IRBO'), 0x0C);
+  rom.w32(b, 0x40, fntAt); rom.w32(b, 0x44, fnt.length); rom.w32(b, 0x48, fatAt);
+  rom.w32(b, 0x4C, 8 * files.length);
   b.set(fnt, fntAt);
-  rom.w32(b, fatAt, f0); rom.w32(b, fatAt + 4, f0 + a011.length); rom.w32(b, fatAt + 8, f1); rom.w32(b, fatAt + 12, f1 + a014.length);
-  b.set(a011, f0); b.set(a014, f1);
-  rom.w32(b, 0x80, f1 + a014.length);
+  files.forEach((file, id) => {
+    rom.w32(b, fatAt + 8 * id, offsets[id]);
+    rom.w32(b, fatAt + 8 * id + 4, offsets[id] + file.length);
+    b.set(file, offsets[id]);
+  });
+  rom.w32(b, 0x80, offsets.at(-1) + files.at(-1).length);
   return b;
 }
 
@@ -47,6 +73,7 @@ test('synthetic ROM parses', () => {
   const R = rom.parseRom(fakeRom());
   assert.equal(R.paths.get('a/0/1/1'), 0);
   assert.equal(R.paths.get('a/0/1/4'), 1);
+  assert.equal(R.paths.get(LOOKUP_PATH), 2);
 });
 
 test('pixel battle-ground set: each of the 34 slots gets its own ground, nothing else changes', () => {
@@ -57,7 +84,7 @@ test('pixel battle-ground set: each of the 34 slots gets its own ground, nothing
   const { rom: out } = rom.buildRom(src, ch[0].writes);
   const N0 = rom.parseNarc(rom.readFile(src, rom.parseRom(src), 'a/0/1/1')), N1 = rom.parseNarc(rom.readFile(out, rom.parseRom(out), 'a/0/1/1'));
   const it = LIB.items.find((x) => x.id === 'disc-pixel-set');
-  for (let m = 0; m < 84; m++) {
+  for (let m = 0; m < 222; m++) {
     if (m < 34) assert.ok(rom.bytesEqual(N1.members[m], getFile(it.writes[m].file)), `slot ${m}`);
     else assert.ok(rom.bytesEqual(N1.members[m], N0.members[m]), `member ${m} untouched`);
   }
@@ -79,7 +106,7 @@ test('template backgrounds: rebuilt model is valid and only the chosen slots cha
     const src = fakeRom();
     const { rom: out } = rom.buildRom(src, [34, 36].map((m) => ({ path: 'a/0/1/1', member: m, data: model })));
     const N0 = rom.parseNarc(rom.readFile(src, rom.parseRom(src), 'a/0/1/1')), N1 = rom.parseNarc(rom.readFile(out, rom.parseRom(out), 'a/0/1/1'));
-    for (let m = 0; m < 84; m++) assert.equal(rom.bytesEqual(N1.members[m], [34, 36].includes(m) ? model : N0.members[m]), true, `member ${m}`);
+    for (let m = 0; m < 222; m++) assert.equal(rom.bytesEqual(N1.members[m], [34, 36].includes(m) ? model : N0.members[m]), true, `member ${m}`);
   }
   assert.equal(checkSize(512, 512, 700, 700).reason, 'tooBig');
   assert.deepEqual(nearestLegal(512, 512, 300, 300), { width: 256, height: 256 });
@@ -133,7 +160,8 @@ test('map names: 282 areas in English and Chinese', () => {
 });
 
 test('smaller entry is written in place (small patch), other entries keep their bytes', () => {
-  const src = fakeRom(), R = rom.parseRom(src);
+  const src = Buffer.from(fakeRom()), R = rom.parseRom(src);
+  const original = Buffer.from(src);
   const area = blob(60, 77);
   const { rom: out } = rom.buildRom(src, [{ path: 'a/0/1/4', member: 10, data: area }]);
   const O = rom.parseRom(out);
@@ -142,6 +170,7 @@ test('smaller entry is written in place (small patch), other entries keep their 
   for (let i = 0; i < 282; i++) assert.equal(rom.bytesEqual(N1.members[i], i === 10 ? area : N0.members[i]), true, `area ${i}`);
   let diff = 0; for (let i = 0; i < src.length; i++) if (src[i] !== out[i]) diff++;
   assert.ok(diff <= 96 + 8, `small diff (${diff} bytes)`);
+  assert.deepEqual(src, original, 'same-size write leaves Buffer sources intact');
 });
 
 test('archives whose GMIF size leaves out its 8-byte header still open (MaToRiuKo romtool packs)', () => {
@@ -164,4 +193,79 @@ test("MaToRiuKo's current battle backgrounds: every scene and set file exists an
     assert.ok(B.scenes.some((s) => s.id === id), `scene ${id}`);
   }
   for (const f of Object.keys(LIB.files)) assert.ok(fs.existsSync(path.join('app/library/files', f)), f);
+});
+
+const baseline = () => ({ items: {}, battle: {}, platforms: {}, extras: [], custom: [] });
+const transparent = { kind: 'model', id: 'platform-transparent' };
+const noGround = { kind: 'model', id: 'platform-no-ground' };
+const fps = new Map(Object.entries(LIB.files));
+
+test('all 34 raw members and fallback variants use the expected group mapping', () => {
+  const bytes = fakeRom(), R = rom.parseRom(bytes), profile = inspectPlatforms(bytes, R);
+  assert.deepEqual(profile.valid, MEMBERS);
+  assert.equal(GROUPS.length, 25);
+  assert.equal(new Set(GROUPS.flat()).size, 34);
+  assert.deepEqual(SLOT[4], { group: 1, variant: 3 });
+  assert.deepEqual(SLOT[33], { group: 24, variant: 0 });
+  assert.ok(profile.groupSafe && !profile.groupUsed.includes(2));
+  for (const options of [{ alterStage: true }, { invalidMember: 0 }]) {
+    const input = fakeRom(options), mismatch = inspectPlatforms(input, rom.parseRom(input));
+    assert.ok(!mismatch.groupSafe);
+    assert.ok(!donorCompatible(profile, mismatch));
+    assert.ok(mismatch.valid.includes(33));
+  }
+  assert.ok(!donorCompatible(profile, { ...profile, code: 'IRAO' }));
+  assert.ok(!donorCompatible(profile, { ...profile, revision: 1 }));
+});
+
+test('platform models resolve to approved files, with one transparent disc and per-member no-ground models', () => {
+  assert.equal(LIB.platforms.models.filter(m => m.id.startsWith('platform-pixel-')).length, 15);
+  for (const m of LIB.platforms.models) for (const member of MEMBERS) {
+    const file = modelFile(m, member, LIB);
+    assert.ok(file && fps.has(file));
+    assert.equal(rom.magic(getFile(file)), 'BMD0');
+  }
+  const t = LIB.platforms.models.find(m => m.id === transparent.id);
+  const none = LIB.platforms.models.find(m => m.id === noGround.id);
+  assert.equal(modelFile(t, 33, LIB), 'a9c1da5ec48c73f1.nsbmd');
+  assert.equal(new Set(MEMBERS.map(m => modelFile(none, m, LIB))).size, 34);
+  assert.equal(modelFile(none, 34, LIB), null);
+});
+
+test('intentional overrides and keep-current exclusions resolve once before the planner detects accidental overlap', () => {
+  const src = fakeRom(), R = rom.parseRom(src), target = inspectPlatforms(src, R);
+  const picks = { ...baseline(), items: { platforms: 'disc-pixel-set' },
+    platforms: { 1: transparent, 2: { kind: 'keep' }, 4: transparent, 33: noGround } };
+  assert.deepEqual(platformProblems(picks, LIB, target, null), []);
+  const changes = changesFor(picks, LIB, getFile, { target });
+  assert.equal(overlaps(changes).size, 0);
+  const writes = changes.flatMap(c => c.writes);
+  assert.equal(writes.length, new Set(writes.map(w => w.member)).size);
+  assert.ok(writes.every(w => w.path === PLATFORM_PATH && w.member <= 33));
+  assert.ok(!writes.some(w => w.member === 2));
+  assert.equal(rom.fingerprint(writes.find(w => w.member === 4).data), fps.get('a9c1da5ec48c73f1.nsbmd'));
+  const result = rom.buildRom(src, writes), out = result.rom, O = rom.parseRom(out);
+  assert.equal(sizeGrowth(src, R, changes), result.growth);
+  for (let m = 0; m < 222; m++) {
+    const expected = writes.find(w => w.member === m)?.data || rom.readMember(src, R, PLATFORM_PATH, m);
+    assert.ok(rom.bytesEqual(rom.readMember(out, O, PLATFORM_PATH, m), expected), `member ${m}`);
+  }
+  assert.ok(rom.bytesEqual(rom.applyBps(rom.makeBps(src, out), src), out));
+  const scan = scanInstalled(out, O, LIB, fps, inspectPlatforms(out, O), target);
+  assert.equal(scan.items.platforms, 'mixed');
+  assert.deepEqual(scan.platforms[4], transparent);
+  assert.deepEqual(scan.platforms[33], noGround);
+  assert.deepEqual(scan.platforms[2], { kind: 'stock' });
+  const restore = { ...baseline(), platforms: { 4: { kind: 'stock' } } };
+  assert.deepEqual(platformProblems(restore, LIB, inspectPlatforms(out, O), null), [{ member: 4, code: 'bpNeedDonor' }]);
+  const restored = changesFor(restore, LIB, getFile, { target: inspectPlatforms(out, O), stock: target });
+  assert.ok(rom.bytesEqual(restored[0].writes[0].data, target.models[4]));
+
+  picks.custom.push({ id: 'custom', writes: [{ path: PLATFORM_PATH, member: 4, data: getFile(LIB.platforms.models[0].file) }] });
+  assert.deepEqual(overlaps(changesFor(picks, LIB, getFile, { target })).get('custom:custom'), new Set(['platform:platform-transparent']));
+  delete picks.platforms[1];
+  assert.equal(platformAssignments(picks, LIB).get(1).kind, 'inherit');
+  for (const m of ['-1', '34', '1.1', '01']) {
+    assert.throws(() => changesFor({ ...baseline(), platforms: { [m]: transparent } }, LIB, getFile), /Invalid platform assignment/);
+  }
 });

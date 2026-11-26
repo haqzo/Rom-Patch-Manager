@@ -7,6 +7,11 @@
  */
 import { EMPTY_EDITS, normalizeEdits, applyEdits, validateEdits, describeEdits } from './core/edits.js';
 
+import { t } from './i18n.js';
+import { GROUPS, MEMBERS, SLOT, modelFile, modelHeader } from './core/platforms.js';
+import { platformName } from './battle-platforms.js';
+import { fingerprint } from './core/rom.js';
+
 export const REPO = 'haqzo/Rom-Patch-Manager';
 const BRANCH = 'main', COMMUNITY = 'library-src/community', EDITS = `${COMMUNITY}/edits.json`;
 const ICONS = ['wave', 'wing', 'mountain', 'disc', 'spark', 'star', 'flag', 'box', 'upload', 'eye', 'check'];
@@ -50,7 +55,7 @@ async function kvSet(k, v) { const d = await kv(); return new Promise((res, rej)
 /** 3-way merge: my draft (made on top of `base`) onto what is published now (`remote`). */
 export function mergeEdits(base, mine, remote) {
   const B = normalizeEdits(base), M = normalizeEdits(mine), R = clone(normalizeEdits(remote));
-  for (const k of ['items', 'scenes', 'categories', 'previews', 'order']) {
+  for (const k of ['items', 'scenes', 'categories', 'previews', 'order', 'platformModels', 'platformGroups', 'platformSlots']) {
     for (const id of new Set([...Object.keys(B[k]), ...Object.keys(M[k])])) {
       if (same(B[k][id], M[k][id])) continue;
       if (M[k][id] === undefined) delete R[k][id]; else R[k][id] = clone(M[k][id]);
@@ -103,6 +108,10 @@ export function initLibraryDev(C) {
   async function applyPreview() {
     const lib = applyEdits(clone(X.pristine), E(), resolveRef);
     lib.files = { ...lib.files };
+    for (const model of lib.platforms?.models || []) {
+      const b = model.file?.startsWith('draft:') && X.draft.files[model.file.slice(6)];
+      if (b) lib.files[model.file] = fingerprint(new Uint8Array(b));
+    }
     await C.setLibrary(lib, true);
   }
   async function changed() {
@@ -129,7 +138,7 @@ export function initLibraryDev(C) {
     X.draft.files[ref] = b;
     return { ref, magic: m, size: b.length, name: file.name };
   }
-  async function addPreview(id, file) {
+  async function addPreview(id, file, attach = true) {
     const bmp = await createImageBitmap(file);
     const c = document.createElement('canvas'); c.width = 480; c.height = 288;
     const g = c.getContext('2d'), s = Math.max(480 / bmp.width, 288 / bmp.height);
@@ -137,7 +146,9 @@ export function initLibraryDev(C) {
     const blob = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.86));
     const b = new Uint8Array(await blob.arrayBuffer());
     const ref = `dev/previews/${slug(id)}-${await sha(b, 8)}.jpg`;
-    X.draft.files[ref] = b; E().previews[id] = ref;
+    X.draft.files[ref] = b;
+    if (attach) E().previews[id] = ref;
+    return ref;
   }
   const refSize = (ref) => { if (!ref) return ''; if (ref.startsWith('lib:')) { const fp = (S.lib.files || X.pristine.files)[ref.slice(4)]; return fp ? mb(+String(fp).split(':')[0]) : ''; } const b = X.draft.files[ref]; return b ? mb(b.length) : 'published'; };
   const refLabel = (ref) => (!ref ? '— choose a file —' : ref.startsWith('lib:') ? `library file ${ref.slice(4, 12)}… (${refSize(ref)})` : `new file ${ref.split('/').pop().slice(0, 8)}… (${refSize(ref)})`);
@@ -160,7 +171,8 @@ export function initLibraryDev(C) {
   const val = (root, sel) => root.querySelector(sel)?.value.trim() ?? '';
   const tri = (root, key) => { const o = {}; for (const l of ['en', 'zh', 'es']) { const v = val(root, `[name="${key}-${l}"]`); if (v) o[l] = v; } return Object.keys(o).length ? o : undefined; };
   const triFields = (key, label, v = {}, area = false) => `<fieldset class="tri"><legend>${esc(label)}</legend>${['en', 'zh', 'es'].map((l) => `<label><span>${{ en: 'English', zh: '中文', es: 'Español' }[l]}</span>${area ? `<textarea name="${key}-${l}" rows="2">${esc(v?.[l] || '')}</textarea>` : `<input name="${key}-${l}" value="${esc(v?.[l] || '')}">`}</label>`).join('')}</fieldset>`;
-  const usedBy = (id) => (S.lib.presets || []).filter((p) => Object.values(p.items || {}).includes(id) || Object.values(p.battle || {}).some((a) => a.scene === id)).map((p) => L(p.name));
+  const usedBy = (id) => (S.lib.presets || []).filter((p) => Object.values(p.items || {}).includes(id) || Object.values(p.battle || {}).some((a) => a.scene === id) ||
+    Object.values(p.platforms || {}).some(a => a.kind === 'model' && a.id === id)).map((p) => L(p.name));
 
   // ---- item editor (Surf, Fly, platforms, TM/HM, title, overworld, new categories)
   function editItem(id, catId) {
@@ -322,16 +334,144 @@ export function initLibraryDev(C) {
     });
   }
 
+  // ---- Battle platform catalog. The numeric mapping is read-only.
+  const named = (key, n) => t(key).replace('{n}', String(n).padStart(2, '0'));
+  const opt = (value, text, selected) => `<option value="${esc(value)}" ${selected ? 'selected' : ''}>${esc(text)}</option>`;
+
+  function editPlatformLocations() {
+    const P = S.lib.platforms;
+    openModal(t('bpDevLabels'), `
+      <p class="muted small">${esc(t('bpDevPhysical'))}</p>
+      <label class="field"><span>${esc(t('bpDestinations'))}</span><select id="bpMetaTarget">
+        <optgroup label="${esc(t('bpShowGroups'))}">${GROUPS.map((_, n) => opt('group:' + n, named('bpGroup', n))).join('')}</optgroup>
+        <optgroup label="${esc(t('bpShowRaw'))}">${MEMBERS.map(n => opt('member:' + n, platformName(S.lib, n))).join('')}</optgroup>
+      </select></label><div id="bpMetaFields"></div>`, root => {
+      const target = root.querySelector('#bpMetaTarget');
+      const form = root.querySelector('#bpMetaFields');
+      const draw = () => {
+        const [kind, number] = target.value.split(':');
+        const group = kind === 'group';
+        const id = Number(number), meta = (group ? P.groups : P.slots)[id] || {};
+        const members = group ? GROUPS[id] : [id];
+        const relation = group ? GROUPS[id].map(n => '#' + n).join(', ') :
+          named('bpGroup', SLOT[id].group) + ' · ' + named('bpVariant', SLOT[id].variant);
+        const suggestions = P.models.filter(model => members.every(m => modelFile(model, m, S.lib)));
+        form.innerHTML = `<p class="small">${esc(relation)}</p>
+          ${triFields('name', t('bpDevName'), meta.name)}${triFields('desc', t('bpDevDesc'), meta.desc, true)}
+          <label class="field"><span>${esc(t('bpDevStatus'))}</span><select name="status">
+            ${opt('unconfirmed', t('bpUnconfirmed'), meta.status !== 'verified')}${opt('verified', t('bpVerified'), meta.status === 'verified')}
+          </select></label>
+          <label class="field"><span>${esc(t('bpDevEvidence'))}</span><textarea name="evidence">${esc(meta.evidence || '')}</textarea></label>
+          <label class="field"><span>${esc(t('bpSuggested'))}</span><select name="suggested">${opt('', t('bpDevNoSuggestion'))}
+            ${suggestions.map(m => opt(m.id, L(m.name), meta.suggested === m.id)).join('')}</select></label>
+          <button class="primary" id="bpMetaSave">${esc(t('bpDevSave'))}</button>`;
+        form.querySelector('#bpMetaSave').onclick = async () => {
+          const key = group ? 'platformGroups' : 'platformSlots';
+          const draft = clone(E());
+          draft[key][id] = { name: tri(form, 'name') || {}, desc: tri(form, 'desc') || {},
+            status: val(form, '[name="status"]'), evidence: val(form, '[name="evidence"]'),
+            suggested: val(form, '[name="suggested"]') || null };
+          await savePlatformDraft(draft);
+        };
+      };
+      target.onchange = draw;
+      draw();
+    });
+  }
+
+  async function savePlatformDraft(draft) {
+    const errors = problems(draft).filter(p => p.level === 'error');
+    if (errors.length) { toast(errors[0].msg, 'bad'); return false; }
+    X.draft.edits = draft;
+    closeModal();
+    await changed();
+    toast(t('bpDevSaved'), 'ok');
+    return true;
+  }
+
+  function editPlatformModel(id) {
+    const cur = S.lib.platforms.models.find(m => m.id === id);
+    let ref = toRef(cur?.file), preview;
+    const name = cur?.name;
+    openModal(id ? t('bpDevEditModel') : t('bpDevNewModel'), `
+      ${triFields('name', t('bpDevName'), name)}${triFields('desc', t('bpDevDesc'), cur?.desc, true)}
+      <label class="field"><span>${esc(t('bpDevCreator'))}</span><input name="by" value="${esc(cur?.by || '')}"></label>
+      <label class="field"><span>${esc(t('bpDevMembers'))}</span><input name="members" value="${esc(cur?.members?.join(', ') || '')}"></label>
+      <label class="field"><span>${esc(t('bpDevFile'))}</span><input type="file" accept=".nsbmd" name="model"
+        ${cur?.set ? 'disabled' : ''}><span class="small muted" id="bpModelFile">${cur?.set ? esc(t('bpDevSetFile')) : esc(cur?.file || '')}</span></label>
+      <label class="field"><span>${esc(t('bpDevPreview'))}</span><input type="file" accept="image/*" name="preview"></label>
+      <label class="field"><span>${esc(t('bpDevEmpty'))}</span><input type="checkbox" name="empty" ${cur?.empty ? 'checked' : ''}></label>
+      <div class="row"><button class="primary" id="bpModelSave">${esc(t('bpDevSave'))}</button>
+        ${cur ? `<button class="ghost" id="bpModelRemove">${esc(t('remove'))}</button>` : ''}</div>`, root => {
+      root.querySelector('[name="model"]').onchange = async e => {
+        const [file] = e.target.files;
+        if (!file) return;
+        try {
+          const bytes = new Uint8Array(await file.arrayBuffer());
+          if (!modelHeader(bytes)) throw new Error(t('notModel'));
+          const key = `${await sha(bytes)}.nsbmd`;
+          ref = X.pristine.files[key] ? 'lib:' + key : (await addFile(file)).ref;
+          root.querySelector('#bpModelFile').textContent = file.name;
+        } catch (err) { toast(err.message, 'bad'); e.target.value = ''; }
+      };
+      root.querySelector('[name="preview"]').onchange = e => { [preview] = e.target.files; };
+      root.querySelector('#bpModelSave').onclick = async () => {
+        const names = tri(root, 'name') || {};
+        const next = id || 'platform-' + slug(names.en || '');
+        if (!id && S.lib.platforms.models.some(model => model.id === next)) { toast(t('bpDevDuplicate'), 'warn'); return; }
+        const draft = clone(E());
+        const members = val(root, '[name="members"]').split(/[,\s]+/).filter(Boolean).map(Number);
+        const file = !cur || (ref && !ref.startsWith('lib:')) || (ref && ref !== toRef(cur?.file)) ? ref : null;
+        draft.platformModels[next] = { ...(draft.platformModels[next] || {}), name: names,
+          by: val(root, '[name="by"]'), desc: tri(root, 'desc') || {}, members: members.length ? members : null,
+          empty: root.querySelector('[name="empty"]').checked, ...(file ? { file } : {}) };
+        draft.remove = draft.remove.filter(x => x !== next);
+        const errors = problems(draft).filter(p => p.level === 'error');
+        if (errors.length) { toast(errors[0].msg, 'bad'); return; }
+        if (preview && !draft.platformModels[next].empty) {
+          try { draft.previews[next] = await addPreview(next, preview, false); }
+          catch (err) { toast(err.message, 'bad'); return; }
+        }
+        await savePlatformDraft(draft);
+      };
+      const remove = root.querySelector('#bpModelRemove');
+      if (remove) remove.onclick = async () => {
+        const dependants = usedBy(id);
+        if (dependants.length) { toast(t('bpDevPresetBlocked') + ' ' + dependants.join(', '), 'warn'); return; }
+        if (!confirm(t('bpDevRemoveConfirm'))) return;
+        const draft = clone(E());
+        draft.remove = [...new Set([...draft.remove, id])];
+        delete draft.platformModels[id];
+        delete draft.previews[id];
+        await savePlatformDraft(draft);
+      };
+    });
+  }
+
   // ---- presets
   function editPreset(id) {
     const cur = id ? (E().presets.find((p) => p.id === id) || (S.lib.presets || []).find((p) => p.id === id)) : null;
-    const st = { items: { ...(cur?.items || {}) }, battle: clone(cur?.battle || {}) };
+    const st = { items: { ...(cur?.items || {}) }, battle: clone(cur?.battle || {}), platforms: clone(cur?.platforms || {}) };
     const cats = S.lib.categories.filter((c) => c.pick === 'one');
     const B = S.lib.battle;
     const draw = (root) => {
       root.querySelector('#dpItems').innerHTML = cats.map((c) => `<label class="field"><span>${esc(L(c.name))}</span><select data-cat="${esc(c.id)}"><option value="">— not included —</option>${S.lib.items.filter((x) => x.cat === c.id).map((x) => `<option value="${esc(x.id)}" ${st.items[c.id] === x.id ? 'selected' : ''}>${esc(L(x.name))}${x.archived ? ' (archived)' : ''}</option>`).join('')}</select></label>`).join('');
       root.querySelector('#dpBattle').innerHTML = B.slots.map((s) => { const a = st.battle[s.model]; return `<label class="field"><span>${esc(L(s.name))}</span><span class="row"><select data-slot="${s.model}"><option value="">— keep —</option>${B.scenes.map((x) => `<option value="${esc(x.id)}" ${a?.scene === x.id ? 'selected' : ''}>${esc(L(x.name))}</option>`).join('')}</select>
         <select data-mode="${s.model}" ${a ? '' : 'disabled'}><option value="both" ${a?.mode !== 'model' ? 'selected' : ''}>model + animation</option><option value="model" ${a?.mode === 'model' ? 'selected' : ''}>model only</option></select></span></label>`; }).join('');
+      const platformFields = root.querySelector('#dpPlatforms');
+      if (platformFields) platformFields.innerHTML = MEMBERS.map(member => {
+        const a = st.platforms[member];
+        const entries = ['', 'keep', 'stock', ...(S.lib.platforms?.models || []).filter(m => modelFile(m, member, S.lib)).map(m => m.id)];
+        const current = a?.kind === 'model' ? a.id : a?.kind || '';
+        return `<label class="field"><span>${esc(platformName(S.lib, member))}</span><select data-platform-preset="${member}">
+          ${entries.map(value => opt(value, value === '' ? t('bpInherited') : value === 'keep' ? t('bpKeep') :
+            value === 'stock' ? t('bpStock') : L(S.lib.platforms.models.find(m => m.id === value).name), value === current)).join('')}</select></label>`;
+      }).join('');
+      for (const choice of root.querySelectorAll('[data-platform-preset]')) choice.onchange = () => {
+        const member = choice.dataset.platformPreset;
+        if (!choice.value) delete st.platforms[member];
+        else st.platforms[member] = ['keep', 'stock'].includes(choice.value) ? { kind: choice.value } : { kind: 'model', id: choice.value };
+      };
       for (const s of root.querySelectorAll('[data-cat]')) s.onchange = () => { if (s.value) st.items[s.dataset.cat] = s.value; else delete st.items[s.dataset.cat]; };
       for (const s of root.querySelectorAll('[data-slot]')) s.onchange = () => { const m = s.dataset.slot; if (s.value) { const sc = B.scenes.find((x) => x.id === s.value); st.battle[m] = { scene: s.value, mode: sc.anim && !sc.modelOnly ? (st.battle[m]?.mode || 'both') : 'model' }; } else delete st.battle[m]; draw(root); };
       for (const s of root.querySelectorAll('[data-mode]')) s.onchange = () => { if (st.battle[s.dataset.mode]) st.battle[s.dataset.mode].mode = s.value; };
@@ -344,13 +484,15 @@ export function initLibraryDev(C) {
       <div class="row"><button class="secondary small" id="dpFill">Fill from my current picks</button><span class="muted small">Takes what's selected in the library right now.</span></div>
       <fieldset><legend>Included items</legend><div class="dev-grid2" id="dpItems"></div></fieldset>
       <details><summary><b>Battle backgrounds</b> <span class="muted small">(per battle type)</span></summary><div class="dev-grid2" id="dpBattle"></div></details>
+      ${S.lib.platforms ? `<details><summary><b>${esc(t('bpAssignments'))}</b></summary>
+        <p class="muted small">${esc(t('bpDevPresetHint'))}</p><div class="dev-grid2" id="dpPlatforms"></div></details>` : ''}
       <div class="row dev-actions"><button class="primary" id="deSave">Save to draft</button>${cur ? '<button class="secondary" id="dpDup">Duplicate</button><button class="danger" id="dpDel">Delete…</button>' : ''}</div>`, (root) => {
       draw(root);
-      root.querySelector('#dpFill').onclick = () => { st.items = { ...S.picks.items }; st.battle = clone(S.picks.battle); draw(root); };
+      root.querySelector('#dpFill').onclick = () => { st.items = { ...S.picks.items }; st.battle = clone(S.picks.battle); st.platforms = clone(S.picks.platforms); draw(root); };
       root.querySelector('#deSave').onclick = async () => {
         const name = tri(root, 'name'); if (!name?.en) { toast('Give it an English name.', 'warn'); return; }
-        if (!Object.keys(st.items).length && !Object.keys(st.battle).length) { toast('A preset needs at least one item or battle background.', 'warn'); return; }
-        const p = { id: cur?.id || slug(`preset-${name.en}`), name, ...(tri(root, 'desc') ? { desc: tri(root, 'desc') } : {}), ...(val(root, '[name="group"]') ? { group: val(root, '[name="group"]') } : {}), items: st.items, battle: st.battle, ...(root.querySelector('[name="hidden"]').checked ? { hidden: true } : {}) };
+        if (!Object.keys(st.items).length && !Object.keys(st.battle).length && !Object.keys(st.platforms).length) { toast('A preset needs at least one item or battle background.', 'warn'); return; }
+        const p = { id: cur?.id || slug(`preset-${name.en}`), name, ...(tri(root, 'desc') ? { desc: tri(root, 'desc') } : {}), ...(val(root, '[name="group"]') ? { group: val(root, '[name="group"]') } : {}), items: st.items, battle: st.battle, ...(Object.keys(st.platforms).length ? { platforms: st.platforms } : {}), ...(root.querySelector('[name="hidden"]').checked ? { hidden: true } : {}) };
         if (!cur && E().presets.some((x) => x.id === p.id)) p.id += '-' + Date.now().toString(36).slice(-4);
         const i = E().presets.findIndex((x) => x.id === p.id); if (i >= 0) E().presets[i] = p; else E().presets.push(p);
         closeModal(); toast('Preset saved to the draft.', 'ok'); await changed();
@@ -449,6 +591,12 @@ export function initLibraryDev(C) {
       <ul class="devlist">${cats.map((c, i) => `<li><span class="row">${icon(c.icon)} <b>${esc(L(c.name))}</b> <span class="muted small">${esc(c.id)}${c.hidden ? ' · hidden' : ''}</span> ${E().categories[c.id] ? '<span class="pill">edited</span>' : ''}</span>
         <span class="row"><button class="ghost small" data-cup="${esc(c.id)}" ${i ? '' : 'disabled'}>▲</button><button class="ghost small" data-cdown="${esc(c.id)}" ${i < cats.length - 1 ? '' : 'disabled'}>▼</button><button class="secondary small" data-cedit="${esc(c.id)}">Edit</button></span></li>`).join('')}</ul>
       <button class="primary small" id="dcNew">+ New category</button></details>
+    ${lib.platforms ? `<details class="panel"><summary><h2>${esc(t('bpDevTitle'))}</h2></summary>
+      <div class="row"><button class="primary small" id="bpDevNew">${esc(t('bpDevNewModel'))}</button>
+        <button class="ghost small" id="bpDevLabels">${esc(t('bpDevLabels'))}</button></div>
+      <ul class="devlist">${lib.platforms.models.map(m => `<li><span><b>${esc(L(m.name))}</b> · ${esc(m.by)}
+        <small class="muted">${esc(m.id)}</small></span>
+        <button class="ghost small" data-bp-model-edit="${esc(m.id)}">${esc(t('bpDevEditModel'))}</button></li>`).join('')}</ul></details>` : ''}
     <details class="panel"><summary><h2>Presets</h2></summary>
       <p class="muted small" style="margin:0">Official combinations users can apply from the Presets tab: items from any category plus battle backgrounds per battle type.</p>
       <ul class="devlist">${E().presets.map((p, i) => `<li><span class="row"><b>${esc(L(p.name))}</b> <span class="muted small">${esc(p.group || '')} · ${Object.keys(p.items || {}).length} items · ${Object.keys(p.battle || {}).length} battle types${p.hidden ? ' · hidden' : ''}</span></span>
@@ -483,6 +631,9 @@ export function initLibraryDev(C) {
     for (const b of body.querySelectorAll('[data-cdown]')) b.onclick = () => move('category', null, b.dataset.cdown, 1);
     for (const b of body.querySelectorAll('[data-cedit]')) b.onclick = () => editCategory(b.dataset.cedit);
     on('dcNew', () => editCategory(null));
+    on('bpDevNew', () => editPlatformModel(null));
+    on('bpDevLabels', editPlatformLocations);
+    for (const b of body.querySelectorAll('[data-bp-model-edit]')) b.onclick = () => editPlatformModel(b.dataset.bpModelEdit);
     for (const b of body.querySelectorAll('[data-pedit]')) b.onclick = () => editPreset(b.dataset.pedit);
     for (const b of body.querySelectorAll('[data-pup]')) b.onclick = () => movePreset(b.dataset.pup, -1);
     for (const b of body.querySelectorAll('[data-pdown]')) b.onclick = () => movePreset(b.dataset.pdown, 1);
@@ -517,6 +668,10 @@ export function initLibraryDev(C) {
     if (tab === 'presets') {
       btn('+ New preset', () => editPreset(null));
       for (const c of body.querySelectorAll('.card[data-preset]')) addPen(c, () => editPreset(c.dataset.preset));
+    } else if (tab === 'platforms' && S.lib.platforms) {
+      btn(t('bpDevNewModel'), () => editPlatformModel(null));
+      btn(t('bpDevLabels'), editPlatformLocations);
+      for (const c of body.querySelectorAll('[data-platform-model]')) addPen(c, () => editPlatformModel(c.dataset.platformModel));
     } else if (tab === 'battle') {
       btn('+ Add battle background', () => editScene(null)); btn('✎ Category', () => editCategory('battle'));
       for (const c of body.querySelectorAll('.card[data-id]')) addPen(c, () => editScene(c.dataset.id));

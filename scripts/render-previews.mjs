@@ -10,6 +10,7 @@ for (const it of lib.items) {
   const v = it.view || (() => { const w = it.writes.find((x) => x.file.endsWith('.nsbmd')); return w ? { model: w.file, kind: 'object' } : null; })();
   if (v) jobs.push({ id: it.id, ...v, frame: it.cat === 'fly' ? 22 : 0 });
 }
+for (const m of lib.platforms?.models || []) if (m.file && !m.empty) jobs.push({ id: m.id, model: m.file, kind: 'object' });
 for (const s of lib.battle.scenes) jobs.push({ id: s.id, model: s.model, anim: s.anim, kind: 'scene' });
 const only = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : null;
 const missingOnly = process.argv.includes('--missing');
@@ -32,6 +33,7 @@ for (const j of jobs) {
 await b.close();
 // tell the app which previews exist (so it never requests missing images)
 const skip = new Set(['hm-clean', 'hm-clean-alt', 'hm-mato', 'disc-none', 'disc-none-classic', 'disc-transparent', 'bg-transparent']);
+for (const m of lib.platforms?.models || []) if (m.empty) skip.add(m.id);
 for (const id of skip) fs.rmSync(`app/library/previews/${id}.jpg`, { force: true });
 lib.thumbs = fs.readdirSync('app/library/previews').filter((f) => f.endsWith('.jpg')).map((f) => f.slice(0, -4)).sort();
 fs.writeFileSync('app/library/library.json', JSON.stringify(lib, null, 1));

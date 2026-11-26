@@ -3,8 +3,8 @@
  * immediately), cached copy when offline. Library files never change (named by
  * content hash): cache first, and all of them are cached in the background after install.
  */
-const VERSION = 'rpm-1.1.4';
-const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'i18n.js', 'platform.js', 'viewer.js', 'dev.js', 'dev-library.js', 'core/rom.js', 'core/plan.js', 'core/check.js', 'core/bgtemplate.js', 'core/edits.js', 'core/a115patch.js', 'tpl_a115_25.nsbmd',
+const VERSION = 'rpm-1.1.4-platform-schema-1';
+const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'i18n.js', 'platform.js', 'battle-platforms.js', 'core/platforms.js', 'viewer.js', 'dev.js', 'dev-library.js', 'core/rom.js', 'core/plan.js', 'core/check.js', 'core/bgtemplate.js', 'core/edits.js', 'core/a115patch.js', 'tpl_a115_25.nsbmd',
   'core/nitro/index.js', 'core/nitro/reader.js', 'core/nitro/sniff.js', 'core/nitro/tex0.js', 'core/nitro/bmd0.js', 'core/nitro/bca0.js',
   'core/nitro/pose.js', 'core/nitro/mesh.js', 'core/nitro/dsRender.js', 'core/nitro/references.js',
   'library/library.json', 'data/mapnames.json', 'icon.png', 'icon-192.png', 'icon-512.png', 'manifest.webmanifest'];
@@ -19,7 +19,7 @@ self.addEventListener('activate', (e) => {
     await self.clients.claim();
     // fill the library cache in the background so the app works fully offline
     try {
-      const lib = await (await fetch('library/library.json', 'data/mapnames.json', { cache: 'no-store' })).json();
+      const lib = await (await fetch('library/library.json', { cache: 'no-store' })).json();
       const cache = await caches.open('rpm-library');
       const want = [...Object.keys(lib.files).map((f) => 'library/files/' + f), ...(lib.thumbs || []).map((t) => 'library/previews/' + t + '.jpg')];
       for (const u of want) if (!(await cache.match(u))) { try { const r = await fetch(u); if (r.ok) await cache.put(u, r); } catch { /* try again next time */ } }
@@ -31,8 +31,19 @@ self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.endsWith('/__ping')) return;
-  if (/\/library\/(files|previews)\//.test(url.pathname)) {
+  if (/\/library\/files\//.test(url.pathname)) {
     e.respondWith(caches.open('rpm-library').then(async (c) => (await c.match(req)) || fetch(req).then((r) => { if (r.ok) c.put(req, r.clone()); return r; })));
+    return;
+  }
+  if (/\/library\/previews\//.test(url.pathname)) {
+    // Preview IDs are stable across edits. Use the newest image when online.
+    e.respondWith(caches.open('rpm-library').then(async (cache) => {
+      try {
+        const r = await fetch(req, { cache: 'no-cache' });
+        if (r.ok) await cache.put(req, r.clone());
+        return r;
+      } catch { return (await cache.match(req)) || Response.error(); }
+    }));
     return;
   }
   // no-cache: always ask the server (cheap ETag check), so a normal reload gets new versions
