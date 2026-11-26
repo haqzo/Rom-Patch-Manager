@@ -459,14 +459,15 @@ export function initLibraryDev(C) {
     const cats = S.lib.categories.filter((c) => c.pick === 'one');
     const B = S.lib.battle;
     const draw = (root) => {
-      root.querySelector('#dpItems').innerHTML = cats.map((c) => `<label class="field"><span>${esc(L(c.name))}</span><select data-cat="${esc(c.id)}"><option value="">— not included —</option>${S.lib.items.filter((x) => x.cat === c.id).map((x) => `<option value="${esc(x.id)}" ${st.items[c.id] === x.id ? 'selected' : ''}>${esc(L(x.name))}${x.archived ? ' (archived)' : ''}</option>`).join('')}</select></label>`).join('');
+      root.querySelector('#dpItems').innerHTML = cats.map((c) => `<label class="field"><span>${esc(L(c.name))}</span><select data-cat="${esc(c.id)}"><option value="">— not included —</option>${S.lib.items.filter(x => x.cat === c.id && (!x.archived || x.id === st.items[c.id])).map((x) => `<option value="${esc(x.id)}" ${st.items[c.id] === x.id ? 'selected' : ''}>${esc(L(x.name))}${x.archived ? ' (archived)' : ''}</option>`).join('')}</select></label>`).join('');
       root.querySelector('#dpBattle').innerHTML = B.slots.map((s) => { const a = st.battle[s.model]; return `<label class="field"><span>${esc(L(s.name))}</span><span class="row"><select data-slot="${s.model}"><option value="">— keep —</option>${B.scenes.map((x) => `<option value="${esc(x.id)}" ${a?.scene === x.id ? 'selected' : ''}>${esc(L(x.name))}</option>`).join('')}</select>
         <select data-mode="${s.model}" ${a ? '' : 'disabled'}><option value="both" ${a?.mode !== 'model' ? 'selected' : ''}>model + animation</option><option value="model" ${a?.mode === 'model' ? 'selected' : ''}>model only</option></select></span></label>`; }).join('');
       const platformFields = root.querySelector('#dpPlatforms');
       if (platformFields) platformFields.innerHTML = MEMBERS.map(member => {
         const a = st.platforms[member];
-        const entries = ['', 'keep', 'stock', ...(S.lib.platforms?.models || []).filter(m => modelFile(m, member, S.lib)).map(m => m.id)];
         const current = a?.kind === 'model' ? a.id : a?.kind || '';
+        const entries = ['', 'keep', 'stock', ...(S.lib.platforms?.models || [])
+          .filter(m => (!m.archived || m.id === current) && modelFile(m, member, S.lib)).map(m => m.id)];
         return `<label class="field"><span>${esc(platformName(S.lib, member))}</span><select data-platform-preset="${member}">
           ${entries.map(value => opt(value, value === '' ? t('bpInherited') : value === 'keep' ? t('bpKeep') :
             value === 'stock' ? t('bpStock') : L(S.lib.platforms.models.find(m => m.id === value).name), value === current)).join('')}</select></label>`;
@@ -599,7 +600,7 @@ export function initLibraryDev(C) {
       <div class="row"><button class="primary small" id="bpDevNew">${esc(t('bpDevNewModel'))}</button>
         <button class="ghost small" id="bpDevLabels">${esc(t('bpDevLabels'))}</button></div>
       <ul class="devlist">${lib.platforms.models.map(m => `<li><span><b>${esc(L(m.name))}</b> · ${esc(m.by)}
-        <small class="muted">${esc(m.id)}</small></span>
+        <small class="muted">${esc(m.id)}</small> ${m.archived ? '<span class="pill">archived</span>' : ''}</span>
         <button class="ghost small" data-bp-model-edit="${esc(m.id)}">${esc(t('bpDevEditModel'))}</button></li>`).join('')}</ul></details>` : ''}
     <details class="panel"><summary><h2>Presets</h2></summary>
       <p class="muted small" style="margin:0">Official combinations users can apply from the Presets tab: items from any category plus battle backgrounds per battle type.</p>

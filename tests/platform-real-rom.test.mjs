@@ -6,7 +6,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import * as rom from '../app/core/rom.js';
 import { changesFor, scanInstalled } from '../app/core/plan.js';
-import { MEMBERS, PLATFORM_PATH, inspectPlatforms, verifiedSource, donorCompatible, platformProblems } from '../app/core/platforms.js';
+import { GROUPS, MEMBERS, PLATFORM_PATH, inspectPlatforms, verifiedSource, donorCompatible, platformProblems } from '../app/core/platforms.js';
 
 const lib = JSON.parse(fs.readFileSync('app/library/library.json'));
 const fps = new Map(Object.entries(lib.files));
@@ -38,13 +38,17 @@ const selection = (options = {}) => ({ items: {}, battle: {}, extras: [], custom
 const model = id => ({ kind: 'model', id: 'platform-' + id });
 const before = (src, R) => rom.parseNarc(rom.readFile(src, R, PLATFORM_PATH)).members;
 
-function examine(src, picks, target, stock, originals, roundtrip = false) {
+function examine(src, picks, target, stock, originals, roundtrip = false, selected = null) {
   const R = rom.parseRom(src);
   const changes = changesFor(picks, lib, file, { target, stock });
   assert.deepEqual(platformProblems(picks, lib, target, stock), []);
   const writes = changes.flatMap(c => c.writes);
   const expected = new Map(writes.map(w => [w.member, w.data]));
   assert.equal(expected.size, writes.length);
+  if (selected) {
+    assert.deepEqual(writes.map(w => w.member), selected);
+    assert.ok(writes.every(w => w.path === PLATFORM_PATH));
+  }
   const { rom: out } = rom.buildRom(src, writes);
   const O = rom.parseRom(out);
   const after = before(out, O);
@@ -75,6 +79,10 @@ for (const [code, filename] of Object.entries(inputs)) test(`platform structural
   console.log(`  ${code} rev ${profile.revision} CRC ${info.crc}, clean fingerprint ${info.clean}, header ${info.headerOk}, groups ${profile.groupSafe}, members ${originals.length}, donor ${!!stock}`);
   assert.ok(rom.bytesEqual(examine(src, selection(), profile, stock, originals), src), 'no-op');
   examine(src, selection({ platforms: { 33: model('pixel-wood') } }), profile, stock, originals);
+  if (english) for (const selected of [[2], [0, 3, 28, 33], GROUPS[1]]) {
+    const platforms = Object.fromEntries(selected.map(member => [member, model('transparent')]));
+    examine(src, selection({ platforms }), profile, stock, originals, selected.length === 1, selected);
+  }
   for (const id of ['disc-pixel-set', 'disc-transparent', 'disc-none']) {
     const out = examine(src, selection({ items: { platforms: id } }), profile, stock, originals);
     assert.equal(scanInstalled(out, rom.parseRom(out), lib, fps, inspectPlatforms(out, rom.parseRom(out)), stock).items.platforms, id);

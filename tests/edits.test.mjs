@@ -125,18 +125,19 @@ test('site build applies edits.json (rename, archive, preview, preset) and stays
 
 test('platform edits preserve numeric mapping and validate localized models and preset references', () => {
   const model = { name: { en: 'Sample', zh: '样例', es: 'Ejemplo' }, by: 'Haqzo', file: `lib:${anyFile}`, members: [3, 4] };
-  const E = { ...EMPTY_EDITS(), platformModels: { 'platform-example': model },
+  const E = { ...EMPTY_EDITS(), items: { 'disc-none': { archived: true } }, platformModels: { 'platform-example': model },
     platformGroups: { 1: { name: { en: 'Grassy area', zh: '草地', es: 'Zona de hierba' }, status: 'unconfirmed' } },
     platformSlots: { 3: { suggested: 'platform-example' } },
     presets: [
-      { id: 'legacy', name: { en: 'Legacy' }, items: { platforms: 'disc-pixel-set' } },
+      { id: 'legacy', name: { en: 'Legacy' }, items: { platforms: 'disc-none' } },
       { id: 'mixed', name: { en: 'Mixed' }, items: { platforms: 'disc-pixel-set' },
-        platforms: { 0: { kind: 'keep' }, 3: { kind: 'model', id: 'platform-example' }, 33: { kind: 'stock' } } },
+        platforms: { 0: { kind: 'keep' }, 3: { kind: 'model', id: 'platform-example' }, 4: { kind: 'model', id: 'platform-no-ground' }, 33: { kind: 'stock' } } },
     ] };
   const validate = edits => validateEdits(LIB, edits, ref => ref === `lib:${anyFile}`).filter(x => x.level === 'error');
   assert.deepEqual(validate(E), []);
   let lib = applyEdits(clone(LIB), JSON.parse(JSON.stringify(E)), res);
   assert.equal(lib.platforms.groups[1].name.zh, '草地');
+  assert.equal(lib.items.find(i => i.id === lib.presets[0].items.platforms).archived, true);
   assert.equal(lib.platforms.models.at(-1).file, anyFile);
   assert.deepEqual(lib.presets[1].platforms, E.presets[1].platforms);
   assert.ok(!Object.hasOwn(lib.presets[0], 'platforms'));
@@ -150,5 +151,5 @@ test('platform edits preserve numeric mapping and validate localized models and 
   invalid.remove = ['platform-example'];
   const failures = validate(invalid).map(x => x.msg).join('\n');
   for (const msg of ['group', 'metadata', '#34', 'library references', '#3']) assert.match(failures, new RegExp(msg));
-  assert.deepEqual(lib.items, LIB.items);
+  assert.deepEqual(lib.items.filter(i => i.id !== 'disc-none'), LIB.items.filter(i => i.id !== 'disc-none'));
 });

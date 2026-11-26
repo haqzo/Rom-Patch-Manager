@@ -19,6 +19,7 @@
     },
     {
       "id": "platform-no-ground",
+      "archived": true,
       "name": {
         "en": "No Battle Ground",
         "zh": "无战斗地台",
