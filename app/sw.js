@@ -3,7 +3,7 @@
  * immediately), cached copy when offline. Library files never change (named by
  * content hash): cache first, and all of them are cached in the background after install.
  */
-const VERSION = 'rpm-1.1.4-platform-refinement';
+const VERSION = 'rpm-1.1.4-platform-previews';
 const SHELL = ['./', 'index.html', 'styles.css', 'app.js', 'i18n.js', 'platform.js', 'battle-platforms.js', 'core/platforms.js', 'viewer.js', 'dev.js', 'dev-library.js', 'core/rom.js', 'core/plan.js', 'core/check.js', 'core/bgtemplate.js', 'core/edits.js', 'core/a115patch.js', 'tpl_a115_25.nsbmd',
   'core/nitro/index.js', 'core/nitro/reader.js', 'core/nitro/sniff.js', 'core/nitro/tex0.js', 'core/nitro/bmd0.js', 'core/nitro/bca0.js',
   'core/nitro/pose.js', 'core/nitro/mesh.js', 'core/nitro/dsRender.js', 'core/nitro/references.js',

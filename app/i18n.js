@@ -8,6 +8,7 @@ export const LANGS = [
 const S = {
   en: {
     bpMixedInstalled: 'Mixed installed models',
+    bpMixedModels: 'Mixed models',
     bpDetails: "Details",
     bpMixedAssignments: "Mixed assignments",
     bpApplySet: "Apply set",
@@ -264,6 +265,7 @@ const S = {
   },
   zh: {
     bpMixedInstalled: '已安装的模型不同',
+    bpMixedModels: '不同的地台模型',
     bpDetails: "详情",
     bpMixedAssignments: "混合分配",
     bpApplySet: "应用套装",
@@ -517,6 +519,7 @@ const S = {
   },
   es: {
     bpMixedInstalled: 'Modelos instalados variados',
+    bpMixedModels: 'Modelos variados',
     bpDetails: "Detalles",
     bpMixedAssignments: "Asignaciones mixtas",
     bpApplySet: "Aplicar conjunto",

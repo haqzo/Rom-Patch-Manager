@@ -1,4 +1,5 @@
 import { t, L, authorName } from './i18n.js';
+import { bytesEqual } from './core/rom.js';
 import { GROUPS, MEMBERS, SLOT, modelFile, platformAssignments } from './core/platforms.js';
 
 const numbered = (n) => String(n).padStart(2, '0');
@@ -107,15 +108,19 @@ export function platformPicker(body, C) {
     const count = members.filter(m => S.selPlatforms.has(m)).length;
     const { mixed, assignment } = groupAssignment(members, assignments);
     const first = members[0];
-    const installed = members.map(m => S.scan?.platforms[m]);
-    const mixedInstalled = new Set(installed.map(entry => [entry?.kind, entry?.id].join('|'))).size > 1;
+    const mixedModels = models => models?.[first] && members.some(member =>
+      models[member] && !bytesEqual(models[first], models[member]));
+    const mixedInstalled = mixedModels(target.models);
+    const mixedEffective = mixed || (!assignment?.file &&
+      (assignment?.kind === 'stock' ? mixedModels(S.stockPlatforms?.models) : mixedInstalled));
     return `<article class="bp-entry" data-group="${group}">
-      ${picture(first, mixed)}
+      ${picture(first, mixedEffective)}
       <label class="bp-select"><input type="checkbox" data-group-select="${group}" ${count === members.length ? 'checked' : ''}>
         <b>${esc(groupName(lib, group))}</b></label>
       <span class="small bp-assignment" data-assignment="${mixed ? 'mixed' : assignment?.kind || 'unchanged'}">
         ${esc(mixed ? t('bpMixedAssignments') : assignmentLabel(assignment, first))}</span>
-      ${mixedInstalled ? `<span class="muted small">${esc(t('bpMixedInstalled'))}</span>` : ''}
+      ${mixedEffective && !mixed ? `<span class="muted small">${esc(t('bpMixedModels'))}</span>` : ''}
+      ${mixedInstalled && (mixed || assignment?.file || assignment?.kind === 'stock') ? `<span class="muted small">${esc(t('bpMixedInstalled'))}</span>` : ''}
       ${toggleDetails('group-' + group, `<span class="muted small">${esc(title('bpGroup', group))} · ${memberRanges(members)}</span>
         ${metaLine(groupMeta[group], esc)}${suggested(groupMeta[group])}
         ${!target.groupUsed.includes(group) ? `<span class="muted small">${esc(t('bpNoOrdinaryLookup'))}</span>` : ''}`,
