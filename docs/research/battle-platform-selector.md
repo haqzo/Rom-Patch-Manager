@@ -445,3 +445,39 @@ Suggested owner-authored exception (if approved):
 - [Battle-stage archive identification](https://github.com/Project-Holon/aletheia/blob/main/tools/assets/tables.py#L505)
 
 **Evidence boundary:** decompiled vanilla Black/White behavior is strong technical evidence for the original ROM architecture. It does not by itself prove every PokeMMO-specific environment mapping.
+
+
+---
+
+## 12. Follow-up source verification and ROM availability check
+
+**Follow-up verification:** 2026-11-26.
+
+The cited public decompilation source was fetched directly from Project-Holon/aletheia and the relevant code was checked:
+
+- src/game/ov094/btlv_stage.c: BTLV_STAGE_Create() loads archive 0x98 member 2, resolves the model from fileId[0][variant] (falling back to variant 0 when the selected entry is -1), then creates both render[0] and render[1] from the same stage->resource. The two sides therefore share one model resource in the normal path.
+- src/game/ov094/btlv_stage_shared_types.h: BtlvStageFiles.fileId[4][4] is documented as model row 0 and animation rows 1–3, indexed by variant. The BtlvStage structure separately stores two side render objects, objects, animation state and draw positions.
+- src/game/ov094/btlv_effect.c: BtlvEffStageRow is a 0x24-byte row with 17 field IDs and 17 stage IDs, indexed by stage group and stage index.
+- tools/assets/tables.py: archive a/1/5/2 is identified as the battle stage/effect visual table, with three sub-files and reader references in the battle visual-effect subsystem.
+
+This directly supports the shared-side conclusion for the normal vanilla Black/White battle-stage path. It does not establish that PokeMMO has no custom engine changes. The special mode == 3 branch remains a separate unresolved path: it loads fixed model resource ID 0x56 and animation resource ID 0x57, bypassing the normal stage-table model lookup. Do not claim that every PokeMMO battle mode has been covered until the ROM audit resolves those IDs and Haqzo/MaToRiuKo have observed any relevant special mode.
+
+### ChatGPT Library search
+
+A follow-up search of the connected ChatGPT Library found useful supporting materials, including:
+- Black build reports confirming the clean English Black source profile (IRBO, CRC32 4F6E5580, 268,435,456 bytes).
+- Existing project notes identifying the user's local clean-ROM folder as ~/Desktop/Roms/Clean-Roms/Unzipped-Clean-Roms/, with Pokemon - Black Version (USA, Europe) (NDSi Enhanced).nds and Pokemon - White Version (USA, Europe) (NDSi Enhanced).nds.
+- The established clean White profile (IRAO, CRC32 B552501C, 268,435,456 bytes).
+- Prior synthetic and real-ROM test output showing the existing ROM build pipeline can preserve unrelated members and re-apply BPS output.
+
+**No raw clean .nds ROM file or extracted a/1/5/2 table binary was returned by the Library search.** The Library evidence is useful for identity and prior test history, but it is not a substitute for the actual local ROM bytes. Codex/the local development environment must run the read-only extraction against the two local files above (or Haqzo must provide the current paths if they have moved). Do not upload ROMs or extracted ROM data to GitHub.
+
+### Updated next action
+
+Before any application implementation:
+1. Run the read-only extraction/decode in Section 8 against both clean local ROMs.
+2. Save only a human-readable mapping, a small non-ROM-derived test fixture if permitted by the repository policy, and the audit script/results needed to reproduce the mapping. Do not commit raw ROM bytes, extracted archive members, or full ROM-derived binary dumps.
+3. Review the decoded 25-group/4-variant mapping against all 34 target model members. Keep environment labels Unconfirmed unless gameplay evidence confirms them.
+4. Obtain Haqzo's explicit approval for a narrowly scoped exception to the current AGENTS.md before asking Codex or any agent to edit app/**, tests/**, scripts/**, or tools/**.
+
+The current branch remains documentation-only; no application, test, script, tooling, library asset, deployment or main-branch change is authorized by this follow-up.
