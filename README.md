@@ -35,7 +35,7 @@ No ROMs are included or distributed — you need your own.
 | **Surf** | 17 models — MaToRiuKo's collection plus Haqzo's new Wailmer, Lapras Paddle (with saddle), Wailord and Gyarados (all four tested in PokeMMO) |
 | **Fly** | Complete take-off + landing sets (models and animations always installed together), incl. Legendary Fly — Rayquaza |
 | **Battle backgrounds** | MaToRiuKo's 13 scenes made for the current game version (Elite Four rooms, N's Castle, Distortion World, Groudon lava cave, PWT …), YOKA's Blue PVP Battle Field, MaToRiuKo's complete set, and **make your own from pictures** |
-| **Battle platforms** | **Pixel battle grounds (set)** — 15 grounds, each battle location gets its own — plus transparent / no platforms |
+| **Battle platforms** | Three complete sets, 15 individual pixel models, Transparent Disc, and No Battle Ground by member. Mix them with per-member overrides and preview the result in 3D. |
 | **TM / HM / Fly backgrounds, Title screen, Overworld** | Clean backgrounds, title-screen showcases, monuments |
 | **Your files** | Your own `.nsbmd` / `.nsbca` on Surf, a battle type, all platforms, Fly or any archive entry; **map textures** (one area `.BTX0` or a whole map pack `.narc`) |
 
@@ -84,6 +84,7 @@ with a different model per slot. `?dev=off` turns it off. Who can publish: [docs
   (`a/0/7/5`, `a/0/1/1`, `a/1/1/5` …). There is no list of allowed ROMs.
 - **One choice = one complete feature.** Legendary Fly is one bundle of all 11 files; a battle scene keeps its model
   and skeletal animation together; Surf only ever touches `a/0/7/5 #49`.
+- **Battle platforms:** select stage groups or raw members #0–33, then apply a model. An override can keep the loaded model or restore stock from a compatible verified clean ROM. Ordinary battles share one model across both sides. Environment names remain unconfirmed until observed in PokeMMO. See the [Battle Platform Selector test and gameplay handoff](docs/research/battle-platform-selector.md#14-implemented-feature-branch).
 - **3D previews:** free rotation, 4 views, animations, *compare with what's in your ROM*, export the raw model.
 - **Export:** every replaced entry is read back after the build, and the `.bps` is re-applied to confirm it rebuilds
   the same ROM. Entries that keep their size (or shrink) are written in place.

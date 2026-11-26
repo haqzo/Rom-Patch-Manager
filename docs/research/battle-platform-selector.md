@@ -4,7 +4,7 @@
 **Repository baseline:** `haqzo/Rom-Patch-Manager` `main` at `d952120ca3a17bfe73816cadd1e9bb91bc65e473`  
 **Working branch:** `chatgpt/battle-platform-selector`  
 **Recovery branch:** `backup/pre-battle-platforms-2026-11-26`  
-**Status:** Research and implementation specification only. No application code, tests, scripts, library assets, or main-branch files have been changed.
+**Status:** Implemented on the feature branch. Section 14 records the implemented behavior, verification, and gameplay checklist. Sections 1–13 preserve the research and earlier availability checks.
 
 ---
 
@@ -552,3 +552,60 @@ Design requirements:
 ### Implementation status
 
 English read-only audit complete. Regional structural audit remains blocked on access. Application code, library definitions, tooling, deployment and main remain untouched. Existing backup and working branches stay intact. The implementation must follow the repository's protected-path rules; no claim of a finished selector or PokeMMO gameplay test is made.
+
+## 14. Implemented feature branch
+
+The implementation started from `100053456c82b0974ab1bf8537e30b35d9e19ed8`. The tested implementation commit is `e3d294b62d361a7665f058a74dd18a78b2fc8819`. Main and the verified remote recovery branch `backup/pre-battle-platforms-2026-11-26` both pointed to `d952120ca3a17bfe73816cadd1e9bb91bc65e473` at checkout. The original local checkout's ahead-of-origin `main` at `bf88dd553b851e6f90ef81ecdc5d5742b03378b9` and the separately inspected local experiments were preserved. Verified local Git bundles accompany the handoff.
+
+### Selector and ROM writes
+
+- Apply a complete set, choose one or more destinations, then apply a different model, keep the loaded model, or restore stock. Clearing an override returns the member to its inherited assignment. Switching sets with existing overrides asks whether to retain or replace the overrides. Reset clears the platform choices and destination selection.
+- The selector resolves `a/0/1/1` and `a/1/5/2` through the opened ROM's FNT and FAT. It checks the first 34 model headers, the lookup archive layout, and the numeric stage-group entries before exposing grouped selection. Raw selection remains available for compatible members if grouped selection is unavailable.
+- The three existing legacy sets keep their IDs and assignments. The individual catalog references the same 15 pixel NSBMDs, MaToRiuKo's Transparent Disc, and the member-specific No Battle Ground set. The build checks the required NSBMDs separately from preview rendering, and content-addressing keeps files deduplicated.
+- One model is shared by both sides in ordinary vanilla Black and White battles. The selector uses the numeric map in Section 13 and one pending assignment per physical member. Three groups have four explicit variants. The other groups fall back to their first member. The ordinary environment table does not reference group 02/member 5. PokeMMO environment names and special-mode behavior remain unconfirmed.
+- A preset can reference the platform set and individual choices alongside battle backgrounds. The effective plan emits at most one platform write for each member #0–33. Keep-current exclusions emit no platform write. Explicit legacy custom imports still use the existing overlap warnings and precedence.
+- Installed-state scanning uses the opened bytes. The app reports known library models, verified stock, mixed configurations, and unknown models where evidence is insufficient. Keeping the loaded model preserves any installed modification. Stock restoration uses the loaded clean profile or an explicitly opened clean donor with matching game code, revision and lookup bytes. Known clean CRC32, size, header and structural checks establish the supported donor profile. Donor model bytes stay in memory for the active target, and presets only store the restoration choice.
+- The destination cards show the effective model picture using the Battle Backgrounds layout as a reference. Group and set previews show a representative member, and raw member cards show each effective assignment. The viewer opens the actual current or effective NSBMD. Loaded ROM thumbnails are generated as visible cards enter the viewport and are held in browser memory. Transparent and No Battle Ground assets display an intentional hidden state. No extracted stock models or stock previews are distributed.
+
+### Dev Mode and offline build
+
+- Dev Mode can edit English, Simplified Chinese and Spanish display names and descriptions for groups and members. Gameplay verification requires an evidence note. Optional suggested models are displayed as suggestions. Numeric member IDs and variants come from the audited lookup.
+- The catalog editor registers reusable and member-restricted creator NSBMDs with localized text, attribution and optional preview art. Published assets can be reused by their existing content hash. The same edit logic validates Dev Mode drafts, the community build and preset references. The set builder retains filename suggestions as a convenience.
+- The existing production path remains Node 22, `npm test`, `scripts/add-community.mjs` and missing-preview rendering. The change was served locally at `/Rom-Patch-Manager/`, including modules, thumbnails, model resources, downloads and offline reload. The service worker caches the selector modules, uses content-addressed model caching and refreshes online previews by ID. The public version is unchanged.
+
+### Real-ROM verification
+
+Each tested input had revision 0, a valid header checksum, 268,435,456 bytes, 484 FAT entries, and 222 members in `a/0/1/1`. All three lookup table members and the model bytes for members #0–33, #34–83 and #86/87 matched English Black across the twelve local inputs. The Italian Black filename carries a `[b]` marker. Its tested bytes matched the recorded profile and passed the same checks. The file label's provenance remains unconfirmed.
+
+| Language | Black | White |
+|---|---|---|
+| English | IRBO · 4F6E5580 · passed | IRAO · B552501C · passed |
+| Spanish | IRBS · 2CA88FAA · passed | IRAS · 32657121 · passed |
+| French | IRBF · 308F9D56 · passed | IRAF · 8B4CBA44 · passed |
+| German | IRBD · E59E6F87 · passed | IRAD · 95CF004D · passed |
+| Italian | IRBI · 52A5634D · passed | IRAI · 2F025937 · passed |
+| Japanese | IRBJ · 33AF46D5 · passed | IRAJ · CAA820CB · passed |
+| Korean | IRBK · locally unavailable | IRAK · locally unavailable |
+
+Each available profile passed no-op, individual replacement, all three complete sets, a mixed set with overrides and a keep-current exclusion, combined background and platform changes, and stock restoration. All twelve combined builds passed NDS verification and BPS reapplication. English Black and White also passed BPS reapplication of stock restoration. The source SHA-256 was checked before and after, along with all unrelated archive members and files.
+
+### Automated and browser verification
+
+- Node 22.23.5 with the local inputs ran 42 tests, with **40 passed and 2 skipped**. The skip count covers Korean Black and White. The opt-in profile matrix by itself recorded **12 passed and 2 skipped**. The separate modified-ROM regression used a disposable build created from the local English Black input.
+- Chromium passed the Pages-style scenarios for destination pictures, keyboard grouping, individual NSBMD substitution, mixed set overrides, keep-current exclusions, installed-state inspection, compatible local donor restoration, combined background/platform preset export, Dev Mode draft persistence and offline reload. The English, Spanish and Simplified Chinese screens were exercised at desktop, narrow desktop and mobile widths.
+- Linux Firefox passed file drop, keyboard group selection, individual model preview, and NDS/BPS download fallback. Headless Firefox cancelled the intercepted native picker, so Firefox file input used a local File passed through the app's drop handler. Chromium exercised the app's picker path.
+- The isolated Pages-style build merged community assets, rendered missing previews and loaded with the production Content Security Policy. Preview evidence shows creator-authored models. The ROM-based thumbnail assertion ran locally without publishing a stock picture.
+
+[Public selector with destination pictures](battle-platform-selector/public-selector.png) · [Individual model catalog](battle-platform-selector/model-catalog.png) · [Mixed overrides](battle-platform-selector/mixed-set-overrides.png) · [Pixel NSBMD](battle-platform-selector/pixel-model.png) · [Transparent Disc](battle-platform-selector/transparent-model.png)
+
+[Dev Mode environment labels](battle-platform-selector/dev-environment.png) · [Dev Mode model registration](battle-platform-selector/dev-model.png) · [Spanish offline narrow view](battle-platform-selector/offline-narrow-es.png) · [Simplified Chinese mobile view](battle-platform-selector/mobile-zh.png)
+
+### In-game checklist for Haqzo and MaToRiuKo
+
+1. Start with an owned clean ROM and build a disposable output. Apply Pixel Battle Grounds and verify both platforms in ordinary outdoor, indoor, cave and water battles.
+2. Assign a visible, distinct model to one member at a time to identify which group and variant PokeMMO loads. Record the game build, ROM edition, location, season, battle type, group and member. Confirm member #32 separately before interpreting the previous autumn observation.
+3. Repeat a verified encounter with Transparent Disc on the same member. Check that the terrain, background and camera remain intact and that both sides behave as expected. Compare against the member-specific No Battle Ground choice.
+4. Reopen a modified ROM and restore one known platform from a local clean donor. Set a second member to Keep current while applying the full set. Verify that both choices survive export and that the other assignments still apply.
+5. Include ordinary encounters on both editions where useful, and document any exceptions from PvP or special battle modes. Leave group 02/member 5 and special members #86/87 unconfirmed unless observed. Record evidence in Dev Mode and keep suggested models advisory.
+
+Actual PokeMMO gameplay verification of the selector and its environment labels remains pending.

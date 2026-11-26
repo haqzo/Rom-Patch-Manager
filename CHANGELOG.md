@@ -1,6 +1,8 @@
 # Changelog
 
 ## Unreleased
+- Battle Platforms supports groups and raw members, whole sets with individual overrides, loaded and stock restoration choices, and actual per-member NSBMD previews.
+- The platform catalog reuses the 15 Pixel Battle Grounds models, MaToRiuKo's Transparent Disc and the member-specific No Battle Ground assets. Presets retain platform assignments, and Dev Mode can maintain localized models and environment labels.
 - Library: **25 Gen 6 battle backgrounds** by MaToRiuKo (model only, any battle type, no floor plane). Made by swapping textures into the floorless template; base textures by **PhoenixOfLight92**. Previews are rendered by CI.
 - Battle backgrounds can now carry a description/credit line (`desc`, EN / ZH / ES): `battle.json` scenes keep it through the build, and the scene card shows it under the author, like item cards already did.
 - **Presets tab**: official combinations (items from any category + battle backgrounds per battle type) that users apply with one click. Only shown when there are presets.
