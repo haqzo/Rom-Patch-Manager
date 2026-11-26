@@ -481,3 +481,74 @@ Before any application implementation:
 4. Obtain Haqzo's explicit approval for a narrowly scoped exception to the current AGENTS.md before asking Codex or any agent to edit app/**, tests/**, scripts/**, or tools/**.
 
 The current branch remains documentation-only; no application, test, script, tooling, library asset, deployment or main-branch change is authorized by this follow-up.
+
+
+---
+
+## 13. English real-ROM audit and all-language acceptance gate (2026-11-26)
+
+This section supersedes the earlier missing-English-ROM limitation. Both English Black and White were recovered from user-owned ZIP files and inspected read-only. Independent Python FNT/FAT/NARC parsing followed the same path-based method as the project's ROM core. The source ZIP hashes were checked before and after the audit; no source files were changed. No ROM bytes, extracted assets, raw table dumps or private fingerprints are included in this repository.
+
+### Measured results
+
+- Both inputs matched the existing English clean profiles in app/core/rom.js, had valid header CRC16, 256 MiB size, and 484 FAT entries. The ordinary FNT walk resolved 247 named paths (FAT entries include other resources).
+- a/1/5/2 resolved to file ID 394; it contains exactly three members of 684, 1280 and 1700 bytes. All three are byte-identical between the English editions (verified by SHA-256).
+- a/0/1/1 resolved to file ID 253 and contains **222** members, not merely the first 84 exposed by the current UI. All 222 member hashes match between the English editions.
+- The 19 environment rows (36 bytes each), 20 field groups (64 bytes each) and 25 stage-resource groups (68 bytes each) decode correctly.
+- Every explicit ordinary stage model ID resolves to a BMD0 resource among members 0–33; the union is exactly those 34 members. The 25 leading reserved words are zero. All ordinary stage animation entries are -1. Model fallback is to variant 0; a fallback must never be shown as an independent editable model.
+- Group 02 exists and resolves to #5, but is not referenced by any of the 323 ordinary environment lookup entries. Retain #5 in the advanced view and label its live usage Unconfirmed; absence from this table is not proof of total non-use.
+- Field resource IDs are distinct from stage-platform IDs. Field models start at 34 and include 84; do not extend the existing background selector as incidental work.
+- The special mode 3 explicitly requests archive 11 member 86 (BMD0) and 87 (BCA0). Both are outside the 34-platform scope; their actual PokeMMO use remains unconfirmed. Keep them unchanged.
+
+### Group map (vanilla English; names and PokeMMO usage unconfirmed)
+
+| Stage resource group | Explicit model members |
+|---|---|
+| 00 | 0 |
+| 01 | 1–4 |
+| 02 | 5 (not referenced by ordinary environment lookup) |
+| 03–05 | 6–8, respectively |
+| 06 | 9–12 |
+| 07–21 | 13–27, respectively |
+| 22 | 28–31 |
+| 23 | 32 |
+| 24 | 33 |
+
+There are exactly three four-variant groups and 22 single-model groups. Variant order is confirmed as numeric index only; do not infer seasonal/environment labels from this alone. A group selection expands to its distinct member IDs; independent member selection is always available. Player/opponent share the model resource in the vanilla engine; side-independent choices remain excluded until a separate mechanism is demonstrated.
+
+Source cross-check:
+- https://github.com/Project-Holon/aletheia/blob/main/src/game/ov094/btlv_stage.c
+- https://github.com/Project-Holon/aletheia/blob/main/src/game/ov094/btlv_stage_shared_types.h
+- https://github.com/Project-Holon/aletheia/blob/main/src/game/arm9/g3d_system.c (resource dataId is passed to ARC_TOOL_LoadMember)
+- https://github.com/Project-Holon/aletheia/blob/main/docs/ASSETS.md (archive inventory)
+
+### All-language gate
+
+The owner explicitly expanded the research scope to all Black/White ROM languages: English, Spanish, French, German, Italian, Japanese and Korean, Black and White for each (14 intended profiles). The current website UI languages are separately English, Simplified Chinese and Spanish, all required for the new feature. There is no assumption of a standard official Simplified Chinese ROM edition.
+
+| ROM language | Black | White |
+|---|---|---|
+| English | Structural audit passed | Structural audit passed |
+| Spanish | Pending byte access | Pending byte access |
+| French | Pending byte access | Pending byte access |
+| German | Pending byte access | Pending byte access |
+| Italian | Pending byte access; suspect source label | Pending byte access |
+| Japanese | Pending byte access | Pending byte access |
+| Korean | Pending byte access; suspect source label | Pending byte access; suspect source label |
+
+The regional ZIPs are present in the user's Library inventory, but raw-byte materialization was denied for all twelve. Do not claim that their stage lookup or model bytes match. Older six-ROM research found some differences elsewhere in a/0/1/1 in Spanish and Japanese, without isolating this new selector's exact targets. Do not generalize whole-archive differences to the platform subset.
+
+For each regional ROM, run the same read-only extraction and verify header, revision, archive shape, tables, exact explicit/effective stage mapping, member signatures, and per-member differences relative to English. Compare assets 0–33 separately from 34–83 and the special IDs. Known fingerprint recognition does not establish authenticity, especially for files marked [b]. No blanket gameplay claims.
+
+Design requirements:
+- Resolve both archives using each ROM's own FNT, not hardcoded FAT indices or ROM offsets.
+- Before enabling grouped selection on a ROM, validate archive/model bounds and decoded mapping; if it differs from the verified mapping, disable grouped choices pending review rather than silently remap. For structurally safe raw-member selection, use explicit member IDs and show the unconfirmed status; fail closed if a selected member is not a valid expected model or the archive cannot be parsed.
+- Keep original previews sourced from the opened ROM. Never infer original/custom status from language alone.
+- Keep BPS output bound to the exact input ROM; do not apply English BPS to another language.
+- Localize the public selector, messages, state, presets and platform metadata in en/zh/es. Dev Mode must support editing all three names; do not change unrelated localization.
+- Test no-op, single, mixed, full-set and override exports and prove preservation of non-target members for each available verified regional input. This is separate from the read-only audit.
+- Preserve the existing website's general language handling; do not narrow it to English or falsely certify untested editions.
+
+### Implementation status
+
+English read-only audit complete. Regional structural audit remains blocked on access. Application code, library definitions, tooling, deployment and main remain untouched. Existing backup and working branches stay intact. The implementation must follow the repository's protected-path rules; no claim of a finished selector or PokeMMO gameplay test is made.
