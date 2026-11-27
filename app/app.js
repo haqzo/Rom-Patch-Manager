@@ -5,6 +5,7 @@
 import { t, L, setLang, getLang, LANGS, authorName } from './i18n.js';
 import * as rom from './core/rom.js';
 import { changesFor, overlaps, sizeGrowth, scanInstalled } from './core/plan.js';
+import { battleSlotCard, battleLibraryCard, battleLibraryGroups } from './battle-cards.js';
 import { platformPicker, platformName, memberRanges, assignmentState } from './battle-platforms.js';
 import { MEMBERS, PLATFORM_PATH, inspectPlatforms, verifiedSource, donorCompatible, modelFile,
   platformAssignments, cleanPlatformPicks, platformProblems } from './core/platforms.js';
@@ -55,7 +56,6 @@ const S = {
   scan: null,
   picks: { items: {}, battle: {}, platforms: {}, extras: [], custom: [] },
   selPlatforms: new Set(),
-  platformDetails: new Set(),
   platformRaw: true,
   stockPlatforms: null,
   planError: null,
@@ -379,14 +379,7 @@ const slotList = (arr) => arr.map((m) => `${m} ${L(S.lib.battle.slots.find((s) =
 function renderBattle(body) {
   const B = S.lib.battle;
   const list = B.scenes.filter(shown).filter((s) => !S.staticOnly || !isAnimated(s));
-  // one group per creator (scenes that belong to an old-style set get that set's name)
-  const groups = [];
-  for (const sc of list) {
-    const title = sc.set ? L(B.sets.find((x) => x.id === sc.set)?.name) || sc.set : authorName(sc.by) || '—';
-    let g = groups.find((x) => x.title === title);
-    if (!g) groups.push((g = { title, scenes: [] }));
-    g.scenes.push(sc);
-  }
+  const groupTitle = sc => sc.set ? L(B.sets.find(x => x.id === sc.set)?.name) || sc.set : authorName(sc.by) || '—';
   const selWarn = [...S.selSlots].some((m) => B.slots.find((s) => s.model === m)?.warn);
   body.innerHTML = `
     <div class="battle-bar">
@@ -402,7 +395,7 @@ function renderBattle(body) {
     <div class="group-title">${esc(t('sets'))}</div>
     <div class="row">${B.sets.map((s) => `<button class="secondary small" data-set="${esc(s.id)}">${esc(L(s.name))}</button>`).join('')}</div>
     <div class="group-title">${esc(t('library'))}</div>${filterBar(list)}
-    ${groups.map((g) => `<div class="fgroup"><div class="group-title">${esc(g.title)}</div><div class="grid">${g.scenes.map(sceneCard).join('')}</div></div>`).join('')}<p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
+    ${battleLibraryGroups(list, groupTitle, sceneCard, esc)}<p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
   wireFilter(body);
   const allBtn = $('staticAll');
   if (allBtn) allBtn.onclick = () => { S.staticOnly = false; renderPanel(); };
@@ -437,25 +430,29 @@ function slotTile(s) {
     if (v !== 'original' && v !== 'custom') { mini = thumbHtml(v, 'mountain'); sub = `${t('installed')}: ${L(sceneById(v)?.name)}`; }
     else { mini = shot ? `<img src="${shot}" alt="">` : esc(v === 'original' ? t('original') : t('custom')); sub = `${v === 'original' ? t('original') : t('custom')} · ${t('unchanged')}`; }
   } else { mini = icon('mountain', 'glyph'); sub = t('unchanged'); }
-  return `<div class="slot ${on ? 'on' : ''}" data-m="${s.model}" role="checkbox" aria-checked="${on}" tabindex="0">
-    <div class="mini">${mini}</div><span class="tick">${on ? icon('check') : ''}</span>
-    ${a ? `<button class="clear" title="${esc(t('remove'))}">✕</button>` : ''}
-    ${s.warn ? `<span class="warn-dot" title="${esc(t('noAnimSlot'))}">${icon('warn')}</span>` : ''}
-    ${a || S.rom ? `<button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button>` : ''}
-    <div class="lbl"><b>${esc(L(s.name))}</b><span>${esc(sub)}</span></div></div>`;
+  return battleSlotCard({
+    attrs: `data-m="${s.model}"`, selected: on, mini, tick: on ? icon('check') : '',
+    clear: a ? `<button class="clear" title="${esc(t('remove'))}">✕</button>` : '',
+    warning: s.warn ? `<span class="warn-dot" title="${esc(t('noAnimSlot'))}">${icon('warn')}</span>` : '',
+    preview: a || S.rom ? `<button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button>` : '',
+    name: esc(L(s.name)), detail: `<span>${esc(sub)}</span>`,
+  });
 }
 
 function sceneCard(s) {
   const used = Object.values(S.picks.battle).filter((a) => a.scene === s.id).length;
   const native = (s.native || []).map(slotName).filter(Boolean);
   const animated = isAnimated(s);
-  return `<div class="card ${used ? 'sel' : ''}" data-id="${esc(s.id)}" data-f="${esc(filterKey(s))}" data-by="${esc(s.by)}" role="button" tabindex="0">
-    <div class="thumb">${thumbHtml(s.id, 'mountain')}
-      <span class="motion-tag ${animated ? 'anim' : 'static'}">${icon(animated ? 'spark' : 'box')}${esc(t(animated ? 'badgeAnim' : 'badgeStatic'))}</span>
-      <div class="flag">${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}${s.archived ? '<span class="pill">Archived</span>' : ''}</div>
-      <button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button></div>
-    <div class="meta"><div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(authorName(s.by))}${!animated ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
-      ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}${s.desc ? `<div class="note">${esc(L(s.desc))}</div>` : ''}</div></div>`;
+  return battleLibraryCard({
+    attrs: `data-id="${esc(s.id)}" data-f="${esc(filterKey(s))}" data-by="${esc(s.by)}" role="button" tabindex="0"`,
+    selected: !!used, thumbnail: thumbHtml(s.id, 'mountain'),
+    badge: `<span class="motion-tag ${animated ? 'anim' : 'static'}">${icon(animated ? 'spark' : 'box')}${esc(t(animated ? 'badgeAnim' : 'badgeStatic'))}</span>`,
+    flag: `${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}${s.archived ? '<span class="pill">Archived</span>' : ''}`,
+    preview: `<button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button>`,
+    meta: `<div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(authorName(s.by))}${!animated ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
+      ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}
+      ${s.desc ? `<div class="note">${esc(L(s.desc))}</div>` : ''}`,
+  });
 }
 
 async function assignScene(id) {
@@ -662,20 +659,19 @@ function updateScan() {
 function updatePlatformPanel(control) {
   const body = $('panel');
   const scroll = body.scrollTop;
-  const gridScroll = body.querySelector('#bpGrid')?.scrollTop || 0;
   const action = control?.dataset.bp;
-  const member = control?.dataset.memberSelect;
-  const group = control?.dataset.groupSelect;
+  const member = control?.dataset.member ?? control?.closest('[data-member]')?.dataset.member;
+  const group = control?.dataset.group ?? control?.closest('[data-group]')?.dataset.group;
+  const model = control?.dataset.platformModel ?? control?.closest('[data-platform-model]')?.dataset.platformModel;
   if (S.tab === 'platforms') {
     renderPanel();
     body.scrollTop = scroll;
-    const grid = body.querySelector('#bpGrid');
-    if (grid) grid.scrollTop = gridScroll;
-    const match = [...body.querySelectorAll('[data-bp],[data-member-select],[data-group-select]')].find(el =>
-      (action !== undefined && el.dataset.bp === action) ||
-      (member !== undefined && el.dataset.memberSelect === member) ||
-      (group !== undefined && el.dataset.groupSelect === group));
-    if (match && !match.disabled) match.focus({ preventScroll: true });
+    const match = action && [...body.querySelectorAll('[data-bp]')].find(el => el.dataset.bp === action);
+    const card = member != null ? body.querySelector(`[data-member="${member}"]`) :
+      group != null ? body.querySelector(`[data-group="${group}"]`) :
+        model ? [...body.querySelectorAll('[data-platform-model]')].find(el => el.dataset.platformModel === model) : null;
+    const focus = match && !match.disabled ? match : card;
+    focus?.focus({ preventScroll: true });
   }
   return refreshChanges();
 }
