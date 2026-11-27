@@ -336,3 +336,20 @@ button.danger:hover { background: rgba(255, 90, 90, .12); }
 .a115-stage{margin-top:6px;overflow:auto;border-radius:10px;background:#0f141c;border:1px solid #2b3240;padding:8px}
 .a115-stage canvas{display:block;width:100%;max-width:512px;height:auto;image-rendering:pixelated}
 .a115-meta{font-size:12px;margin-top:8px}
+
+/* Metadata shown inside the shared battle cards. */
+.platform-heading { flex-wrap: wrap; }
+[data-platform-slot] .lbl > span, .platform-variant > span { display: block; overflow-wrap: anywhere; }
+[data-platform-slot] .lbl [data-assignment] { color: var(--text); }
+[data-platform-slot] .lbl [data-assignment="mixed"] { color: var(--amber); }
+.platform-variant { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--line); }
+[data-platform-slot] .mini { position: relative; }
+.mini[data-preview-member]::after { content: attr(data-preview-member); position: absolute; right: 4px; bottom: 3px;
+  background: var(--ink); color: var(--text); border-radius: 4px; padding: 2px 4px; font-size: 10px; }
+[data-platform-slot] .mini, [data-platform-model] .thumb { text-align: center; }
+[data-platform-slot]:focus-within .peek { opacity: 1; }
+[data-platform-model] .meta .row { margin-top: 4px; }
+[data-bp^="set-"][aria-pressed="true"] { border-color: var(--cyan); }
+@media (hover: none) {
+  [data-platform-slot] .peek, [data-platform-model] .peek { opacity: 1; }
+}

@@ -224,7 +224,8 @@ export function buildRom(src, writes, { onProgress } = {}) {
       // entries that are the same size or smaller are written in place (only their end offset changes),
       // so a patch only carries the bytes that really differ; anything bigger rebuilds the archive
       if ([...g.members].every(([i, d]) => d.length <= N.members[i].length)) {
-        const out = data.slice();
+        // A Node Buffer is a Uint8Array, but Buffer.slice() shares the source memory.
+        const out = new Uint8Array(data);
         const ent = N.hs + 12;
         const base = data.byteOffset;
         for (const [i, d] of g.members) {

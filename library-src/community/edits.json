@@ -1,6 +1,7 @@
 {
   "version": 1,
   "items": {
+    "disc-none": { "archived": true },
     "surf-lapras": {
       "desc": {
         "en": "From Pokémon X/Y's Lapras.",

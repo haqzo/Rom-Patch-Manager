@@ -7,11 +7,14 @@
  * File references in edits: "lib:<name>" = a file already in the library (app/library/files/<name>);
  * anything else = a path inside library-src/community/ (e.g. "dev/ab12cd34.nsbmd").
  */
-export const EMPTY_EDITS = () => ({ version: 1, items: {}, scenes: {}, remove: [], categories: {}, categoryOrder: [], order: {}, previews: {}, presets: [] });
+import { GROUPS, SLOT, PLATFORM_PATH, validMember, modelFile } from './platforms.js';
+
+const PLATFORM_EDITS = ['platformModels', 'platformGroups', 'platformSlots'];
+export const EMPTY_EDITS = () => ({ version: 1, items: {}, scenes: {}, remove: [], categories: {}, categoryOrder: [], order: {}, previews: {}, presets: [], platformModels: {}, platformGroups: {}, platformSlots: {} });
 
 export function normalizeEdits(e) {
   const E = { ...EMPTY_EDITS(), ...(e || {}) };
-  for (const k of ['items', 'scenes', 'categories', 'order', 'previews']) E[k] = { ...(E[k] || {}) };
+  for (const k of ['items', 'scenes', 'categories', 'order', 'previews', ...PLATFORM_EDITS]) E[k] = { ...(E[k] || {}) };
   for (const k of ['remove', 'categoryOrder', 'presets']) E[k] = [...(E[k] || [])];
   return E;
 }
@@ -76,10 +79,26 @@ export function applyEdits(lib, edits, resolve) {
     if (d.anim !== undefined) { if (d.anim) { sc.anim = R(d.anim); } else { delete sc.anim; sc.modelOnly = true; } }
     if (d.archived !== undefined) { if (d.archived) sc.archived = true; else delete sc.archived; }
   }
+  if (lib.platforms || PLATFORM_EDITS.some(k => Object.keys(E[k]).length)) {
+    const P = lib.platforms ||= { version: 1, models: [], groups: {}, slots: {} };
+    for (const [id, d] of Object.entries(E.platformModels)) {
+      let model = P.models.find(m => m.id === id);
+      if (!model) { model = { id }; P.models.push(model); }
+      for (const k of ['name', 'by', 'desc', 'empty', 'members']) if (d[k] !== undefined) model[k] = d[k];
+      if (d.file) { model.file = R(d.file); delete model.set; }
+    }
+    for (const [editKey, collection] of [['platformGroups', 'groups'], ['platformSlots', 'slots']]) {
+      for (const [id, d] of Object.entries(E[editKey])) {
+        const metadata = P[collection][id] ||= {};
+        for (const k of ['name', 'desc', 'status', 'evidence', 'suggested']) if (d[k] !== undefined) metadata[k] = d[k];
+      }
+    }
+  }
   // permanent removal
   const gone = new Set(E.remove);
   lib.items = lib.items.filter((x) => !gone.has(x.id));
   B.scenes = B.scenes.filter((x) => !gone.has(x.id));
+  if (lib.platforms) lib.platforms.models = lib.platforms.models.filter(m => !gone.has(m.id) && !gone.has(m.set));
   for (const st of B.sets) for (const [m, sid] of Object.entries(st.assign)) if (gone.has(sid)) delete st.assign[m];
   // order inside each category (items) and of the battle scenes
   for (const [cat, order] of Object.entries(E.order)) {
@@ -90,7 +109,7 @@ export function applyEdits(lib, edits, resolve) {
     lib.items = first < 0 ? others : [...others.slice(0, first), ...sorted, ...others.slice(first)];
   }
   // official presets
-  lib.presets = E.presets.map((p) => ({ id: p.id, name: p.name, ...(p.desc ? { desc: p.desc } : {}), ...(p.group ? { group: p.group } : {}), items: { ...(p.items || {}) }, battle: { ...(p.battle || {}) }, ...(p.hidden ? { hidden: true } : {}) }));
+  lib.presets = E.presets.map((p) => ({ id: p.id, name: p.name, ...(p.desc ? { desc: p.desc } : {}), ...(p.group ? { group: p.group } : {}), items: { ...(p.items || {}) }, battle: { ...(p.battle || {}) }, ...(p.platforms ? { platforms: structuredClone(p.platforms) } : {}), ...(p.hidden ? { hidden: true } : {}) }));
   return lib;
 }
 
@@ -104,7 +123,12 @@ export function validateEdits(lib, edits, exists) {
     const known = lib.items.some((x) => x.id === id);
     if (!known && (!d.cat || !d.writes?.length)) bad(`New item “${id}” needs a category and at least one file`);
     if (d.cat && (!catIds.has(d.cat) || d.cat === 'battle')) bad(`Item “${id}”: unknown category “${d.cat}”`);
+    const platform = (d.cat || lib.items.find(item => item.id === id)?.cat) === 'platforms';
+    const destinations = new Set();
     for (const w of d.writes || []) {
+      if (platform && (w.path !== PLATFORM_PATH || !validMember(w.member) || destinations.has(w.member) ||
+                       !/\.nsbmd$/i.test(w.file || ''))) bad(`Platform set “${id}”: invalid model destination #${w.member}`);
+      destinations.add(w.member);
       if (!w.path || !/^[\w/.-]+$/.test(w.path)) bad(`Item “${id}”: bad archive path “${w.path}”`);
       if (w.member != null && (!Number.isInteger(+w.member) || +w.member < 0)) bad(`Item “${id}”: bad entry number “${w.member}”`);
       refOk(w.file, `Item “${id}”`);
@@ -122,6 +146,39 @@ export function validateEdits(lib, edits, exists) {
   const gone = new Set(E.remove);
   const itemIds = new Set([...lib.items.map((x) => x.id), ...Object.keys(E.items)].filter((x) => !gone.has(x)));
   const sceneIds = new Set([...lib.battle.scenes.map((x) => x.id), ...Object.keys(E.scenes)].filter((x) => !gone.has(x)));
+  const platformModels = new Map((lib.platforms?.models || []).filter(m => !gone.has(m.id) && !gone.has(m.set))
+    .map(m => [m.id, m]));
+  for (const [id, d] of Object.entries(E.platformModels)) {
+    const base = platformModels.get(id);
+    const edited = { ...base, ...d, id };
+    if (d.file) delete edited.set;
+    if (!/^platform-[a-z0-9-]+$/.test(id) || (!base && (itemIds.has(id) || sceneIds.has(id))) ||
+        (typeof edited.by !== 'string' || !edited.by.trim()) || !['en', 'zh', 'es'].every(lang => typeof edited.name?.[lang] === 'string' && edited.name[lang].trim()))
+      bad(`Platform model “${id}” requires a unique ID, three names and a creator`);
+    if ((!edited.set && !/\.nsbmd$/i.test(edited.file || '')) || (d.members !== undefined &&
+        d.members !== null && (!Array.isArray(d.members) || !d.members.length ||
+        new Set(d.members).size !== d.members.length || !d.members.every(validMember))))
+      bad(`Platform model “${id}”: invalid NSBMD or member restriction`);
+    refOk(d.file, `Platform model “${id}”`);
+    if (!gone.has(id)) platformModels.set(id, edited);
+  }
+  for (const [key, isGroup] of [['platformGroups', true], ['platformSlots', false]]) {
+    for (const [id, d] of Object.entries(E[key])) {
+      const index = Number(id);
+      const valid = String(index) === id && (isGroup ? !!GROUPS[index] : validMember(index));
+      const allowed = ['name', 'desc', 'status', 'evidence', 'suggested'];
+      const members = isGroup ? GROUPS[index] : SLOT[index] ? [index] : [];
+      if (!valid || Object.keys(d).some(k => !allowed.includes(k)) ||
+          (d.status && !['unconfirmed', 'verified'].includes(d.status)) ||
+          (d.status === 'verified' && (typeof d.evidence !== 'string' || !d.evidence.trim())) ||
+          (d.suggested && !platformModels.has(d.suggested)))
+        bad(`Invalid platform ${isGroup ? 'group' : 'member'} metadata “${id}”`);
+      if (d.suggested && members?.length) {
+        const model = platformModels.get(d.suggested);
+        if (model && !members.every(member => modelFile(model, member, lib))) bad(`Suggested model for platform ${id} is incompatible`);
+      }
+    }
+  }
   const seen = new Set();
   for (const p of E.presets) {
     if (!p.id || seen.has(p.id)) bad(`Preset “${p.id || '?'}”: missing or duplicate id`); seen.add(p.id);
@@ -131,7 +188,15 @@ export function validateEdits(lib, edits, exists) {
       if (!lib.battle.slots.some((s) => s.model === +m)) bad(`Preset “${p.id}”: unknown battle type ${m}`);
       if (!sceneIds.has(a.scene)) bad(`Preset “${p.id}”: battle background “${a.scene}” doesn't exist`);
     }
-    if (!Object.keys(p.items || {}).length && !Object.keys(p.battle || {}).length) warn(`Preset “${p.id}” is empty`);
+    for (const [m, a] of Object.entries(p.platforms || {})) {
+      const member = Number(m);
+      if (!validMember(member) || String(member) !== m || !a || !['keep', 'stock', 'model'].includes(a.kind) ||
+          (a.kind === 'model' && !modelFile(platformModels.get(a.id), member, lib)))
+        bad(`Preset “${p.id}”: invalid platform assignment for #${m}`);
+      if (a && Object.keys(a).some(key => key !== 'kind' && !(key === 'id' && a.kind === 'model')))
+        bad(`Preset “${p.id}”: platform assignments may only contain library references`);
+    }
+    if (!Object.keys(p.items || {}).length && !Object.keys(p.battle || {}).length && !Object.keys(p.platforms || {}).length) warn(`Preset “${p.id}” is empty`);
   }
   for (const id of gone) for (const p of E.presets) if (Object.values(p.items || {}).includes(id) || Object.values(p.battle || {}).some((a) => a.scene === id)) bad(`“${id}” is removed but preset “${p.id}” still uses it`);
   return out;
@@ -141,7 +206,8 @@ export function validateEdits(lib, edits, exists) {
 export function describeEdits(before, after) {
   const A = normalizeEdits(before), B = normalizeEdits(after), out = [];
   const same = (x, y) => JSON.stringify(x) === JSON.stringify(y);
-  for (const [k, label] of [['items', 'Item'], ['scenes', 'Battle background'], ['categories', 'Category']]) {
+  for (const [k, label] of [['items', 'Item'], ['scenes', 'Battle background'], ['categories', 'Category'], ['platformModels', 'Platform model'],
+    ['platformGroups', 'Platform group'], ['platformSlots', 'Platform member']]) {
     for (const id of new Set([...Object.keys(A[k]), ...Object.keys(B[k])])) {
       if (!A[k][id]) out.push(`${label} “${id}”: new edit (${Object.keys(B[k][id]).join(', ')})`);
       else if (!B[k][id]) out.push(`${label} “${id}”: edit undone`);

@@ -1,0 +1,263 @@
+{
+  "version": 1,
+  "models": [
+    {
+      "id": "platform-transparent",
+      "name": {
+        "en": "Transparent Disc",
+        "zh": "透明底盘",
+        "es": "Disco transparente"
+      },
+      "by": "MaToRiuKo",
+      "file": "lib:a9c1da5ec48c73f1.nsbmd",
+      "empty": true,
+      "desc": {
+        "en": "Hidden below the battlefield.",
+        "zh": "模型隐藏于战场下方。",
+        "es": "Oculto por debajo del campo de combate."
+      }
+    },
+    {
+      "id": "platform-no-ground",
+      "archived": true,
+      "name": {
+        "en": "No Battle Ground",
+        "zh": "无战斗地台",
+        "es": "Sin plataforma de combate"
+      },
+      "by": "Community",
+      "set": "disc-none",
+      "empty": true,
+      "desc": {
+        "en": "Uses the matching replacement for each member.",
+        "zh": "为每个成员使用对应的替换模型。",
+        "es": "Usa el reemplazo correspondiente a cada miembro."
+      }
+    },
+    {
+      "id": "platform-pixel-autumn-grass",
+      "name": {
+        "en": "Autumn Grass",
+        "zh": "秋季草地",
+        "es": "Hierba otoñal"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Autumn_Grass.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-cave-pool",
+      "name": {
+        "en": "Cave Pool",
+        "zh": "洞穴水潭",
+        "es": "Charca de cueva"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Cave_Pool.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-dirt-path",
+      "name": {
+        "en": "Dirt Path",
+        "zh": "土路",
+        "es": "Sendero de tierra"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Dirt_Path.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-forest",
+      "name": {
+        "en": "Forest",
+        "zh": "森林",
+        "es": "Bosque"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Forest.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-green-grass",
+      "name": {
+        "en": "Green Grass",
+        "zh": "绿色草地",
+        "es": "Hierba verde"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Green_Grass.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-ice",
+      "name": {
+        "en": "Ice",
+        "zh": "冰面",
+        "es": "Hielo"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Ice.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-light-path",
+      "name": {
+        "en": "Light Path",
+        "zh": "浅色小路",
+        "es": "Sendero claro"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Light_Path.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-pale-grass",
+      "name": {
+        "en": "Pale Grass",
+        "zh": "浅色草地",
+        "es": "Hierba pálida"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Pale_Grass.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-paved",
+      "name": {
+        "en": "Paved Ground",
+        "zh": "铺装路面",
+        "es": "Suelo pavimentado"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Paved.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-river",
+      "name": {
+        "en": "River",
+        "zh": "河流",
+        "es": "Río"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_River.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-rocks-brown",
+      "name": {
+        "en": "Brown Rocks",
+        "zh": "棕色岩石",
+        "es": "Rocas marrones"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Rocks_Brown.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-rocks-grey",
+      "name": {
+        "en": "Grey Rocks",
+        "zh": "灰色岩石",
+        "es": "Rocas grises"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Rocks_Grey.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-snow",
+      "name": {
+        "en": "Snow",
+        "zh": "雪地",
+        "es": "Nieve"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Snow.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-snowy-grass",
+      "name": {
+        "en": "Snowy Grass",
+        "zh": "覆雪草地",
+        "es": "Hierba nevada"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Snowy_Grass.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    },
+    {
+      "id": "platform-pixel-wood",
+      "name": {
+        "en": "Wood",
+        "zh": "木地板",
+        "es": "Madera"
+      },
+      "by": "Haqzo",
+      "file": "grounds/Ground_Wood.nsbmd",
+      "desc": {
+        "en": "Pixel Battle Grounds model.",
+        "zh": "像素战斗地台模型。",
+        "es": "Modelo de plataformas de píxeles."
+      }
+    }
+  ]
+}

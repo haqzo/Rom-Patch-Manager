@@ -11,12 +11,14 @@ import crypto from 'node:crypto';
 import * as rom from '../app/core/rom.js';
 import { checkModel } from '../app/core/check.js';
 import * as TEMPLATE from '../app/core/bgtemplate.js';
+import { modelHeader, PLATFORM_PATH, validMember } from '../app/core/platforms.js';
 import { applyEdits, validateEdits } from '../app/core/edits.js';
 
 const SRC = 'library-src/community', OUT = 'app/library';
 const EXT = { BMD0: 'nsbmd', BCA0: 'nsbca' };
 
 export function addCommunity(lib, out = OUT) {
+  const priorModels = new Map((lib.platforms?.models || []).map(model => [model.id, model]));
   const defs = JSON.parse(fs.readFileSync(path.join(SRC, 'items.json'), 'utf8'));
   const put = (name) => {
     const b = new Uint8Array(fs.readFileSync(path.join(SRC, name)));
@@ -82,8 +84,18 @@ export function addCommunity(lib, out = OUT) {
     for (const [id, name] of Object.entries(R.items || {})) { const it = lib.items.find((x) => x.id === id); if (it) it.name = name; }
     for (const [m, name] of Object.entries(R.slots || {})) { const sl = lib.battle.slots.find((x) => x.model === +m); if (sl) sl.name = name; }
   }
+  const pp = path.join(SRC, 'platforms.json');
+  if (fs.existsSync(pp)) {
+    const P = JSON.parse(fs.readFileSync(pp, 'utf8'));
+    if (P.version !== 1) throw new Error('Unsupported platform library schema');
+    lib.platforms = { version: 1, groups: {}, slots: {}, models: P.models.map(m => {
+      const file = m.file?.startsWith('lib:') ? m.file.slice(4) : m.file ? put(m.file) : null;
+      return { ...m, ...(file ? { file } : {}) };
+    }) };
+  }
   // dev-mode edits (edits.json): item / scene / category edits, archive + remove, order, previews, presets
   const ep = path.join(SRC, 'edits.json');
+  const customPictures = new Set();
   if (fs.existsSync(ep)) {
     const E = JSON.parse(fs.readFileSync(ep, 'utf8'));
     const resolve = (ref) => {
@@ -93,17 +105,46 @@ export function addCommunity(lib, out = OUT) {
     const problems = validateEdits(lib, E, (ref) => (ref.startsWith('lib:') ? !!lib.files[ref.slice(4)] : fs.existsSync(path.join(SRC, ref)))).filter((x) => x.level === 'error');
     if (problems.length) throw new Error('edits.json:\n  ' + problems.map((x) => x.msg).join('\n  '));
     applyEdits(lib, E, resolve);
-    for (const [id, ref] of Object.entries(E.previews || {})) fs.copyFileSync(path.join(SRC, ref), path.join(out, 'previews', id + '.jpg'));
+    for (const [id, ref] of Object.entries(E.previews || {})) {
+      fs.copyFileSync(path.join(SRC, ref), path.join(out, 'previews', id + '.jpg'));
+      customPictures.add(id);
+    }
+  }
+  // Validate required platform models independently of the optional preview job.
+  const modelIds = new Set();
+  const usedPlatform = new Set();
+  for (const item of lib.items.filter(item => item.cat === 'platforms')) {
+    const members = new Set();
+    for (const w of item.writes) {
+      if (w.path !== PLATFORM_PATH || !validMember(w.member) || members.has(w.member)) throw new Error(`Invalid platform set ${item.id}`);
+      members.add(w.member);
+      usedPlatform.add(w.file);
+    }
+  }
+  for (const m of lib.platforms?.models || []) {
+    if (modelIds.has(m.id) || (!!m.file === !!m.set)) throw new Error(`Invalid platform model ${m.id}`);
+    modelIds.add(m.id);
+    const prior = priorModels.get(m.id);
+    if (prior && prior.file !== m.file && !customPictures.has(m.id))
+      fs.rmSync(path.join(out, 'previews', m.id + '.jpg'), { force: true });
+    if (m.file) usedPlatform.add(m.file);
+    if (m.set && !lib.items.some(it => it.id === m.set && it.cat === 'platforms')) throw new Error(`Missing platform set ${m.set}`);
+  }
+  for (const f of usedPlatform) {
+    if (path.basename(f) !== f || !lib.files[f]) throw new Error(`Missing required platform file ${f}`);
+    const data = new Uint8Array(fs.readFileSync(path.join(out, 'files', f)));
+    if (!modelHeader(data) || checkModel(data).errors.length || lib.files[f] !== rom.fingerprint(data))
+      throw new Error(`Invalid platform NSBMD ${f}`);
   }
   // only ship files something still uses
-  const used = new Set();
+  const used = new Set(usedPlatform);
   for (const it of lib.items) { it.writes.forEach((w) => used.add(w.file)); if (it.view) { used.add(it.view.model); if (it.view.anim) used.add(it.view.anim); } }
   for (const sc of lib.battle.scenes) { used.add(sc.model); if (sc.anim) used.add(sc.anim); }
   for (const st of lib.battle.sets) st.extras.forEach((w) => used.add(w.file));
   for (const t of lib.templates || []) used.add(t.file);
   for (const f of Object.keys(lib.files)) if (!used.has(f)) { delete lib.files[f]; fs.rmSync(path.join(out, 'files', f), { force: true }); }
   // previews of scenes that are gone
-  const ids = new Set([...lib.items.map((x) => x.id), ...lib.battle.scenes.map((x) => x.id)]);
+  const ids = new Set([...lib.items.map((x) => x.id), ...lib.battle.scenes.map((x) => x.id), ...(lib.platforms?.models || []).filter(m => !m.empty).map(m => m.id)]);
   for (const f of fs.readdirSync(path.join(out, 'previews'))) if (f.endsWith('.jpg') && !ids.has(f.slice(0, -4))) fs.rmSync(path.join(out, 'previews', f));
   lib.thumbs = fs.readdirSync(path.join(out, 'previews')).filter((f) => f.endsWith('.jpg')).map((f) => f.slice(0, -4)).sort();
   lib.files = Object.fromEntries(Object.entries(lib.files).sort());

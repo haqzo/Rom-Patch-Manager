@@ -5,6 +5,10 @@
 import { t, L, setLang, getLang, LANGS, authorName } from './i18n.js';
 import * as rom from './core/rom.js';
 import { changesFor, overlaps, sizeGrowth, scanInstalled } from './core/plan.js';
+import { battleSlotCard, battleLibraryCard, battleLibraryGroups } from './battle-cards.js';
+import { platformPicker, platformName, memberRanges, assignmentState } from './battle-platforms.js';
+import { MEMBERS, PLATFORM_PATH, inspectPlatforms, verifiedSource, donorCompatible, modelFile,
+  platformAssignments, cleanPlatformPicks, platformProblems } from './core/platforms.js';
 import { ModelViewer, loadModel } from './viewer.js';
 import { checkModel, isFlyModel } from './core/check.js';
 import { buildFromTemplate, legalSizes } from './core/bgtemplate.js';
@@ -39,7 +43,6 @@ const icon = (n, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidd
 const CAT_ORIG = {
   surf: { path: 'a/0/7/5', model: 49 },
   fly: { path: 'a/1/1/5', model: 58, anim: 60 },
-  platforms: { path: 'a/0/1/1', model: 0 },
   title: { path: 'a/1/6/0', model: 240 },
   world: { path: 'a/1/5/7', model: 0 },
 };
@@ -51,7 +54,11 @@ const S = {
   fps: new Map(),
   rom: null, // { bytes, R, info, name }
   scan: null,
-  picks: { items: {}, battle: {}, extras: [], custom: [] },
+  picks: { items: {}, battle: {}, platforms: {}, extras: [], custom: [] },
+  selPlatforms: new Set(),
+  platformRaw: true,
+  stockPlatforms: null,
+  planError: null,
   tab: 'surf',
   selSlots: new Set(),
   battleMode: 'both',
@@ -76,14 +83,28 @@ async function loadFile(name) {
 const getFile = (n) => { const b = S.files.get(n); if (!b) throw new Error('not loaded ' + n); return b; };
 function filesOfPicks() {
   const lib = S.lib, need = new Set();
-  for (const id of Object.values(S.picks.items)) lib.items.find((x) => x.id === id)?.writes.forEach((w) => need.add(w.file));
+  for (const [cat, id] of Object.entries(S.picks.items))
+    if (cat !== 'platforms') lib.items.find((x) => x.id === id)?.writes.forEach(w => need.add(w.file));
+  for (const a of platformAssignments(S.picks, lib).values()) if (a.file) need.add(a.file);
   for (const a of Object.values(S.picks.battle)) { const s = lib.battle.scenes.find((x) => x.id === a.scene); if (s) { need.add(s.model); if (s.anim) need.add(s.anim); } }
   for (const id of S.picks.extras) lib.battle.sets.find((x) => x.id === id)?.extras.forEach((w) => need.add(w.file));
   return [...need];
 }
+let planRevision = 0;
+const platformContext = () => ({ target: S.rom?.platformProfile, stock: S.stockPlatforms });
 async function refreshChanges() {
-  await Promise.all(filesOfPicks().map(loadFile));
-  S.changes = changesFor(S.picks, S.lib, getFile);
+  const revision = ++planRevision;
+  S.changes = [];
+  S.planError = null;
+  renderChanges();
+  try {
+    await Promise.all(filesOfPicks().map(loadFile));
+    if (revision !== planRevision) return;
+    S.changes = changesFor(S.picks, S.lib, getFile, platformContext());
+  } catch (e) {
+    if (revision !== planRevision) return;
+    S.planError = e.message || String(e);
+  }
   renderChanges();
 }
 
@@ -136,14 +157,16 @@ async function openRomFile(file) {
     const bytes = new Uint8Array(await file.arrayBuffer());
     const R = rom.parseRom(bytes);
     const info = rom.describeRom(bytes, R);
-    S.rom = { bytes, R, info, name: file.name };
-    S.scan = scanInstalled(bytes, R, S.lib, S.fps);
+    const platformProfile = inspectPlatforms(bytes, R);
+    S.rom = { bytes, R, info, name: file.name, platformProfile };
+    S.stockPlatforms = verifiedSource(info, platformProfile);
+    updateScan();
     S.romThumbs = new Map();
     setTimeout(renderRomThumbs, 50);
   } catch (e) {
     toast(e.message || String(e), 'bad');
   } finally { busy(''); }
-  renderRom(); renderPanel(); renderChanges();
+  renderRom(); renderPanel(); await refreshChanges();
 }
 
 /** Small renders of what each battle type shows in the opened ROM (rendered locally, nothing shipped). */
@@ -172,8 +195,9 @@ async function renderRomThumbs() {
 
 function scanLabel(cat) {
   const v = S.scan?.items[cat];
-  if (!v || v === 'unknown') return { text: '—', mod: false };
+  if (!v || v === 'unknown') return { text: cat === 'platforms' && S.rom?.platformProfile.valid.length ? t('bpUnknown') : '—', mod: false };
   if (v === 'original') return { text: t('original'), mod: false };
+  if (v === 'mixed') return { text: t('bpMixed'), mod: true };
   if (v === 'custom') return { text: t('custom'), mod: true };
   return { text: L(S.lib.items.find((x) => x.id === v)?.name), mod: true };
 }
@@ -237,7 +261,7 @@ const shown = (x) => !x.archived || !!S.dev;
 const visibleCats = () => S.lib.categories.filter((c) => !c.hidden || S.dev);
 const visiblePresets = () => (S.lib.presets || []).filter((p) => !p.hidden || S.dev);
 function renderTabs() {
-  const used = new Set([...Object.keys(S.picks.items), ...(Object.keys(S.picks.battle).length ? ['battle'] : []), ...(S.picks.custom.length ? ['import'] : [])]);
+  const used = new Set([...Object.keys(S.picks.items), ...(Object.keys(S.picks.battle).length ? ['battle'] : []), ...(Object.keys(S.picks.platforms).length ? ['platforms'] : []), ...(S.picks.custom.length ? ['import'] : [])]);
   const tabs = visibleCats().map((c) => ({ id: c.id, label: L(c.name), icon: c.icon }));
   if (visiblePresets().length || S.dev) tabs.unshift({ id: 'presets', label: t('presets'), icon: 'star' });
   tabs.push({ id: 'import', label: t('yourFiles'), icon: 'upload', sep: true });
@@ -247,6 +271,7 @@ function renderTabs() {
 }
 
 function renderPanel() {
+  platformPhotoObserver?.disconnect();
   renderTabs();
   const head = $('catHead'), body = $('panel');
   body.scrollTop = 0;
@@ -262,6 +287,15 @@ function renderPanel() {
     if (cat.id === 'battle') { const m = [...S.selSlots][0] ?? 34; previewRomSlot(m); return; }
     previewRomMember(L(cat.name), orig.path, orig.model, orig.anim, cat.id === 'battle' ? 'scene' : 'object');
   };
+  if (cat.id === 'platforms') {
+    platformPicker(body, { S, esc, icon, updated: updatePlatformPanel, ask, chooseDonor: choosePlatformDonor,
+      preview: previewPlatform, thumb: thumbHtml,
+      hasThumb: id => S.lib.thumbs?.includes(id) || !!S.dev?.thumbUrl(id), filterBar, filterKey });
+    wireFilter(body);
+    loadVisiblePlatformPictures(body);
+    S.dev?.decorate(cat.id, head, body);
+    return;
+  }
   if (cat.id === 'battle') { renderBattle(body); S.dev?.decorate('battle', head, body); return; }
   const items = S.lib.items.filter((x) => x.cat === cat.id && shown(x));
   const isHm = cat.id === 'hmbg';
@@ -345,14 +379,7 @@ const slotList = (arr) => arr.map((m) => `${m} ${L(S.lib.battle.slots.find((s) =
 function renderBattle(body) {
   const B = S.lib.battle;
   const list = B.scenes.filter(shown).filter((s) => !S.staticOnly || !isAnimated(s));
-  // one group per creator (scenes that belong to an old-style set get that set's name)
-  const groups = [];
-  for (const sc of list) {
-    const title = sc.set ? L(B.sets.find((x) => x.id === sc.set)?.name) || sc.set : authorName(sc.by) || '—';
-    let g = groups.find((x) => x.title === title);
-    if (!g) groups.push((g = { title, scenes: [] }));
-    g.scenes.push(sc);
-  }
+  const groupTitle = sc => sc.set ? L(B.sets.find(x => x.id === sc.set)?.name) || sc.set : authorName(sc.by) || '—';
   const selWarn = [...S.selSlots].some((m) => B.slots.find((s) => s.model === m)?.warn);
   body.innerHTML = `
     <div class="battle-bar">
@@ -368,7 +395,7 @@ function renderBattle(body) {
     <div class="group-title">${esc(t('sets'))}</div>
     <div class="row">${B.sets.map((s) => `<button class="secondary small" data-set="${esc(s.id)}">${esc(L(s.name))}</button>`).join('')}</div>
     <div class="group-title">${esc(t('library'))}</div>${filterBar(list)}
-    ${groups.map((g) => `<div class="fgroup"><div class="group-title">${esc(g.title)}</div><div class="grid">${g.scenes.map(sceneCard).join('')}</div></div>`).join('')}<p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
+    ${battleLibraryGroups(list, groupTitle, sceneCard, esc)}<p class="muted" id="fempty" hidden>${esc(t('noMatch'))}</p>`;
   wireFilter(body);
   const allBtn = $('staticAll');
   if (allBtn) allBtn.onclick = () => { S.staticOnly = false; renderPanel(); };
@@ -403,25 +430,29 @@ function slotTile(s) {
     if (v !== 'original' && v !== 'custom') { mini = thumbHtml(v, 'mountain'); sub = `${t('installed')}: ${L(sceneById(v)?.name)}`; }
     else { mini = shot ? `<img src="${shot}" alt="">` : esc(v === 'original' ? t('original') : t('custom')); sub = `${v === 'original' ? t('original') : t('custom')} · ${t('unchanged')}`; }
   } else { mini = icon('mountain', 'glyph'); sub = t('unchanged'); }
-  return `<div class="slot ${on ? 'on' : ''}" data-m="${s.model}" role="checkbox" aria-checked="${on}" tabindex="0">
-    <div class="mini">${mini}</div><span class="tick">${on ? icon('check') : ''}</span>
-    ${a ? `<button class="clear" title="${esc(t('remove'))}">✕</button>` : ''}
-    ${s.warn ? `<span class="warn-dot" title="${esc(t('noAnimSlot'))}">${icon('warn')}</span>` : ''}
-    ${a || S.rom ? `<button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button>` : ''}
-    <div class="lbl"><b>${esc(L(s.name))}</b><span>${esc(sub)}</span></div></div>`;
+  return battleSlotCard({
+    attrs: `data-m="${s.model}"`, selected: on, mini, tick: on ? icon('check') : '',
+    clear: a ? `<button class="clear" title="${esc(t('remove'))}">✕</button>` : '',
+    warning: s.warn ? `<span class="warn-dot" title="${esc(t('noAnimSlot'))}">${icon('warn')}</span>` : '',
+    preview: a || S.rom ? `<button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button>` : '',
+    name: esc(L(s.name)), detail: `<span>${esc(sub)}</span>`,
+  });
 }
 
 function sceneCard(s) {
   const used = Object.values(S.picks.battle).filter((a) => a.scene === s.id).length;
   const native = (s.native || []).map(slotName).filter(Boolean);
   const animated = isAnimated(s);
-  return `<div class="card ${used ? 'sel' : ''}" data-id="${esc(s.id)}" data-f="${esc(filterKey(s))}" data-by="${esc(s.by)}" role="button" tabindex="0">
-    <div class="thumb">${thumbHtml(s.id, 'mountain')}
-      <span class="motion-tag ${animated ? 'anim' : 'static'}">${icon(animated ? 'spark' : 'box')}${esc(t(animated ? 'badgeAnim' : 'badgeStatic'))}</span>
-      <div class="flag">${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}${s.archived ? '<span class="pill">Archived</span>' : ''}</div>
-      <button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button></div>
-    <div class="meta"><div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(authorName(s.by))}${!animated ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
-      ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}${s.desc ? `<div class="note">${esc(L(s.desc))}</div>` : ''}</div></div>`;
+  return battleLibraryCard({
+    attrs: `data-id="${esc(s.id)}" data-f="${esc(filterKey(s))}" data-by="${esc(s.by)}" role="button" tabindex="0"`,
+    selected: !!used, thumbnail: thumbHtml(s.id, 'mountain'),
+    badge: `<span class="motion-tag ${animated ? 'anim' : 'static'}">${icon(animated ? 'spark' : 'box')}${esc(t(animated ? 'badgeAnim' : 'badgeStatic'))}</span>`,
+    flag: `${used ? `<span class="pill sel">${icon('check')}${used} ${esc(t('slotsCount'))}</span>` : ''}${s.archived ? '<span class="pill">Archived</span>' : ''}`,
+    preview: `<button class="peek" title="${esc(t('preview'))}">${icon('eye')}</button>`,
+    meta: `<div class="name">${esc(L(s.name))}</div><div class="by">${esc(t('by'))} ${esc(authorName(s.by))}${!animated ? ' · ' + esc(t('sceneModelOnly')) : ''}</div>
+      ${native.length ? `<div class="note">${esc(t('nativeSlot'))}: ${esc(native.slice(0, 3).join(', '))}${native.length > 3 ? ` +${native.length - 3}` : ''}</div>` : ''}
+      ${s.desc ? `<div class="note">${esc(L(s.desc))}</div>` : ''}`,
+  });
 }
 
 async function assignScene(id) {
@@ -450,13 +481,16 @@ function presetParts(p) {
   for (const [cat, id] of Object.entries(p.items || {})) { const c = S.lib.categories.find((x) => x.id === cat), it = S.lib.items.find((x) => x.id === id); if (c && it) parts.push(`${L(c.name)}: ${L(it.name)}`); }
   const n = Object.keys(p.battle || {}).length;
   if (n) parts.push(`${t('presetBattle')}: ${n} ${t('slotsCount')}`);
+  const pCount = Object.keys(p.platforms || {}).length;
+  if (pCount) parts.push(t('bpPresetOverrides').replace('{n}', pCount));
   return parts;
 }
 function renderPresets(head, body) {
   head.innerHTML = `<div><h2>${esc(t('presets'))}</h2><p>${esc(t('presetsHint'))}</p></div>`;
   const P = visiblePresets(), groups = [...new Set(P.map((p) => p.group || ''))];
   body.innerHTML = P.length ? groups.map((g) => `${g ? `<div class="group-title">${esc(g)}</div>` : ''}<div class="grid presets">${P.filter((p) => (p.group || '') === g).map((p) => {
-    const first = Object.values(p.items || {})[0] || Object.values(p.battle || {})[0]?.scene;
+    const first = Object.values(p.items || {})[0] || Object.values(p.battle || {})[0]?.scene ||
+      Object.values(p.platforms || {}).find(a => a.kind === 'model')?.id;
     return `<div class="card preset" data-preset="${esc(p.id)}"><div class="thumb">${first ? thumbHtml(first, 'star') : icon('star', 'glyph')}${p.hidden ? '<div class="flag"><span class="pill">Hidden</span></div>' : ''}</div>
       <div class="meta"><div class="name">${esc(L(p.name))}</div>${p.desc ? `<div class="note">${esc(L(p.desc))}</div>` : ''}
       <ul class="note plist">${presetParts(p).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
@@ -472,6 +506,10 @@ async function applyPreset(id) {
     const c = await guardSet(risky);
     if (c === 'cancel') return;
     skip = c === 'skip';
+  }
+  if (p.platforms || p.items?.platforms) {
+    delete S.picks.items.platforms;
+    S.picks.platforms = cleanPlatformPicks(p.platforms, S.lib);
   }
   for (const [cat, iid] of Object.entries(p.items || {})) if (S.lib.items.some((x) => x.id === iid)) S.picks.items[cat] = iid;
   for (const [m, a] of Object.entries(p.battle || {})) {
@@ -490,7 +528,8 @@ async function setLibrary(lib, fromDev = false) {
   for (const [cat, id] of Object.entries(S.picks.items)) if (!lib.items.some((x) => x.id === id && x.cat === cat)) delete S.picks.items[cat];
   for (const [m, a] of Object.entries(S.picks.battle)) if (!lib.battle.scenes.some((x) => x.id === a.scene)) delete S.picks.battle[m];
   S.picks.extras = S.picks.extras.filter((id) => lib.battle.sets.some((x) => x.id === id));
-  if (S.rom) { try { S.scan = scanInstalled(S.rom.bytes, S.rom.R, lib, S.fps); } catch { /* keep */ } }
+  S.picks.platforms = cleanPlatformPicks(S.picks.platforms, lib);
+  if (S.rom) updateScan();
   renderRom(); renderPanel(); await refreshChanges();
 }
 let libStamp = '';
@@ -501,9 +540,11 @@ async function checkLibrary() {
     if (!r.ok) return;
     const text = await r.text();
     if (text === libStamp) return;
+    const next = JSON.parse(text);
+    if (S.lib.platforms?.version === 1 && next.platforms?.version !== 1) return;
     const first = !libStamp; libStamp = text;
     if (first) return;
-    await setLibrary(JSON.parse(text));
+    await setLibrary(next);
     toast(t('libUpdated'), 'ok');
   } catch { /* offline: keep what we have */ }
 }
@@ -609,6 +650,154 @@ function wireBgt() {
   };
 }
 
+// ---------------------------------------------------------------- battle platforms
+function updateScan() {
+  const { bytes, R, platformProfile } = S.rom;
+  S.scan = scanInstalled(bytes, R, S.lib, S.fps, platformProfile, S.stockPlatforms);
+}
+
+function updatePlatformPanel(control) {
+  const body = $('panel');
+  const scroll = body.scrollTop;
+  const action = control?.dataset.bp;
+  const member = control?.dataset.member ?? control?.closest('[data-member]')?.dataset.member;
+  const group = control?.dataset.group ?? control?.closest('[data-group]')?.dataset.group;
+  const model = control?.dataset.platformModel ?? control?.closest('[data-platform-model]')?.dataset.platformModel;
+  if (S.tab === 'platforms') {
+    renderPanel();
+    body.scrollTop = scroll;
+    const match = action && [...body.querySelectorAll('[data-bp]')].find(el => el.dataset.bp === action);
+    const card = member != null ? body.querySelector(`[data-member="${member}"]`) :
+      group != null ? body.querySelector(`[data-group="${group}"]`) :
+        model ? [...body.querySelectorAll('[data-platform-model]')].find(el => el.dataset.platformModel === model) : null;
+    const focus = match && !match.disabled ? match : card;
+    focus?.focus({ preventScroll: true });
+  }
+  return refreshChanges();
+}
+
+let platformPhotoObserver, platformPhotoViewer;
+const platformPhotos = new WeakMap();
+
+function platformPhoto(bytes) {
+  if (platformPhotos.has(bytes)) return platformPhotos.get(bytes);
+  const loaded = loadModel(bytes);
+  if (!loaded.model.polygons.some(p => p.triangles)) {
+    platformPhotos.set(bytes, null);
+    return null;
+  }
+  if (!platformPhotoViewer) {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;left:-10000px;top:0;width:240px;height:144px';
+    document.body.append(canvas);
+    try { platformPhotoViewer = { canvas, viewer: new ModelViewer(canvas, { interactive: false }) }; }
+    catch (e) { canvas.remove(); throw e; }
+  }
+  const { canvas, viewer } = platformPhotoViewer;
+  viewer.show(loaded, 'object');
+  const url = canvas.toDataURL('image/jpeg', 0.8);
+  platformPhotos.set(bytes, url);
+  return url;
+}
+
+function loadVisiblePlatformPictures(body) {
+  const populate = async picture => {
+    const key = picture.dataset.platformPhoto;
+    const [kind, id] = [key.slice(0, key.indexOf(':')), key.slice(key.indexOf(':') + 1)];
+    try {
+      const bytes = kind === 'file' ? await loadFile(id) :
+        (kind === 'stock' ? S.stockPlatforms : S.rom?.platformProfile)?.models[Number(id)];
+      if (!bytes || !picture.isConnected) return;
+      const url = platformPhoto(bytes);
+      if (url) {
+        const image = document.createElement('img');
+        image.alt = '';
+        image.src = url;
+        picture.replaceChildren(image);
+      } else {
+        picture.textContent = t('bpIntentionalEmpty');
+      }
+    } catch { /* The preview button still opens the 3D viewer. */ }
+  };
+  platformPhotoObserver = new IntersectionObserver((entries, observer) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      observer.unobserve(entry.target);
+      void populate(entry.target);
+    }
+  }, { root: body });
+  for (const picture of body.querySelectorAll('[data-platform-photo]')) platformPhotoObserver.observe(picture);
+}
+
+async function choosePlatformDonor() {
+  const romNow = S.rom;
+  try {
+    const [file] = await platform.pickFiles({ accept: '.nds' });
+    if (!file) return;
+    busy(t('bpCheckingDonor'));
+    await tick();
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const R = rom.parseRom(bytes);
+    const donor = verifiedSource(rom.describeRom(bytes, R), inspectPlatforms(bytes, R));
+    if (!donor || S.rom !== romNow || !donorCompatible(romNow.platformProfile, donor)) {
+      toast(t('bpBadDonor'), 'warn');
+      return;
+    }
+    // Retain only the verified models in memory for this open target.
+    S.stockPlatforms = { models: donor.models.map(model => model.slice()) };
+    updateScan();
+    renderRom();
+    await updatePlatformPanel();
+  } catch { toast(t('bpBadDonor'), 'warn'); }
+  finally { busy(''); }
+}
+
+async function previewPlatform(action) {
+  try {
+    const { lib } = S;
+    const selected = [...S.selPlatforms];
+    const target = S.rom?.platformProfile;
+    const a = platformAssignments(S.picks, lib);
+    let member = Number(action.split('-').at(-1));
+    let file, label, empty, local, bytes, compare;
+    if (action.startsWith('preview-model-')) {
+      const model = lib.platforms.models.find(m => m.id === action.slice(14));
+      member = [...selected, ...MEMBERS].find(m => modelFile(model, m, lib));
+      file = modelFile(model, member, lib);
+      label = L(model.name);
+      empty = model.empty;
+    } else if (action.startsWith('preview-set-')) {
+      const set = lib.items.find(it => it.id === action.slice(12));
+      const w = set.writes.find(w => w.file === set.view?.model) || set.writes[0];
+      member = w?.member;
+      file = w?.file;
+      label = L(set.name);
+      empty = ['disc-none', 'disc-transparent'].includes(set.id);
+    } else {
+      const assignment = a.get(member);
+      if (action.startsWith('effective-') && assignment?.kind === 'stock') {
+        bytes = S.stockPlatforms?.models[member];
+        label = t('bpStock'); local = true; compare = true;
+      } else if (action.startsWith('effective-') && assignment?.file) {
+        file = assignment.file;
+        label = L(assignment.model?.name || assignment.set?.name);
+        empty = assignment.model?.empty || ['disc-none', 'disc-transparent'].includes(assignment.set?.id);
+      } else {
+        bytes = target?.models[member];
+        const installed = lib.platforms.models.find(m => m.id === S.scan?.platforms[member]?.id);
+        empty = installed?.empty;
+        label = t(action.startsWith('current-') ? 'bpPreviewCurrent' : assignmentState(assignment)); local = true;
+      }
+    }
+    if (file) bytes = await loadFile(file);
+    if (!bytes) { toast(t('noPreview'), 'warn'); return; }
+    openViewer({ title: `${label} · ${platformName(lib, member)}`, model: bytes, kind: 'object', empty,
+      original: (!local || compare) && target?.valid.includes(member) ? { model: target.models[member],
+        label: platformName(lib, member), empty: lib.platforms.models.find(m => m.id === S.scan?.platforms[member]?.id)?.empty } : null,
+      fileBase: file?.replace(/\.nsbmd$/i, ''), privateModel: local, platform: true });
+  } catch (e) { toast(e.message || String(e), 'bad'); }
+}
+
 // ---------------------------------------------------------------- previews
 function romMember(path, m) {
   try { return rom.readMember(S.rom.bytes, S.rom.R, path, m); } catch { return null; }
@@ -675,20 +864,21 @@ function layoutViewer() {
   V.viewers.forEach((v) => v.destroy()); V.viewers = [];
   const stage = $('viewerStage');
   const kind = V.opts.kind;
+  const empty = V.opts.empty || (V.opts.platform && !V.loaded.model.polygons.some(p => p.triangles));
   let cells;
   if (V.mode === 'four') {
     const cams = kind === 'scene'
       ? [{ yaw: 0, pitch: 0.2, zoom: 5 }, { yaw: Math.PI / 2, pitch: 0.2, zoom: 2.5 }, { yaw: 0, pitch: 1.45, zoom: 1.6 }, { yaw: 0.6, pitch: 0.35, zoom: 1.6 }]
       : [{ yaw: 0, pitch: 0, zoom: 1 }, { yaw: Math.PI / 2, pitch: 0, zoom: 1 }, { yaw: 0, pitch: 1.5, zoom: 1 }, { yaw: 0.6, pitch: 0.3, zoom: 1 }];
-    cells = t('views').map((label, i) => ({ label, loaded: V.loaded, cam: cams[i] }));
+    cells = t('views').map((label, i) => ({ label, loaded: V.loaded, cam: cams[i], empty }));
   } else if (V.mode === 'compare') {
-    cells = [{ label: `${t('inRom')}${V.opts.original?.label ? ': ' + V.opts.original.label : ''}`, loaded: V.orig }, { label: t('replacement'), loaded: V.loaded }];
-  } else cells = [{ label: '', loaded: V.loaded }];
+    cells = [{ label: `${t('inRom')}${V.opts.original?.label ? ': ' + V.opts.original.label : ''}`, loaded: V.orig, empty: V.opts.original?.empty }, { label: t('replacement'), loaded: V.loaded, empty }];
+  } else cells = [{ label: '', loaded: V.loaded, empty }];
   stage.className = 'viewer-stage ' + (cells.length === 4 ? 'four' : cells.length === 2 ? 'two' : 'one');
-  stage.innerHTML = cells.map((c) => `<div class="vcell"><canvas></canvas>${c.label ? `<span class="cap">${esc(c.label)}</span>` : ''}${c.loaded ? '' : `<div class="nothing">${esc(t('noPreview'))}</div>`}</div>`).join('');
+  stage.innerHTML = cells.map((c) => `<div class="vcell"><canvas></canvas>${c.label ? `<span class="cap">${esc(c.label)}</span>` : ''}${c.empty ? `<div class="nothing">${esc(t('bpIntentionalEmpty'))}</div>` : c.loaded ? '' : `<div class="nothing">${esc(t('noPreview'))}</div>`}</div>`).join('');
   const canvases = stage.querySelectorAll('canvas');
   cells.forEach((c, i) => {
-    if (!c.loaded) return;
+    if (!c.loaded || c.empty) return;
     try {
       const v = new ModelViewer(canvases[i]);
       v.show(c.loaded, kind);
@@ -704,6 +894,8 @@ function layoutViewer() {
   $('vCompare').textContent = t('compare');
   $('vCompare').classList.toggle('on', V.mode === 'compare');
   $('vCompare').onclick = () => { V.mode = V.mode === 'compare' ? 'free' : 'compare'; layoutViewer(); };
+  $('vAttach').hidden = !!V.opts.platform;
+  $('vExport').hidden = !!V.opts.privateModel;
   $('vAttach').textContent = t('attachAnim');
   $('vAttach').onclick = async () => {
     const [f] = await platform.pickFiles({ accept: '.nsbca,.bca' });
@@ -749,6 +941,13 @@ function stopPlay() { V.playing = false; cancelAnimationFrame(V.raf); if ($('vPl
 // ---------------------------------------------------------------- changes list
 function changeView(c) {
   const lib = S.lib;
+  if (c.kind === 'platform' || c.cat === 'platforms') {
+    const model = c.item || c.model;
+    const state = c.item ? 'bpInherited' : c.model ? 'bpOverride' : assignmentState({ kind: c.assignment });
+    return { thumb: model?.empty ? null : model?.id, glyph: 'disc',
+      title: model ? L(model.name) : t(state),
+      sub: `${model ? t(state) + ' · ' : ''}${memberRanges(c.members)} · ${nFiles(c.writes.length)}` };
+  }
   if (c.kind === 'item') {
     const cat = lib.categories.find((x) => x.id === c.cat);
     return { thumb: c.item.id, glyph: cat.icon, title: L(c.item.name), sub: `${L(cat.name)} · ${nFiles(c.writes.length)}` };
@@ -762,7 +961,8 @@ function renderChanges() {
   const list = $('changeList');
   const ov = overlaps(S.changes);
   const byKey = new Map(S.changes.map((c) => [c.key, c]));
-  if (!S.changes.length) list.innerHTML = `<li class="empty">${esc(t('noChanges'))}</li>`;
+  if (S.planError) list.innerHTML = `<li class="empty warn">${esc(S.planError)}</li>`;
+  else if (!S.changes.length) list.innerHTML = `<li class="empty">${esc(t('noChanges'))}</li>`;
   else list.innerHTML = S.changes.map((c) => {
     const v = changeView(c);
     const over = ov.get(c.key) ? [...ov.get(c.key)].map((k) => changeView(byKey.get(k)).title).join(', ') : '';
@@ -771,7 +971,7 @@ function renderChanges() {
       <button class="icon-btn" title="${esc(t('remove'))}" aria-label="${esc(t('remove'))}">✕</button></li>`;
   }).join('');
   for (const li of list.querySelectorAll('.chg')) li.querySelector('button').onclick = () => removeChange(li.dataset.key);
-  $('clearAll').hidden = !S.changes.length;
+  $('clearAll').hidden = !S.changes.length && !S.planError;
   // size meter
   const meter = $('meter');
   if (S.rom && S.changes.length) {
@@ -782,7 +982,12 @@ function renderChanges() {
     $('meterFill').style.width = Math.min(100, (g / SOFT_LIMIT) * 100) + '%';
     $('meterNote').textContent = g > SOFT_LIMIT ? t('sizeWarn') : t('sizeOk');
   } else meter.hidden = true;
-  $('saveNds').disabled = $('saveBps').disabled = !(S.rom && S.changes.length);
+  const platformIssues = S.rom && !S.planError ? platformProblems(S.picks, S.lib, S.rom.platformProfile, S.stockPlatforms) : [];
+  if (platformIssues.length) {
+    const { code } = platformIssues[0];
+    list.insertAdjacentHTML('beforeend', `<li class="empty warn">${esc(t(code))} · ${platformIssues.map(x => '#' + x.member).join(', ')}</li>`);
+  }
+  $('saveNds').disabled = $('saveBps').disabled = !(S.rom && S.changes.some(c => c.writes.length) && !platformIssues.length);
   renderTabs();
 }
 
@@ -790,6 +995,7 @@ async function removeChange(key) {
   const c = S.changes.find((x) => x.key === key);
   if (!c) return;
   if (c.kind === 'item') delete S.picks.items[c.cat];
+  else if (c.kind === 'platform') for (const m of c.members) delete S.picks.platforms[m];
   else if (c.kind === 'scene') for (const m of c.slots) delete S.picks.battle[m];
   else if (c.kind === 'extras') S.picks.extras = S.picks.extras.filter((x) => x !== c.set.id);
   else S.picks.custom = S.picks.custom.filter((x) => 'custom:' + x.id !== key);
@@ -810,6 +1016,8 @@ async function exportRom(asPatch) {
   if (!S.changes.length) { toast(t('needChanges'), 'warn'); return; }
   busy(t('building')); await tick();
   try {
+    const problems = platformProblems(S.picks, S.lib, S.rom.platformProfile, S.stockPlatforms);
+    if (problems.length) throw new Error(t(problems[0].code));
     const writes = S.changes.flatMap((c) => c.writes);
     const { rom: out } = rom.buildRom(S.rom.bytes, writes);
     busy(t('verifying')); await tick();
@@ -1195,7 +1403,7 @@ async function boot() {
   $('lang').onchange = (e) => { setLang(e.target.value); applyStatic(); renderRom(); renderPanel(); renderChanges(); };
   $('saveNds').onclick = () => exportRom(false);
   $('saveBps').onclick = () => exportRom(true);
-  $('clearAll').onclick = async () => { S.picks = { items: {}, battle: {}, extras: [], custom: [] }; renderPanel(); await refreshChanges(); };
+  $('clearAll').onclick = async () => { S.picks = { items: {}, battle: {}, platforms: {}, extras: [], custom: [] }; S.selPlatforms.clear(); renderPanel(); await refreshChanges(); };
   $('vClose').onclick = closeViewer;
   $('viewerModal').onclick = (e) => { if (e.target === $('viewerModal')) closeViewer(); };
   $('aboutBtn').onclick = () => ($('aboutModal').hidden = false);
