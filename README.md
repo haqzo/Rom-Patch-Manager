@@ -35,11 +35,19 @@ No ROMs are included or distributed — you need your own.
 | **Surf** | 17 models — MaToRiuKo's collection plus Haqzo's new Wailmer, Lapras Paddle (with saddle), Wailord and Gyarados (all four tested in PokeMMO) |
 | **Fly** | Complete take-off + landing sets (models and animations always installed together), incl. Legendary Fly — Rayquaza |
 | **Battle backgrounds** | MaToRiuKo's 13 scenes made for the current game version (Elite Four rooms, N's Castle, Distortion World, Groudon lava cave, PWT …), YOKA's Blue PVP Battle Field, MaToRiuKo's complete set, and **make your own from pictures** |
-| **Battle platforms** | Three complete sets, 15 individual pixel models, Transparent Disc, and No Battle Ground by member. Mix them with per-member overrides and preview the result in 3D. |
+| **Battle platforms** | Transparent Discs and Pixel Battle Grounds complete sets, 15 individual pixel models and Transparent Disc. Select individual model numbers or verified stage groups, mix assignments, and preview in 3D. |
 | **TM / HM / Fly backgrounds, Title screen, Overworld** | Clean backgrounds, title-screen showcases, monuments |
 | **Your files** | Your own `.nsbmd` / `.nsbca` on Surf, a battle type, all platforms, Fly or any archive entry; **map textures** (one area `.BTX0` or a whole map pack `.narc`) |
 
 ![The new Surf models](screenshots/1.1.0/new-surf-models.png)
+
+### Battle Platforms customization
+
+Battle Platforms now uses the same destination cards, full-width grids and searchable library as Battle Backgrounds. Select any of the 34 model members (or one of 25 groups when the ROM lookup validates), then apply an individual model or a complete set. Preview and Clear are separate actions. Open a ROM to see its locally rendered platform models; the original ROM is never changed. No Battle Ground remains available to existing legacy presets, not as a new public selection. Keep Current preserves the loaded model; Restore Stock requires a verified compatible clean ROM.
+
+The player and opponent share a model in ordinary vanilla Black/White battles. PokeMMO environment mappings are still unconfirmed. Twelve regional Black/White profiles have passed structural/export checks; Korean profiles and in-game mappings remain unverified. [Implementation and QA evidence](docs/research/battle-platform-selector.md#17-qa-correction-02--shared-battle-backgrounds-layout).
+
+![Battle Platforms and Battle Backgrounds comparison](docs/research/battle-platform-qa02/desktop-destinations.png)
 
 ### New in 1.1.0
 
@@ -69,7 +77,7 @@ with a different model per slot. `?dev=off` turns it off. Who can publish: [docs
 
 ![Battle backgrounds library](screenshots/1.1.0/app-4-battle-library.jpg)
 ![Make your own — template section](screenshots/1.1.0/app-9-make-your-own-filled.png)
-![Battle platforms](screenshots/1.1.0/app-8-battle-platforms.png)
+![Battle Platforms library and complete sets](docs/research/battle-platform-qa02/desktop-library.png)
 ![Fly](screenshots/1.1.0/app-2-fly.png)
 ![Title screen](screenshots/1.1.0/app-5-title-screen.png)
 ![Map textures](screenshots/1.1.0/app-11-map-textures.jpg)
@@ -84,7 +92,7 @@ with a different model per slot. `?dev=off` turns it off. Who can publish: [docs
   (`a/0/7/5`, `a/0/1/1`, `a/1/1/5` …). There is no list of allowed ROMs.
 - **One choice = one complete feature.** Legendary Fly is one bundle of all 11 files; a battle scene keeps its model
   and skeletal animation together; Surf only ever touches `a/0/7/5 #49`.
-- **Battle platforms:** select stage groups or raw members #0–33, then apply a model. An override can keep the loaded model or restore stock from a compatible verified clean ROM. Ordinary battles share one model across both sides. Environment names remain unconfirmed until observed in PokeMMO. See the [Battle Platform Selector test and gameplay handoff](docs/research/battle-platform-selector.md#14-implemented-feature-branch).
+- **Battle platforms:** select stage groups or raw members #0–33, then apply a model. An override can keep the loaded model or restore stock from a compatible verified clean ROM. Ordinary vanilla Black/White battles share one model across both sides. Environment names remain unconfirmed until observed in PokeMMO. See the [Battle Platform Selector test and gameplay handoff](docs/research/battle-platform-selector.md#14-implemented-feature-branch).
 - **3D previews:** free rotation, 4 views, animations, *compare with what's in your ROM*, export the raw model.
 - **Export:** every replaced entry is read back after the build, and the `.bps` is re-applied to confirm it rebuilds
   the same ROM. Entries that keep their size (or shrink) are written in place.
