@@ -644,3 +644,20 @@ Node 22 recorded **29 passed and 14 skipped** with the local English Black and W
 The isolated Pages-style build at [127.0.0.1:8775/Rom-Patch-Manager/](http://127.0.0.1:8775/Rom-Patch-Manager/) uses the QA Correction 01 service-worker cache. A browser already controlled by the previous build picked up the corrected two-pack selector on reload, removed its superseded shell cache, and retained the new selector offline. The serving command in Section 15 still applies.
 
 [Desktop selection and model shelf](battle-platform-qa01/qa01-rom-platforms.png) · [Narrow Spanish layout](battle-platform-qa01/qa01-rom-platforms-narrow.png) · [Dev labels](battle-platform-qa01/qa01-rom-dev-environment.png) · [Dev model registration](battle-platform-qa01/qa01-rom-dev-model.png)
+
+## 17. QA Correction 02 — Shared Battle Backgrounds layout
+
+Started at `b110dcfaf1833d05d773667bdb9265bbc6f8184a`. Shared rendering and platform interaction are implemented at `babd3b0304ce287be4d4780a330615edd0b07c5e`.
+
+Battle Backgrounds and Battle Platforms use the same destination tile, model card, creator sections, thumbnail proportions, selection indicator, and preview control. Platforms follows the same document flow from the heading through the full-width destinations, complete sets, and searchable library. The 34 members are directly visible by default. There are 25 selectable verified stage groups with visible member IDs and states. Individual selection and grouped selection use the same physical-member set, with partial groups shown as mixed. Direct card selection supports mouse, Enter and Space. Clear and preview are separate actions. Localized labels, numbers, groups and variants, installed states, pending assignments, evidence and descriptions are rendered within the cards.
+
+The public library retains Transparent Discs and Pixel Battle Grounds packs, 15 Pixel models and the individual Transparent Disc. Legacy No Battle Ground presets still resolve. The ROM patch engine and ordinary members #0–33 are unchanged. The linked player/opponent limitation remains as documented in Section 16.
+
+The comparison captures use the live owner build at 100% and a device scale factor of 1. Each page has one destination selected and one real creator asset assigned. No ROM was loaded for these captures. At both sizes, the measured full-width grid widths, column widths, gaps, card radii and thumbnail proportions match between pages.
+
+- **1440 × 960** · [Destination boards](battle-platform-qa02/desktop-destinations.png) · [Complete sets and libraries](battle-platform-qa02/desktop-library.png)
+- **410 × 840** · [Destination boards](battle-platform-qa02/narrow-destinations.png) · [Complete sets and libraries](battle-platform-qa02/narrow-library.png)
+
+Node 22 recorded **29 passes and 14 skips** with English Black and White. The skipped cases need additional ROM inputs. Chromium and Firefox checked single-member, noncontiguous member and full-group selection, clear, non-applying previews and NDS/BPS downloads. Chromium also checked both packs, actual model previews, the narrow layout, Dev Mode registration and offline reopen. Spanish and Simplified Chinese controls were checked in the offline browser. An existing QA 01-controlled client upgraded to the new layout and could reopen it offline. Legacy pack and individual presets were exercised through the public Presets tab.
+
+[Owner preview at port 8775](http://127.0.0.1:8775/Rom-Patch-Manager/) · [Dev Mode](http://127.0.0.1:8775/Rom-Patch-Manager/?dev). Reuse the local server command from Section 15. Final visual and in-game acceptance remain with the owner.
