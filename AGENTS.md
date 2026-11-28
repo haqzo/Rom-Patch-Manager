@@ -39,3 +39,5 @@ or how the site is published.
 - End substantive work with a concise handoff: changes, tests, known limitations, source references, pending decisions and locations of preserved artifacts. Keep ChatGPT, Codex and Claude aligned through the same repository documentation rather than relying on a chat session.
 
 Keep ROM research in `docs/research/` and unpublished model experiments in `experiments/` or the owner's private workspace. Read `docs/custom-models.md` and `docs/HANDOFF-CHATGPT.md` before model work. Preserve creator attribution, unconfirmed platform mappings, CTRMap export workflow, and the existing content-only permissions. Never publish untested compatibility as confirmed.
+
+Owner ROM preservation rule: never delete or deduplicate any of the owner's ROM files or ROM archives, including exact duplicates, all languages, editions, revisions, clean, modified and experimental ROMs. Do not include ROM collections in automated cleanup. Keep them private.
