@@ -44,7 +44,7 @@ CTRMap gotchas
 - Textures: body ≤512×256, 256 colours. The player is drawn by the game (no rider part needed).
 - **Tested: Wailmer works** (after re-export with the palette texture format).
 
-## Fly (A115) — works with Mato's skeleton
+## Fly (A115) — experimental model conversion using Mato's skeleton
 
 The Fly scene animates 8 fixed nodes: `world_root, Hero_body (player), flash_line (speed lines),
 joint1 (body), joint2→joint3 (+X wing inner→outer), joint5→joint6 (−X wing)`. Animations drive
@@ -61,8 +61,7 @@ nodes by index, so **any model on this exact skeleton can use Mato's Charizard a
   67/112. Use Mato's Charizard anims (library `fly-mega-charizard-y`, members 60 and 67).
 - In Rom Patch Manager drop the model + 2 anims in *Your files*: since v1.0.3 it **switches to Fly
   automatically** (a model with `Hero_body`+`joint1` nodes) and uses one model for take-off and landing.
-- **Tested**: Lugia appears, picks up the player and flies off. *Untested*: colours after the
-  palette-texture re-export (first try was dark — 4x4 compressed textures).
+- **Failed visual prototype (Haqzo correction, 2026-11-28):** Lugia rendered and moved, but was too small, looked off, and did not meet MaToRiuKo’s visual quality. It is not a successful or release-ready Fly model. The palette re-export remains untested. See the [Fly design research and controlled test plan](research/fly-design-2026-11-28/README.md) for updated sizing, rigging, phase and material requirements.
 
 ## Checking in-game crashes
 
