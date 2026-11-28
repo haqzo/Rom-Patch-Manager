@@ -139,7 +139,12 @@
    },
    "sources": [
     "Surf Models/Lapras.nsbmd"
-   ]
+   ],
+   "desc": {
+    "en": "From Pokémon X/Y's Lapras.",
+    "zh": "来自《宝可梦 X/Y》的拉普拉斯。",
+    "es": "Extraído de Lapras de Pokémon X/Y."
+   }
   },
   {
    "id": "surf-kyogre",
@@ -235,7 +240,12 @@
    },
    "sources": [
     "Surf Models/Mega Charizard X.nsbmd"
-   ]
+   ],
+   "desc": {
+    "en": "From Pokémon X/Y's Mega Charizard X.",
+    "zh": "来自《宝可梦 X/Y》的超级喷火龙X。",
+    "es": "Extraído de Mega Charizard X de Pokémon X/Y."
+   }
   },
   {
    "id": "surf-miraidon",
@@ -265,9 +275,9 @@
    "id": "surf-dudunsparce",
    "cat": "surf",
    "name": {
-    "en": "Dudunsparce",
-    "zh": "土龙节节",
-    "es": "Dudunsparce"
+    "en": "Dunsparce",
+    "zh": "土龙弟弟",
+    "es": "Dunsparce"
    },
    "by": "MaToRiuKo",
    "writes": [
@@ -366,15 +376,18 @@
    },
    "sources": [
     "Surf Models/Xianxia Flying Sword.nsbmd"
-   ]
+   ],
+   "desc": {
+    "zh": "今朝剑指叠云处。"
+   }
   },
   {
    "id": "surf-player-only",
    "cat": "surf",
    "name": {
-    "en": "Just the trainer (no ride)",
-    "zh": "只有训练家（无坐骑）",
-    "es": "Solo el entrenador (sin montura)"
+    "en": "Surf example template",
+    "zh": "冲浪示例模板",
+    "es": "Plantilla de ejemplo de surf"
    },
    "by": "MaToRiuKo",
    "writes": [
@@ -960,7 +973,8 @@
     "No-Battle-Ground (a/0/1/1 #31)",
     "No-Battle-Ground (a/0/1/1 #32)",
     "No-Battle-Ground (a/0/1/1 #33)"
-   ]
+   ],
+   "archived": true
   },
   {
    "id": "disc-transparent",
@@ -1633,9 +1647,9 @@
    "id": "surf-nailong",
    "cat": "surf",
    "name": {
-    "en": "Nailong",
-    "zh": "奶龙",
-    "es": "Nailong"
+    "en": "Naiwa",
+    "zh": "奶蛙",
+    "es": "Naiwa"
    },
    "by": "MaToRiuKo",
    "writes": [
@@ -1651,7 +1665,10 @@
    },
    "sources": [
     "community/Nailong_Model.nsbmd"
-   ]
+   ],
+   "desc": {
+    "zh": "似龙非龙，似蛙非蛙。"
+   }
   },
   {
    "id": "surf-minecraft-boat",
@@ -1796,6 +1813,939 @@
    },
    "sources": [
     "community/Mantine_Shiny_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "hm-pink-leaves",
+   "cat": "hmbg",
+   "name": {
+    "en": "Pink Fallen Leaves",
+    "zh": "粉色落叶",
+    "es": "Hojas rosadas"
+   },
+   "by": "MaToRiuKo",
+   "desc": {
+    "en": "Made with a custom template.",
+    "zh": "使用自定义模板生成。",
+    "es": "Hecho con una plantilla personalizada."
+   },
+   "writes": [
+    {
+     "path": "a/1/1/5",
+     "member": 25,
+     "file": "069ddc42f9471c2d.nsbmd"
+    }
+   ],
+   "sources": [
+    "community/mato-bg/Pink_Fallen_Leaves_Model.nsbmd"
+   ]
+  },
+  {
+   "id": "disc-terrain-expanded-a",
+   "cat": "platforms",
+   "name": {
+    "en": "Pixel Terrain Expanded — Set A",
+    "zh": "扩展像素地形 — 套装 A",
+    "es": "Terreno pixelado ampliado — Set A"
+   },
+   "by": "Haqzo & MaToRiuKo",
+   "desc": {
+    "en": "34 matched platform models, option A for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+    "zh": "34 个对应地台模型，每个编号使用选项 A。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+    "es": "34 modelos de plataformas asociados, opción A para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+   },
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "81862251af1f187a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "e9e74159cdd523ac.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "5bea33a5c7c9ddf5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "667f09c5ede550cf.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "055c149e0ed44e95.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "70431fb0066c78cd.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "ab85d6e803302eff.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "6ba7f23c89478896.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "3727d07b093f90d1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "8bf33f46397921b3.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "3a5a4ed81fcdce49.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "6bf2489f0af0bedb.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "d752c6e48ba99ce1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "dbd7e90c216b52d1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "5fa78e19d34ea2c3.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "a5739eb54f6812cf.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "9541dafee1e06730.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "c24d3f47e2d60d2e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "90015251ad90df3b.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "fa5b8a80a4e872e5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "8f35c3def411300a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "0c3d8b9930551412.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "5b6c91e625762a40.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "7925369c30ba2022.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "68c2a94c831bd5c5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "96990a54039966d5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "56727b27a5b72ca5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "6672df1acfe9a38d.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "e70ecbce12277d0c.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "7248b8b3ad3c7837.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "047bd68b89230343.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "d2423b75935209f2.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "67198e0c1620b84a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "67f6c9d3640550d1.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "81862251af1f187a.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/grounds-expanded/P00A.nsbmd",
+    "community/grounds-expanded/P01A.nsbmd",
+    "community/grounds-expanded/P02A.nsbmd",
+    "community/grounds-expanded/P03A.nsbmd",
+    "community/grounds-expanded/P04A.nsbmd",
+    "community/grounds-expanded/P05A.nsbmd",
+    "community/grounds-expanded/P06A.nsbmd",
+    "community/grounds-expanded/P07A.nsbmd",
+    "community/grounds-expanded/P08A.nsbmd",
+    "community/grounds-expanded/P09A.nsbmd",
+    "community/grounds-expanded/P10A.nsbmd",
+    "community/grounds-expanded/P11A.nsbmd",
+    "community/grounds-expanded/P12A.nsbmd",
+    "community/grounds-expanded/P13A.nsbmd",
+    "community/grounds-expanded/P14A.nsbmd",
+    "community/grounds-expanded/P15A.nsbmd",
+    "community/grounds-expanded/P16A.nsbmd",
+    "community/grounds-expanded/P17A.nsbmd",
+    "community/grounds-expanded/P18A.nsbmd",
+    "community/grounds-expanded/P19A.nsbmd",
+    "community/grounds-expanded/P20A.nsbmd",
+    "community/grounds-expanded/P21A.nsbmd",
+    "community/grounds-expanded/P22A.nsbmd",
+    "community/grounds-expanded/P23A.nsbmd",
+    "community/grounds-expanded/P24A.nsbmd",
+    "community/grounds-expanded/P25A.nsbmd",
+    "community/grounds-expanded/P26A.nsbmd",
+    "community/grounds-expanded/P27A.nsbmd",
+    "community/grounds-expanded/P28A.nsbmd",
+    "community/grounds-expanded/P29A.nsbmd",
+    "community/grounds-expanded/P30A.nsbmd",
+    "community/grounds-expanded/P31A.nsbmd",
+    "community/grounds-expanded/P32A.nsbmd",
+    "community/grounds-expanded/P33A.nsbmd"
+   ]
+  },
+  {
+   "id": "disc-terrain-expanded-b",
+   "cat": "platforms",
+   "name": {
+    "en": "Pixel Terrain Expanded — Set B",
+    "zh": "扩展像素地形 — 套装 B",
+    "es": "Terreno pixelado ampliado — Set B"
+   },
+   "by": "Haqzo & MaToRiuKo",
+   "desc": {
+    "en": "34 matched platform models, option B for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+    "zh": "34 个对应地台模型，每个编号使用选项 B。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+    "es": "34 modelos de plataformas asociados, opción B para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+   },
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "e976e085d2fcc560.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "23459d02741460fc.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "ea339768c3385f4e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "a13f34a5e0397bc1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "716eedb5b5360d4b.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "09c2e6bea1c62725.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "49ba346a197728f4.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "536f9992247e96bc.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "abdaf7e47db25433.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "f4e512ac34ba2528.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "50240423495b448f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "4bfaf0b54669761f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "c94f7f4eb6cbf787.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "637429a99e3f7860.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "66d41d31dd226dc5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "b915af22fc83df4b.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "2efad663552bfdee.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "f31eee8cb820a80a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "04e255ef000403a6.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "eddb26ac5c137508.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "8af50fc324f9bda5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "f94e6aecb4bc1827.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "f518658d85b086e5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "01c05e7f4bac0421.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "34fe6ce888bf7c61.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "2d9840f02d059060.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "675666240cf3ed06.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "e0bb425cb711d9ee.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "03169d6dd0dd8048.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "4045f4e7706a45b7.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "f75acc3b9dbdced3.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "717707d0668883c8.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "08582c0ca51f77ea.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "1960b96c7172c6c8.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "e976e085d2fcc560.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/grounds-expanded/P00B.nsbmd",
+    "community/grounds-expanded/P01B.nsbmd",
+    "community/grounds-expanded/P02B.nsbmd",
+    "community/grounds-expanded/P03B.nsbmd",
+    "community/grounds-expanded/P04B.nsbmd",
+    "community/grounds-expanded/P05B.nsbmd",
+    "community/grounds-expanded/P06B.nsbmd",
+    "community/grounds-expanded/P07B.nsbmd",
+    "community/grounds-expanded/P08B.nsbmd",
+    "community/grounds-expanded/P09B.nsbmd",
+    "community/grounds-expanded/P10B.nsbmd",
+    "community/grounds-expanded/P11B.nsbmd",
+    "community/grounds-expanded/P12B.nsbmd",
+    "community/grounds-expanded/P13B.nsbmd",
+    "community/grounds-expanded/P14B.nsbmd",
+    "community/grounds-expanded/P15B.nsbmd",
+    "community/grounds-expanded/P16B.nsbmd",
+    "community/grounds-expanded/P17B.nsbmd",
+    "community/grounds-expanded/P18B.nsbmd",
+    "community/grounds-expanded/P19B.nsbmd",
+    "community/grounds-expanded/P20B.nsbmd",
+    "community/grounds-expanded/P21B.nsbmd",
+    "community/grounds-expanded/P22B.nsbmd",
+    "community/grounds-expanded/P23B.nsbmd",
+    "community/grounds-expanded/P24B.nsbmd",
+    "community/grounds-expanded/P25B.nsbmd",
+    "community/grounds-expanded/P26B.nsbmd",
+    "community/grounds-expanded/P27B.nsbmd",
+    "community/grounds-expanded/P28B.nsbmd",
+    "community/grounds-expanded/P29B.nsbmd",
+    "community/grounds-expanded/P30B.nsbmd",
+    "community/grounds-expanded/P31B.nsbmd",
+    "community/grounds-expanded/P32B.nsbmd",
+    "community/grounds-expanded/P33B.nsbmd"
+   ]
+  },
+  {
+   "id": "disc-terrain-expanded-c",
+   "cat": "platforms",
+   "name": {
+    "en": "Pixel Terrain Expanded — Set C",
+    "zh": "扩展像素地形 — 套装 C",
+    "es": "Terreno pixelado ampliado — Set C"
+   },
+   "by": "Haqzo & MaToRiuKo",
+   "desc": {
+    "en": "34 matched platform models, option C for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+    "zh": "34 个对应地台模型，每个编号使用选项 C。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+    "es": "34 modelos de plataformas asociados, opción C para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+   },
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "974ba17c8748e46e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "a39cdbcad80f8e41.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "54a0a48796805090.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "48d0c7e35cba3073.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "edccadd8a957ad7d.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "ed694ca38839b9b2.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "f4c8e696dd56d412.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "6a7427169db97a69.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "ba36913b59860067.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "0a5a8ef129880403.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "2fd613fb419a3d25.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "b262bfdec051974e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "42f17b83b2a274d6.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "bdeb0867533eb207.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "1c28845cabb9b746.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "41fbda57c91659f1.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "c1609ba8d4e2136b.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "b72fe28c90441ca4.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "9e5bc7e1d2358629.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "bd4207005417ad9f.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "0196385bb2a26ce3.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "3d3478cfe0da2568.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "6260a12c737e56f4.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "abcffd371e9bf707.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "747f713e45cbe77d.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "1920510770ddc970.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "c7a7635b5aab9f99.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "8df895fe231ae8f0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "26f9e10d1ce29392.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "17f76e02150cf624.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "c98ae9044f6342f9.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "7932e82f8fdca841.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "146cebba39070358.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "48d04e17eb48fd47.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "974ba17c8748e46e.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/grounds-expanded/P00C.nsbmd",
+    "community/grounds-expanded/P01C.nsbmd",
+    "community/grounds-expanded/P02C.nsbmd",
+    "community/grounds-expanded/P03C.nsbmd",
+    "community/grounds-expanded/P04C.nsbmd",
+    "community/grounds-expanded/P05C.nsbmd",
+    "community/grounds-expanded/P06C.nsbmd",
+    "community/grounds-expanded/P07C.nsbmd",
+    "community/grounds-expanded/P08C.nsbmd",
+    "community/grounds-expanded/P09C.nsbmd",
+    "community/grounds-expanded/P10C.nsbmd",
+    "community/grounds-expanded/P11C.nsbmd",
+    "community/grounds-expanded/P12C.nsbmd",
+    "community/grounds-expanded/P13C.nsbmd",
+    "community/grounds-expanded/P14C.nsbmd",
+    "community/grounds-expanded/P15C.nsbmd",
+    "community/grounds-expanded/P16C.nsbmd",
+    "community/grounds-expanded/P17C.nsbmd",
+    "community/grounds-expanded/P18C.nsbmd",
+    "community/grounds-expanded/P19C.nsbmd",
+    "community/grounds-expanded/P20C.nsbmd",
+    "community/grounds-expanded/P21C.nsbmd",
+    "community/grounds-expanded/P22C.nsbmd",
+    "community/grounds-expanded/P23C.nsbmd",
+    "community/grounds-expanded/P24C.nsbmd",
+    "community/grounds-expanded/P25C.nsbmd",
+    "community/grounds-expanded/P26C.nsbmd",
+    "community/grounds-expanded/P27C.nsbmd",
+    "community/grounds-expanded/P28C.nsbmd",
+    "community/grounds-expanded/P29C.nsbmd",
+    "community/grounds-expanded/P30C.nsbmd",
+    "community/grounds-expanded/P31C.nsbmd",
+    "community/grounds-expanded/P32C.nsbmd",
+    "community/grounds-expanded/P33C.nsbmd"
+   ]
+  },
+  {
+   "id": "disc-terrain-expanded-d",
+   "cat": "platforms",
+   "name": {
+    "en": "Pixel Terrain Expanded — Set D",
+    "zh": "扩展像素地形 — 套装 D",
+    "es": "Terreno pixelado ampliado — Set D"
+   },
+   "by": "Haqzo & MaToRiuKo",
+   "desc": {
+    "en": "34 matched platform models, option D for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+    "zh": "34 个对应地台模型，每个编号使用选项 D。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+    "es": "34 modelos de plataformas asociados, opción D para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+   },
+   "writes": [
+    {
+     "path": "a/0/1/1",
+     "member": 0,
+     "file": "b8a5b58645d61e61.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 1,
+     "file": "f9ce948b395ceb85.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 2,
+     "file": "8b887d7b39548dd3.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 3,
+     "file": "9ffeae86fc954adc.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 4,
+     "file": "b59d2913d96bc19e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 5,
+     "file": "79a7ce88d9d95d14.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 6,
+     "file": "809aaf75e42d1a8a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 7,
+     "file": "256100a60b9aa81a.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 8,
+     "file": "2bbb1661227d27f5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 9,
+     "file": "765400c434269b73.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 10,
+     "file": "296d7e33b2faa254.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 11,
+     "file": "53cd53838502d3b8.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 12,
+     "file": "634614e7744e2064.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 13,
+     "file": "a3f4183a24d9b94b.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 14,
+     "file": "bcefb550d8e739a5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 15,
+     "file": "730048e62253ed16.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 16,
+     "file": "7c97b81f20c0f9dd.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 17,
+     "file": "b8438acfbf363195.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 18,
+     "file": "7cd3241dcc4b23ca.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 19,
+     "file": "62c90147e49d0e29.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 20,
+     "file": "07bec00d14e24c96.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 21,
+     "file": "678babd709200e89.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 22,
+     "file": "d733dfb986f1dcc5.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 23,
+     "file": "0c157f2d3dbdf576.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 24,
+     "file": "4afa787ac5123e33.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 25,
+     "file": "5e153629cfc35bd0.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 26,
+     "file": "2de9e43fd9873c2e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 27,
+     "file": "ccf05c1bc15e3a1e.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 28,
+     "file": "d69096fed011a6f9.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 29,
+     "file": "e6d979af30e0d9ab.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 30,
+     "file": "d93f8f27433365ee.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 31,
+     "file": "4bc25d69d2fec694.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 32,
+     "file": "36ecf123a9226669.nsbmd"
+    },
+    {
+     "path": "a/0/1/1",
+     "member": 33,
+     "file": "d785baacf7194c56.nsbmd"
+    }
+   ],
+   "view": {
+    "model": "b8a5b58645d61e61.nsbmd",
+    "kind": "object"
+   },
+   "sources": [
+    "community/grounds-expanded/P00D.nsbmd",
+    "community/grounds-expanded/P01D.nsbmd",
+    "community/grounds-expanded/P02D.nsbmd",
+    "community/grounds-expanded/P03D.nsbmd",
+    "community/grounds-expanded/P04D.nsbmd",
+    "community/grounds-expanded/P05D.nsbmd",
+    "community/grounds-expanded/P06D.nsbmd",
+    "community/grounds-expanded/P07D.nsbmd",
+    "community/grounds-expanded/P08D.nsbmd",
+    "community/grounds-expanded/P09D.nsbmd",
+    "community/grounds-expanded/P10D.nsbmd",
+    "community/grounds-expanded/P11D.nsbmd",
+    "community/grounds-expanded/P12D.nsbmd",
+    "community/grounds-expanded/P13D.nsbmd",
+    "community/grounds-expanded/P14D.nsbmd",
+    "community/grounds-expanded/P15D.nsbmd",
+    "community/grounds-expanded/P16D.nsbmd",
+    "community/grounds-expanded/P17D.nsbmd",
+    "community/grounds-expanded/P18D.nsbmd",
+    "community/grounds-expanded/P19D.nsbmd",
+    "community/grounds-expanded/P20D.nsbmd",
+    "community/grounds-expanded/P21D.nsbmd",
+    "community/grounds-expanded/P22D.nsbmd",
+    "community/grounds-expanded/P23D.nsbmd",
+    "community/grounds-expanded/P24D.nsbmd",
+    "community/grounds-expanded/P25D.nsbmd",
+    "community/grounds-expanded/P26D.nsbmd",
+    "community/grounds-expanded/P27D.nsbmd",
+    "community/grounds-expanded/P28D.nsbmd",
+    "community/grounds-expanded/P29D.nsbmd",
+    "community/grounds-expanded/P30D.nsbmd",
+    "community/grounds-expanded/P31D.nsbmd",
+    "community/grounds-expanded/P32D.nsbmd",
+    "community/grounds-expanded/P33D.nsbmd"
    ]
   }
  ],
@@ -2318,7 +3268,7 @@
      "es": "Gimnasio Normal BW2"
     },
     "by": "YOKA",
-    "model": "5fe1a83c6f819dda.nsbmd",
+    "model": "5815d1eb7b8c8a35.nsbmd",
     "modelOnly": true,
     "sources": [
      "community/mato-bg/BW2_Normal_Gym_Model.nsbmd"
@@ -2837,6 +3787,76 @@
      "community/mato-bg/Skyarrow_and_Kyogre_Model.nsbmd",
      "community/mato-bg/Skyarrow_and_Kyogre_Anim.nsbca"
     ]
+   },
+   {
+    "id": "bg-champion-training",
+    "name": {
+     "en": "Pokémon Champion Training Ground",
+     "zh": "宝冠军训练场",
+     "es": "Campo de entrenamiento del Campeón"
+    },
+    "by": "YOKA",
+    "model": "cf3c99be41e819a4.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Champion_Training_Ground.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-simple-spring",
+    "name": {
+     "en": "Simple Backdrop (Spring)",
+     "zh": "简约背景·春",
+     "es": "Fondo sencillo (Primavera)"
+    },
+    "by": "YOKA",
+    "model": "e8cf07a8e4a2e1d8.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Simple_Spring_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-simple-summer",
+    "name": {
+     "en": "Simple Backdrop (Summer)",
+     "zh": "简约背景·夏",
+     "es": "Fondo sencillo (Verano)"
+    },
+    "by": "YOKA",
+    "model": "0da4701a6e81e425.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Simple_Summer_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-simple-autumn",
+    "name": {
+     "en": "Simple Backdrop (Autumn)",
+     "zh": "简约背景·秋",
+     "es": "Fondo sencillo (Otoño)"
+    },
+    "by": "YOKA",
+    "model": "0cba9e4e168a72ff.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Simple_Autumn_Model.nsbmd"
+    ]
+   },
+   {
+    "id": "bg-simple-winter",
+    "name": {
+     "en": "Simple Backdrop (Winter)",
+     "zh": "简约背景·冬",
+     "es": "Fondo sencillo (Invierno)"
+    },
+    "by": "YOKA",
+    "model": "4b40eeaed9ecdaa8.nsbmd",
+    "modelOnly": true,
+    "sources": [
+     "community/mato-bg/Simple_Winter_Model.nsbmd"
+    ]
    }
   ],
   "sets": [
@@ -2871,88 +3891,170 @@
  "files": {
   "014db79e87797e73.nsbca": "143696:B9577CF2",
   "016331fb20ad659d.nsbmd": "96304:6E1E1E5B",
+  "0196385bb2a26ce3.nsbmd": "22128:508C522B",
+  "01c05e7f4bac0421.nsbmd": "22128:08C13CF0",
+  "03169d6dd0dd8048.nsbmd": "34960:336DA155",
   "03bdd00bce711694.nsbmd": "249260:39F049CF",
+  "047bd68b89230343.nsbmd": "34992:4FC5BB9A",
   "048b878dc20e1ef7.nsbmd": "2408:0C028AEC",
+  "04e255ef000403a6.nsbmd": "30960:31053BA2",
   "04e2970f00f955a2.nsbmd": "717252:34F3B9AF",
+  "055c149e0ed44e95.nsbmd": "27024:14B86617",
+  "069ddc42f9471c2d.nsbmd": "132648:7668F8D1",
   "06b89906f86d0c1e.nsbmd": "1051492:5F271B6E",
+  "07bec00d14e24c96.nsbmd": "22128:68CA148F",
   "0809efb8c3b1d88e.nsbmd": "493648:649E8D7B",
+  "08582c0ca51f77ea.nsbmd": "34672:144696DC",
   "08ba3192054a26a7.nsbmd": "464592:9DE8A3E2",
+  "09c2e6bea1c62725.nsbmd": "26320:D1DEE8A8",
+  "0a5a8ef129880403.nsbmd": "41264:B33584A8",
+  "0c157f2d3dbdf576.nsbmd": "22128:0346CD9E",
+  "0c3d8b9930551412.nsbmd": "26448:AB66E8DC",
+  "0cba9e4e168a72ff.nsbmd": "400880:70D3A083",
   "0d3d61b940b9f125.nsbmd": "8528:3A4A315D",
   "0d62bae22237c391.nsbmd": "2408:FDD72E89",
   "0d713be82249b06f.nsbmd": "2408:64D999A0",
+  "0da4701a6e81e425.nsbmd": "400880:2C2733B8",
   "0e18d1525385f3b1.nsbmd": "2248:0B1871EA",
   "0eb30a5a96a4d302.nsbmd": "1051492:37450BC3",
   "0f1f3185decf9a55.nsbmd": "2408:6832FA6C",
   "112fe9e9fd46eb85.nsbmd": "1051492:837AF5E4",
   "12608d3062277041.nsbmd": "30704:ADC53062",
+  "146cebba39070358.nsbmd": "42512:8BD49715",
+  "17f76e02150cf624.nsbmd": "41488:EF0AF573",
+  "1920510770ddc970.nsbmd": "22128:5EB4FB0A",
+  "1960b96c7172c6c8.nsbmd": "13456:AF4BC2F5",
   "19ec28540771499b.nsbmd": "2408:B6AB85EA",
   "19fb75247af646fe.nsbca": "320592:187AF7CE",
   "1a02cb797d738462.nsbmd": "177328:4EDA0DDA",
   "1a3716b8da89befc.nsbmd": "2248:5A7267E9",
+  "1c28845cabb9b746.nsbmd": "30480:885B3FC1",
   "21ebb62345065ea3.nsbca": "557392:943F4B17",
   "22463d1cfa1c83f5.nsbmd": "564304:9B1791A5",
   "2263993ef5b6536a.nsbmd": "1051492:E7AEF46D",
   "226ebd1aa32d5245.nsbmd": "1243216:67D0747F",
+  "23459d02741460fc.nsbmd": "34032:153E836F",
+  "256100a60b9aa81a.nsbmd": "26352:B287B750",
+  "26f9e10d1ce29392.nsbmd": "41136:ADAF8B08",
   "29048375b46a2a3d.nsbmd": "308400:83027BE2",
+  "296d7e33b2faa254.nsbmd": "42608:63ECD413",
   "2981d8d222a55867.nsbmd": "372880:34E83E43",
   "2b61997cea3993d9.nsbmd": "2408:BE362EDD",
+  "2bbb1661227d27f5.nsbmd": "32912:E6F03DD0",
+  "2d9840f02d059060.nsbmd": "22128:B81AD174",
+  "2de9e43fd9873c2e.nsbmd": "22128:29238023",
   "2e08f99cc66f0710.nsbmd": "813124:7DE1A82C",
   "2ec4ca7b3a94d6d2.nsbmd": "379760:3ED3F174",
+  "2efad663552bfdee.nsbmd": "22128:08B3EAD6",
+  "2fd613fb419a3d25.nsbmd": "41264:4C55E555",
   "300da5cbcceea2d9.nsbmd": "33200:0BE38F79",
   "326edc80a797896c.nsbca": "46416:4023B3DF",
   "3362b4e306c63202.nsbca": "39920:C1D4443A",
+  "34fe6ce888bf7c61.nsbmd": "22128:B4910702",
+  "36ecf123a9226669.nsbmd": "40496:22A3115C",
+  "3727d07b093f90d1.nsbmd": "35120:55AE9470",
   "373ce6285af54aec.nsbmd": "848:5F93B3B0",
   "3807f9454c534fc2.nsbmd": "668496:261FFD48",
+  "3a5a4ed81fcdce49.nsbmd": "34800:053B400A",
   "3b1c10c09ef85723.nsbmd": "2248:E53469C2",
   "3b289c458dcb9593.nsbmd": "48720:6A462EEA",
+  "3d3478cfe0da2568.nsbmd": "27472:F7DAF06E",
   "3e68e6fc0d1d3453.nsbca": "168080:8B012E17",
   "3f9a4234516015b3.nsbca": "70928:D2E72429",
+  "4045f4e7706a45b7.nsbmd": "34800:19965946",
   "41dbba65b70fa15e.nsbmd": "1051492:3F02E70E",
+  "41fbda57c91659f1.nsbmd": "26416:1FB839A5",
   "4231284448a7b119.nsbmd": "33744:0808A37A",
+  "42f17b83b2a274d6.nsbmd": "32336:EE96B730",
   "4504a05db77a42f5.nsbmd": "365264:7C36D13A",
   "454209de5aacc43a.nsbmd": "820052:A04174A8",
   "46ffe664911a0a82.nsbmd": "639408:9669BD42",
   "47753100b6e04273.nsbmd": "880:BA898BD2",
+  "48d04e17eb48fd47.nsbmd": "13456:81BAD579",
+  "48d0c7e35cba3073.nsbmd": "40464:21573F2A",
   "48d9f4e7710a0365.nsbmd": "1051492:436A4A8E",
+  "49ba346a197728f4.nsbmd": "22128:8A6F4C4C",
   "49fd53a299f672b9.nsbmd": "19312:E9B82906",
   "4a735d42fc92b554.nsbmd": "834008:D8B35232",
   "4acb89aa34b66e25.nsbmd": "398768:BA686AAE",
+  "4afa787ac5123e33.nsbmd": "22128:4B36CA4C",
+  "4b40eeaed9ecdaa8.nsbmd": "400880:62845BA8",
+  "4bc25d69d2fec694.nsbmd": "27920:DC410BA4",
+  "4bfaf0b54669761f.nsbmd": "34800:C1857DF5",
   "4c67d13fe009808b.nsbmd": "237524:CCD2F73E",
   "4fd5e8a51de8e6f8.nsbmd": "362400:E8949015",
+  "50240423495b448f.nsbmd": "34960:520C36B9",
   "526a6091ddc59498.nsbmd": "1051492:EA14BCEC",
+  "536f9992247e96bc.nsbmd": "26512:021CACDF",
+  "53cd53838502d3b8.nsbmd": "39152:9ADD8C06",
   "54045d3c9473dbd8.nsbmd": "30544:0232F3E4",
   "54372d19e0318e56.nsbmd": "2248:53D148E3",
   "545cc8f181fba2bb.nsbmd": "2408:951D1CE0",
+  "54a0a48796805090.nsbmd": "41072:9DADC932",
   "55578d24ac15e914.nsbmd": "694096:0501FB16",
   "55faed7937b4b1c5.nsbmd": "9584:F53E74FA",
+  "56727b27a5b72ca5.nsbmd": "22128:8C7EDCE7",
   "5708bedddac9ef5e.nsbmd": "30704:AF1A5BB5",
+  "5815d1eb7b8c8a35.nsbmd": "88880:E7D46970",
   "5860b102dddc498f.nsbmd": "1051492:7960D2D7",
   "59df366a07b96b00.nsbca": "149360:55C34BE0",
   "5a898e24ae471a60.nsbmd": "25964:BDA7BD6B",
-  "5fe1a83c6f819dda.nsbmd": "92528:890E2214",
+  "5b6c91e625762a40.nsbmd": "22128:B3542100",
+  "5bea33a5c7c9ddf5.nsbmd": "33904:4A5AF1B6",
+  "5e153629cfc35bd0.nsbmd": "22128:7B23BDCD",
+  "5fa78e19d34ea2c3.nsbmd": "22128:5EEED9CF",
   "60dba8c87493841a.nsbmd": "2408:CADD9F0B",
   "61059ea7831bdb6e.nsbmd": "5576:4F42D13F",
   "618b2be41ab9df94.nsbmd": "1968:82AB965D",
+  "6260a12c737e56f4.nsbmd": "22128:6D27BAFA",
+  "62c90147e49d0e29.nsbmd": "32432:783A4E93",
+  "634614e7744e2064.nsbmd": "27920:5A090046",
+  "637429a99e3f7860.nsbmd": "26224:6BCE5939",
   "63af1bfb5a576fdf.nsbmd": "1051492:7D509513",
   "6410ec5aecfecda7.nsbca": "119312:28641B7A",
   "656fb60e5a4a3a89.nsbmd": "1051492:AE8C11C4",
   "65edd22d58c2885d.nsbmd": "412732:49A1968C",
+  "6672df1acfe9a38d.nsbmd": "22128:683C01AB",
+  "667f09c5ede550cf.nsbmd": "33424:34DCF57F",
+  "66d41d31dd226dc5.nsbmd": "22128:4126636C",
+  "67198e0c1620b84a.nsbmd": "35056:A7535111",
+  "675666240cf3ed06.nsbmd": "22128:F0C2DE31",
+  "678babd709200e89.nsbmd": "28560:53256491",
+  "67f6c9d3640550d1.nsbmd": "13456:048B56D9",
+  "68c2a94c831bd5c5.nsbmd": "22128:B70EEBF5",
   "6a0322fc202c2dce.nsbmd": "883856:ECEDD40E",
+  "6a7427169db97a69.nsbmd": "27600:119306C6",
   "6ac7f685bda8e2cf.nsbca": "61296:B60CF523",
+  "6ba7f23c89478896.nsbmd": "22128:37E19E3A",
+  "6bf2489f0af0bedb.nsbmd": "35088:2B193111",
   "6d58c6bdde966992.nsbmd": "33200:3C2B260A",
   "6dfe72c9ace9af93.nsbmd": "12976:43124597",
   "6e353b9c9115b47d.nsbmd": "2248:CAE28170",
   "6ed0f06bc6905f9f.nsbmd": "2408:397F4BA4",
   "6f653f71ce648b2d.nsbmd": "2408:E11FB535",
   "6fcd992b86529b28.nsbmd": "1051492:7A902F73",
+  "70431fb0066c78cd.nsbmd": "26384:1FCE75C2",
+  "716eedb5b5360d4b.nsbmd": "33520:6786B071",
+  "717707d0668883c8.nsbmd": "34032:AA8A1372",
+  "7248b8b3ad3c7837.nsbmd": "35152:BAE49ABC",
   "725ebc47ede9289e.nsbca": "324464:E4836107",
+  "730048e62253ed16.nsbmd": "26448:DFB2B9D5",
   "733633f07d5a2804.nsbca": "11152:175C10B0",
+  "747f713e45cbe77d.nsbmd": "22128:50BA8351",
+  "765400c434269b73.nsbmd": "42480:1AA52202",
   "769a54091fe14b89.nsbca": "269936:DBFF6844",
+  "7925369c30ba2022.nsbmd": "22128:89A06D3D",
+  "7932e82f8fdca841.nsbmd": "32368:53F03317",
+  "79a7ce88d9d95d14.nsbmd": "28432:5BF9CDD0",
   "79aee12083c38216.nsbmd": "433216:8060964B",
   "7a1fc302d1d33e78.nsbmd": "388912:AEC0A54D",
   "7a6074e2e9f38473.nsbmd": "9584:1FD17416",
   "7b24df535dd1e690.nsbmd": "619252:DA38EBD4",
   "7be34c7db107f7f7.nsbmd": "30704:D1BF7E6C",
+  "7c97b81f20c0f9dd.nsbmd": "29808:28551E80",
+  "7cd3241dcc4b23ca.nsbmd": "30992:9B90DE65",
+  "809aaf75e42d1a8a.nsbmd": "22128:6FBDAE36",
+  "81862251af1f187a.nsbmd": "33584:53C688B2",
   "829fa3f77a3b38dd.nsbmd": "2408:58FF4293",
   "83b4fadf20164863.nsbmd": "9700:77ECD674",
   "846bcb29de2974a5.nsbmd": "9584:F61E2F14",
@@ -2960,11 +4062,20 @@
   "8709b8e3b3cc0c78.nsbmd": "2408:881EE962",
   "8814f5eea4ec3232.nsbmd": "2248:E1C00385",
   "8a7a78c97402f4b9.nsbmd": "23440:9E5686FA",
+  "8af50fc324f9bda5.nsbmd": "22128:9B7BEFCB",
+  "8b887d7b39548dd3.nsbmd": "32400:D8EAC23B",
+  "8bf33f46397921b3.nsbmd": "34832:244E75B1",
   "8c8c8437c24f2c3b.nsbmd": "485104:52B443CC",
+  "8df895fe231ae8f0.nsbmd": "29872:BFD38CBC",
   "8f27b37634faff5b.nsbmd": "201232:5E92A87D",
+  "8f35c3def411300a.nsbmd": "22128:7EB8D60A",
   "8f99e4abe043176d.nsbmd": "2408:B1142F1A",
+  "90015251ad90df3b.nsbmd": "22128:6AA475AC",
   "9153ee6a4bee2c70.nsbmd": "1051492:87AF1118",
   "91c36ff1ad42ffa5.nsbmd": "2408:E084560A",
+  "9541dafee1e06730.nsbmd": "22128:E388E3A6",
+  "96990a54039966d5.nsbmd": "22128:5502F09D",
+  "974ba17c8748e46e.nsbmd": "41264:3C6C01EE",
   "97982c8c00287548.nsbmd": "474352:DB499560",
   "991f7776bbc4544e.nsbmd": "2408:D90CA9CC",
   "9a05709eeaaf4868.nsbmd": "2408:931FADF7",
@@ -2973,50 +4084,93 @@
   "9cf6cb6ae4f31be5.nsbmd": "2256:7CAF322B",
   "9dcb4e9dd6faf09f.nsbmd": "2248:1F7F9E7F",
   "9dd06c9eee1223fc.nsbmd": "231376:87838C58",
+  "9e5bc7e1d2358629.nsbmd": "30480:D65596B5",
   "9ef7886ed37259c0.nsbmd": "1051492:B79541A0",
   "9fe14bc591b46152.nsbmd": "2248:9690B991",
+  "9ffeae86fc954adc.nsbmd": "39408:BA315CC8",
+  "a13f34a5e0397bc1.nsbmd": "33392:3244A9A5",
   "a31b3327f03000fe.nsbmd": "465328:27D16B94",
+  "a39cdbcad80f8e41.nsbmd": "41168:0E1FF36C",
+  "a3f4183a24d9b94b.nsbmd": "26736:5CFB7428",
   "a42014dc38aa9e77.nsbmd": "141508:3446B6B3",
+  "a5739eb54f6812cf.nsbmd": "22128:1DBBAA11",
   "a68a898bd90a4c97.nsbca": "18608:136BB0AD",
   "a8a03ad276439802.nsbmd": "9764:562E071A",
   "a9306785ca53888f.nsbmd": "369808:D8AFE51C",
   "a9c1da5ec48c73f1.nsbmd": "10592:FA0A8475",
+  "ab85d6e803302eff.nsbmd": "22128:E474EE3A",
+  "abcffd371e9bf707.nsbmd": "22128:C93A01AB",
+  "abdaf7e47db25433.nsbmd": "34896:16FFBF48",
   "ad4a81a4d3aa6ea2.nsbmd": "390796:AC6E6487",
   "af50568e9fc75184.nsbmd": "200336:8C2D721F",
   "b228e0ca9f49d860.nsbmd": "21520:88ADDC9D",
+  "b262bfdec051974e.nsbmd": "40432:781936DB",
   "b3c3cab4b08b9050.nsbmd": "391920:2A8DE054",
   "b43f68594a61f5f7.nsbmd": "2248:5BDB1F6B",
   "b45e970704a4ce18.nsbmd": "438672:B426B7AA",
   "b50f651af3e4f448.nsbmd": "1051492:367F7F96",
+  "b59d2913d96bc19e.nsbmd": "26704:912DB105",
+  "b72fe28c90441ca4.nsbmd": "22128:F20C97A4",
+  "b8438acfbf363195.nsbmd": "26832:DBEADB9B",
+  "b8a5b58645d61e61.nsbmd": "32464:71D61C7E",
+  "b915af22fc83df4b.nsbmd": "26288:E5D96CD0",
+  "ba36913b59860067.nsbmd": "41232:D0B30668",
   "baa3cad27580159a.nsbmd": "2408:1945CE4C",
   "bb04f627a91af04c.nsbmd": "1051492:79F303B6",
   "bba503a5bfdea1e6.nsbmd": "592336:AC4C140C",
+  "bcefb550d8e739a5.nsbmd": "30992:E4117A45",
+  "bd4207005417ad9f.nsbmd": "27888:FDE5B822",
   "bd5a740a26b35c4f.nsbmd": "69616:2E93B447",
+  "bdeb0867533eb207.nsbmd": "29808:65917A7E",
+  "c1609ba8d4e2136b.nsbmd": "22128:4C68FD39",
   "c23ca61e22002849.nsbmd": "1236:2FE95811",
+  "c24d3f47e2d60d2e.nsbmd": "22128:464FBFBB",
   "c3a6c45420a99618.nsbmd": "1051492:01901D81",
   "c3e56d58dc500575.nsbmd": "2408:1457BCF8",
   "c573bc5d65ef2087.nsbmd": "9584:800F8831",
+  "c7a7635b5aab9f99.nsbmd": "22128:B071B74E",
   "c7c401248fdf7bf8.nsbmd": "396752:FA0E2333",
+  "c94f7f4eb6cbf787.nsbmd": "34064:9E837EDC",
+  "c98ae9044f6342f9.nsbmd": "40656:B846AD69",
   "ca875109b6f65ce8.nsbmd": "150548:B0178BD9",
+  "ccf05c1bc15e3a1e.nsbmd": "26768:A3AA11CA",
   "cdc5dae593cf8ac0.nsbmd": "9584:26B3B58D",
+  "cf3c99be41e819a4.nsbmd": "400880:66C9A2AF",
   "cfa135fef758ae6e.nsbmd": "824212:B70E8F60",
   "cff61fc40c5a6521.nsbmd": "2408:5065A1A0",
   "d0709cb09404903a.nsbmd": "2408:04CC0897",
+  "d2423b75935209f2.nsbmd": "27088:1D4552F7",
+  "d69096fed011a6f9.nsbmd": "42672:B25E5C0B",
+  "d733dfb986f1dcc5.nsbmd": "27888:53E83728",
+  "d752c6e48ba99ce1.nsbmd": "27024:175688A9",
+  "d785baacf7194c56.nsbmd": "13456:B2CA4252",
   "d7c4c1d6f96d3778.nsbmd": "2248:C90107E9",
   "d806fe057de2f1e6.nsbmd": "6992:C1E65578",
+  "d93f8f27433365ee.nsbmd": "39280:9E51ACA0",
   "d9d6fc5187c9720b.nsbmd": "473520:71710A59",
   "dab5ed0f95090df6.nsbmd": "987076:88D12BE1",
+  "dbd7e90c216b52d1.nsbmd": "22128:97937A25",
+  "e0bb425cb711d9ee.nsbmd": "26320:A130CEC7",
   "e1474273a159c96f.nsbmd": "2248:789F4BC7",
   "e163ec70184fbe17.nsbmd": "1051492:D657C613",
   "e2612c917c84ecdd.nsbca": "151152:39BC3C63",
   "e58197c07570ebe3.nsbmd": "117328:655C04B2",
+  "e6d979af30e0d9ab.nsbmd": "42704:465B133D",
+  "e70ecbce12277d0c.nsbmd": "34704:347F472E",
   "e86720f58761a369.nsbmd": "433216:AEE504DD",
   "e880dc13ad949759.nsbmd": "1051492:EE52172A",
+  "e8cf07a8e4a2e1d8.nsbmd": "400880:45FD020C",
+  "e976e085d2fcc560.nsbmd": "33840:FA23908F",
+  "e9e74159cdd523ac.nsbmd": "33840:CA04173C",
+  "ea339768c3385f4e.nsbmd": "33840:138CA860",
   "ea4dcb6c3afe92b7.nsbca": "120464:827857F2",
   "ea65f1d0e9d2b973.nsbmd": "403088:E39C54BA",
   "ea85ad5ef25580ea.nsbmd": "1051492:0991DD7D",
   "eb4684f333b359dc.nsbca": "107856:B28C874F",
   "ebd743212a1bf6c9.nsbmd": "2248:BBCB3CD2",
+  "ed694ca38839b9b2.nsbmd": "27440:62CC11E1",
+  "edccadd8a957ad7d.nsbmd": "30352:128538F1",
+  "eddb26ac5c137508.nsbmd": "27056:D684B29E",
   "ef733c2ddf136584.nsbca": "6928:933C31FB",
   "f009f1057ece3cb1.nsbca": "86512:B8A1852B",
   "f05976ead8f8dc1e.nsbmd": "1051492:75137534",
@@ -3024,8 +4178,16 @@
   "f1d1c4653159b078.nsbmd": "2248:CFB58465",
   "f22dd08423e8bf21.nsbmd": "234672:725B1736",
   "f23728d284c63407.nsbmd": "1051492:4C74BFF8",
+  "f31eee8cb820a80a.nsbmd": "26416:EC505535",
+  "f4c8e696dd56d412.nsbmd": "22128:DDD56612",
+  "f4e512ac34ba2528.nsbmd": "34864:52133A0B",
+  "f518658d85b086e5.nsbmd": "22128:82D5F70A",
+  "f75acc3b9dbdced3.nsbmd": "34928:CEDDDE89",
   "f83df3eafa7018cd.nsbmd": "338176:309EEE05",
+  "f94e6aecb4bc1827.nsbmd": "26512:90D5A76E",
   "f9a0d74b9442be6b.nsbmd": "1051492:75C2CAD8",
+  "f9ce948b395ceb85.nsbmd": "32432:4C7E0315",
+  "fa5b8a80a4e872e5.nsbmd": "27024:6E1705C5",
   "fa7c0e30bb657120.nsbmd": "2408:FAF27F33",
   "fd9d72407f22d752.nsbca": "8592:94541858"
  },
@@ -3036,6 +4198,7 @@
   "bg-bw2-normal-gym",
   "bg-champion",
   "bg-champion-mirror",
+  "bg-champion-training",
   "bg-distortion-giratina",
   "bg-dragonspiral-rayquaza",
   "bg-e4-dark",
@@ -3051,11 +4214,20 @@
   "bg-pwt",
   "bg-radiant-chamber",
   "bg-red-battle-room",
+  "bg-simple-autumn",
+  "bg-simple-spring",
+  "bg-simple-summer",
+  "bg-simple-winter",
   "bg-skyarrow-kyogre",
   "disc-pixel-set",
+  "disc-terrain-expanded-a",
+  "disc-terrain-expanded-b",
+  "disc-terrain-expanded-c",
+  "disc-terrain-expanded-d",
   "fly-legendary",
   "fly-mega-charizard-y",
   "fly-xianxia-sword",
+  "hm-pink-leaves",
   "platform-pixel-autumn-grass",
   "platform-pixel-cave-pool",
   "platform-pixel-dirt-path",
@@ -3071,6 +4243,142 @@
   "platform-pixel-snow",
   "platform-pixel-snowy-grass",
   "platform-pixel-wood",
+  "platform-terrain-p00a",
+  "platform-terrain-p00b",
+  "platform-terrain-p00c",
+  "platform-terrain-p00d",
+  "platform-terrain-p01a",
+  "platform-terrain-p01b",
+  "platform-terrain-p01c",
+  "platform-terrain-p01d",
+  "platform-terrain-p02a",
+  "platform-terrain-p02b",
+  "platform-terrain-p02c",
+  "platform-terrain-p02d",
+  "platform-terrain-p03a",
+  "platform-terrain-p03b",
+  "platform-terrain-p03c",
+  "platform-terrain-p03d",
+  "platform-terrain-p04a",
+  "platform-terrain-p04b",
+  "platform-terrain-p04c",
+  "platform-terrain-p04d",
+  "platform-terrain-p05a",
+  "platform-terrain-p05b",
+  "platform-terrain-p05c",
+  "platform-terrain-p05d",
+  "platform-terrain-p06a",
+  "platform-terrain-p06b",
+  "platform-terrain-p06c",
+  "platform-terrain-p06d",
+  "platform-terrain-p07a",
+  "platform-terrain-p07b",
+  "platform-terrain-p07c",
+  "platform-terrain-p07d",
+  "platform-terrain-p08a",
+  "platform-terrain-p08b",
+  "platform-terrain-p08c",
+  "platform-terrain-p08d",
+  "platform-terrain-p09a",
+  "platform-terrain-p09b",
+  "platform-terrain-p09c",
+  "platform-terrain-p09d",
+  "platform-terrain-p10a",
+  "platform-terrain-p10b",
+  "platform-terrain-p10c",
+  "platform-terrain-p10d",
+  "platform-terrain-p11a",
+  "platform-terrain-p11b",
+  "platform-terrain-p11c",
+  "platform-terrain-p11d",
+  "platform-terrain-p12a",
+  "platform-terrain-p12b",
+  "platform-terrain-p12c",
+  "platform-terrain-p12d",
+  "platform-terrain-p13a",
+  "platform-terrain-p13b",
+  "platform-terrain-p13c",
+  "platform-terrain-p13d",
+  "platform-terrain-p14a",
+  "platform-terrain-p14b",
+  "platform-terrain-p14c",
+  "platform-terrain-p14d",
+  "platform-terrain-p15a",
+  "platform-terrain-p15b",
+  "platform-terrain-p15c",
+  "platform-terrain-p15d",
+  "platform-terrain-p16a",
+  "platform-terrain-p16b",
+  "platform-terrain-p16c",
+  "platform-terrain-p16d",
+  "platform-terrain-p17a",
+  "platform-terrain-p17b",
+  "platform-terrain-p17c",
+  "platform-terrain-p17d",
+  "platform-terrain-p18a",
+  "platform-terrain-p18b",
+  "platform-terrain-p18c",
+  "platform-terrain-p18d",
+  "platform-terrain-p19a",
+  "platform-terrain-p19b",
+  "platform-terrain-p19c",
+  "platform-terrain-p19d",
+  "platform-terrain-p20a",
+  "platform-terrain-p20b",
+  "platform-terrain-p20c",
+  "platform-terrain-p20d",
+  "platform-terrain-p21a",
+  "platform-terrain-p21b",
+  "platform-terrain-p21c",
+  "platform-terrain-p21d",
+  "platform-terrain-p22a",
+  "platform-terrain-p22b",
+  "platform-terrain-p22c",
+  "platform-terrain-p22d",
+  "platform-terrain-p23a",
+  "platform-terrain-p23b",
+  "platform-terrain-p23c",
+  "platform-terrain-p23d",
+  "platform-terrain-p24a",
+  "platform-terrain-p24b",
+  "platform-terrain-p24c",
+  "platform-terrain-p24d",
+  "platform-terrain-p25a",
+  "platform-terrain-p25b",
+  "platform-terrain-p25c",
+  "platform-terrain-p25d",
+  "platform-terrain-p26a",
+  "platform-terrain-p26b",
+  "platform-terrain-p26c",
+  "platform-terrain-p26d",
+  "platform-terrain-p27a",
+  "platform-terrain-p27b",
+  "platform-terrain-p27c",
+  "platform-terrain-p27d",
+  "platform-terrain-p28a",
+  "platform-terrain-p28b",
+  "platform-terrain-p28c",
+  "platform-terrain-p28d",
+  "platform-terrain-p29a",
+  "platform-terrain-p29b",
+  "platform-terrain-p29c",
+  "platform-terrain-p29d",
+  "platform-terrain-p30a",
+  "platform-terrain-p30b",
+  "platform-terrain-p30c",
+  "platform-terrain-p30d",
+  "platform-terrain-p31a",
+  "platform-terrain-p31b",
+  "platform-terrain-p31c",
+  "platform-terrain-p31d",
+  "platform-terrain-p32a",
+  "platform-terrain-p32b",
+  "platform-terrain-p32c",
+  "platform-terrain-p32d",
+  "platform-terrain-p33a",
+  "platform-terrain-p33b",
+  "platform-terrain-p33c",
+  "platform-terrain-p33d",
   "surf-ace-furled",
   "surf-ace-striker",
   "surf-dudunsparce",
@@ -3178,6 +4486,7 @@
    },
    {
     "id": "platform-no-ground",
+    "archived": true,
     "name": {
      "en": "No Battle Ground",
      "zh": "无战斗地台",
@@ -3415,6 +4724,2046 @@
      "en": "Pixel Battle Grounds model.",
      "zh": "像素战斗地台模型。",
      "es": "Modelo de plataformas de píxeles."
+    }
+   },
+   {
+    "id": "platform-terrain-p00a",
+    "name": {
+     "en": "Short grass path · #00A",
+     "zh": "短草小路 · #00A",
+     "es": "Sendero de hierba corta · #00A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "81862251af1f187a.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #00, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #00，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #00, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p00b",
+    "name": {
+     "en": "Tufted path · #00B",
+     "zh": "簇草小路 · #00B",
+     "es": "Sendero con matas · #00B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "e976e085d2fcc560.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #00, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #00，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #00, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p00c",
+    "name": {
+     "en": "Forest edge path · #00C",
+     "zh": "林缘小路 · #00C",
+     "es": "Sendero de borde de bosque · #00C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "974ba17c8748e46e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #00, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #00，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #00, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p00d",
+    "name": {
+     "en": "Mossy path · #00D",
+     "zh": "苔藓小路 · #00D",
+     "es": "Sendero musgoso · #00D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "b8a5b58645d61e61.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #00, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #00，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #00, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p01a",
+    "name": {
+     "en": "Short grass path · #01A",
+     "zh": "短草小路 · #01A",
+     "es": "Sendero de hierba corta · #01A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "e9e74159cdd523ac.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #01, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #01，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #01, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p01b",
+    "name": {
+     "en": "Dense short grass · #01B",
+     "zh": "密集短草 · #01B",
+     "es": "Hierba corta densa · #01B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "23459d02741460fc.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #01, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #01，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #01, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p01c",
+    "name": {
+     "en": "Forest path · #01C",
+     "zh": "森林小路 · #01C",
+     "es": "Sendero forestal · #01C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "a39cdbcad80f8e41.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #01, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #01，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #01, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p01d",
+    "name": {
+     "en": "Mossy forest path · #01D",
+     "zh": "苔藓森林小路 · #01D",
+     "es": "Sendero forestal musgoso · #01D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f9ce948b395ceb85.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #01, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #01，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #01, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p02a",
+    "name": {
+     "en": "Short grass path · #02A",
+     "zh": "短草小路 · #02A",
+     "es": "Sendero de hierba corta · #02A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "5bea33a5c7c9ddf5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #02, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #02，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #02, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p02b",
+    "name": {
+     "en": "Dense short grass · #02B",
+     "zh": "密集短草 · #02B",
+     "es": "Hierba corta densa · #02B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "ea339768c3385f4e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #02, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #02，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #02, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p02c",
+    "name": {
+     "en": "Forest path · #02C",
+     "zh": "森林小路 · #02C",
+     "es": "Sendero forestal · #02C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "54a0a48796805090.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #02, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #02，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #02, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p02d",
+    "name": {
+     "en": "Mossy forest path · #02D",
+     "zh": "苔藓森林小路 · #02D",
+     "es": "Sendero forestal musgoso · #02D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "8b887d7b39548dd3.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #02, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #02，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #02, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p03a",
+    "name": {
+     "en": "Autumn path · #03A",
+     "zh": "秋季小路 · #03A",
+     "es": "Sendero otoñal · #03A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "667f09c5ede550cf.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #03, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #03，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #03, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p03b",
+    "name": {
+     "en": "Leaf-strewn path · #03B",
+     "zh": "落叶遍布的小路 · #03B",
+     "es": "Sendero cubierto de hojas · #03B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "a13f34a5e0397bc1.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #03, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #03，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #03, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p03c",
+    "name": {
+     "en": "Autumn forest path · #03C",
+     "zh": "秋季森林小路 · #03C",
+     "es": "Sendero de bosque otoñal · #03C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "48d0c7e35cba3073.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #03, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #03，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #03, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p03d",
+    "name": {
+     "en": "Fallen leaves path · #03D",
+     "zh": "落叶小路 · #03D",
+     "es": "Sendero de hojas caídas · #03D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "9ffeae86fc954adc.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #03, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #03，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #03, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p04a",
+    "name": {
+     "en": "Snow-lined path · #04A",
+     "zh": "积雪边缘小路 · #04A",
+     "es": "Sendero bordeado de nieve · #04A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "055c149e0ed44e95.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #04, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #04，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #04, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p04b",
+    "name": {
+     "en": "Frosted grass path · #04B",
+     "zh": "霜覆草地小路 · #04B",
+     "es": "Sendero de hierba escarchada · #04B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "716eedb5b5360d4b.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #04, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #04，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #04, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p04c",
+    "name": {
+     "en": "Snowy forest path · #04C",
+     "zh": "积雪森林小路 · #04C",
+     "es": "Sendero forestal nevado · #04C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "edccadd8a957ad7d.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #04, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #04，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #04, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p04d",
+    "name": {
+     "en": "Packed winter path · #04D",
+     "zh": "压实冬季小路 · #04D",
+     "es": "Sendero invernal compacto · #04D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "b59d2913d96bc19e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #04, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #04，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #04, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p05a",
+    "name": {
+     "en": "Cave stones · #05A",
+     "zh": "洞穴岩石 · #05A",
+     "es": "Rocas de cueva · #05A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "70431fb0066c78cd.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #05, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #05，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #05, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p05b",
+    "name": {
+     "en": "Rocky cave · #05B",
+     "zh": "岩石洞穴 · #05B",
+     "es": "Cueva rocosa · #05B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "09c2e6bea1c62725.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #05, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #05，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #05, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p05c",
+    "name": {
+     "en": "Mossy cave · #05C",
+     "zh": "苔藓洞穴 · #05C",
+     "es": "Cueva musgosa · #05C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "ed694ca38839b9b2.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #05, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #05，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #05, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p05d",
+    "name": {
+     "en": "Deep cave stone · #05D",
+     "zh": "深层洞穴岩面 · #05D",
+     "es": "Piedra de cueva profunda · #05D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "79a7ce88d9d95d14.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #05, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #05，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #05, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p06a",
+    "name": {
+     "en": "Stone paving · #06A",
+     "zh": "石铺路面 · #06A",
+     "es": "Pavimento de piedra · #06A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "ab85d6e803302eff.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #06, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #06，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #06, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p06b",
+    "name": {
+     "en": "Clean floor · #06B",
+     "zh": "整洁地板 · #06B",
+     "es": "Suelo limpio · #06B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "49ba346a197728f4.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #06, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #06，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #06, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p06c",
+    "name": {
+     "en": "Stone panels · #06C",
+     "zh": "石板 · #06C",
+     "es": "Paneles de piedra · #06C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f4c8e696dd56d412.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #06, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #06，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #06, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p06d",
+    "name": {
+     "en": "Cut-stone floor · #06D",
+     "zh": "切石地板 · #06D",
+     "es": "Suelo de piedra tallada · #06D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "809aaf75e42d1a8a.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #06, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #06，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #06, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p07a",
+    "name": {
+     "en": "Cave pool · #07A",
+     "zh": "洞穴水潭 · #07A",
+     "es": "Charca de cueva · #07A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "6ba7f23c89478896.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #07, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #07，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #07, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p07b",
+    "name": {
+     "en": "Violet cave stone · #07B",
+     "zh": "紫色洞穴岩面 · #07B",
+     "es": "Piedra violeta de cueva · #07B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "536f9992247e96bc.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #07, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #07，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #07, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p07c",
+    "name": {
+     "en": "Mossy cave pool · #07C",
+     "zh": "苔藓洞穴水潭 · #07C",
+     "es": "Charca de cueva musgosa · #07C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "6a7427169db97a69.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #07, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #07，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #07, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p07d",
+    "name": {
+     "en": "Deep cave pool · #07D",
+     "zh": "洞穴深潭 · #07D",
+     "es": "Charca profunda de cueva · #07D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "256100a60b9aa81a.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #07, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #07，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #07, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p08a",
+    "name": {
+     "en": "Short turf · #08A",
+     "zh": "短草坪 · #08A",
+     "es": "Césped corto · #08A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "3727d07b093f90d1.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #08, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #08，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #08, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p08b",
+    "name": {
+     "en": "Tufted turf · #08B",
+     "zh": "簇草草地 · #08B",
+     "es": "Césped con matas · #08B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "abdaf7e47db25433.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #08, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #08，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #08, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p08c",
+    "name": {
+     "en": "Light forest grass · #08C",
+     "zh": "浅色森林草地 · #08C",
+     "es": "Hierba clara de bosque · #08C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "ba36913b59860067.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #08, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #08，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #08, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p08d",
+    "name": {
+     "en": "Meadow turf · #08D",
+     "zh": "草甸草地 · #08D",
+     "es": "Césped de pradera · #08D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "2bbb1661227d27f5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #08, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #08，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #08, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p09a",
+    "name": {
+     "en": "Short turf · #09A",
+     "zh": "短草坪 · #09A",
+     "es": "Césped corto · #09A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "8bf33f46397921b3.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #09, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #09，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #09, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p09b",
+    "name": {
+     "en": "Dense short turf · #09B",
+     "zh": "密集短草坪 · #09B",
+     "es": "Césped corto denso · #09B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f4e512ac34ba2528.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #09, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #09，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #09, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p09c",
+    "name": {
+     "en": "Forest grass · #09C",
+     "zh": "森林草地 · #09C",
+     "es": "Hierba de bosque · #09C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "0a5a8ef129880403.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #09, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #09，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #09, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p09d",
+    "name": {
+     "en": "Deep forest turf · #09D",
+     "zh": "密林草地 · #09D",
+     "es": "Césped de bosque profundo · #09D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "765400c434269b73.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #09, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #09，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #09, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p10a",
+    "name": {
+     "en": "Short turf · #10A",
+     "zh": "短草坪 · #10A",
+     "es": "Césped corto · #10A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "3a5a4ed81fcdce49.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #10, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #10，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #10, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p10b",
+    "name": {
+     "en": "Dense short turf · #10B",
+     "zh": "密集短草坪 · #10B",
+     "es": "Césped corto denso · #10B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "50240423495b448f.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #10, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #10，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #10, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p10c",
+    "name": {
+     "en": "Forest grass · #10C",
+     "zh": "森林草地 · #10C",
+     "es": "Hierba de bosque · #10C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "2fd613fb419a3d25.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #10, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #10，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #10, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p10d",
+    "name": {
+     "en": "Deep forest turf · #10D",
+     "zh": "密林草地 · #10D",
+     "es": "Césped de bosque profundo · #10D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "296d7e33b2faa254.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #10, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #10，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #10, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p11a",
+    "name": {
+     "en": "Autumn turf · #11A",
+     "zh": "秋季草地 · #11A",
+     "es": "Césped otoñal · #11A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "6bf2489f0af0bedb.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #11, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #11，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #11, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p11b",
+    "name": {
+     "en": "Fallen leaves · #11B",
+     "zh": "落叶 · #11B",
+     "es": "Hojas caídas · #11B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "4bfaf0b54669761f.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #11, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #11，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #11, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p11c",
+    "name": {
+     "en": "Autumn forest floor · #11C",
+     "zh": "秋季森林地面 · #11C",
+     "es": "Suelo de bosque otoñal · #11C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "b262bfdec051974e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #11, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #11，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #11, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p11d",
+    "name": {
+     "en": "Leafy forest floor · #11D",
+     "zh": "落叶森林地面 · #11D",
+     "es": "Suelo forestal con hojas · #11D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "53cd53838502d3b8.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #11, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #11，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #11, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p12a",
+    "name": {
+     "en": "Snow · #12A",
+     "zh": "积雪 · #12A",
+     "es": "Nieve · #12A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "d752c6e48ba99ce1.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #12, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #12，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #12, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p12b",
+    "name": {
+     "en": "Snowy grass · #12B",
+     "zh": "覆雪草地 · #12B",
+     "es": "Hierba nevada · #12B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "c94f7f4eb6cbf787.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #12, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #12，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #12, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p12c",
+    "name": {
+     "en": "Snowy forest floor · #12C",
+     "zh": "积雪森林地面 · #12C",
+     "es": "Suelo forestal nevado · #12C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "42f17b83b2a274d6.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #12, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #12，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #12, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p12d",
+    "name": {
+     "en": "Packed winter grass · #12D",
+     "zh": "压实冬季草地 · #12D",
+     "es": "Hierba invernal compacta · #12D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "634614e7744e2064.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #12, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #12，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #12, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p13a",
+    "name": {
+     "en": "Packed earth · #13A",
+     "zh": "夯实泥土 · #13A",
+     "es": "Tierra compacta · #13A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "dbd7e90c216b52d1.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #13, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #13，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #13, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p13b",
+    "name": {
+     "en": "Pebbled earth · #13B",
+     "zh": "卵石泥土 · #13B",
+     "es": "Tierra con guijarros · #13B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "637429a99e3f7860.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #13, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #13，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #13, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p13c",
+    "name": {
+     "en": "Dry scrub earth · #13C",
+     "zh": "干燥灌丛土 · #13C",
+     "es": "Tierra seca con matorral · #13C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "bdeb0867533eb207.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #13, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #13，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #13, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p13d",
+    "name": {
+     "en": "Rocky scrub path · #13D",
+     "zh": "岩石灌丛小路 · #13D",
+     "es": "Sendero rocoso con matorral · #13D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "a3f4183a24d9b94b.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #13, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #13，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #13, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p14a",
+    "name": {
+     "en": "Water ripples · #14A",
+     "zh": "水面波纹 · #14A",
+     "es": "Ondulaciones de agua · #14A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "5fa78e19d34ea2c3.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #14, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #14，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #14, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p14b",
+    "name": {
+     "en": "Calm water · #14B",
+     "zh": "平静水面 · #14B",
+     "es": "Agua tranquila · #14B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "66d41d31dd226dc5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #14, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #14，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #14, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p14c",
+    "name": {
+     "en": "Shallow reeds · #14C",
+     "zh": "浅水芦苇 · #14C",
+     "es": "Juncos de aguas someras · #14C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "1c28845cabb9b746.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #14, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #14，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #14, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p14d",
+    "name": {
+     "en": "Marsh water edge · #14D",
+     "zh": "沼泽水边 · #14D",
+     "es": "Orilla de marisma · #14D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "bcefb550d8e739a5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #14, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #14，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #14, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p15a",
+    "name": {
+     "en": "Deep pool · #15A",
+     "zh": "深水潭 · #15A",
+     "es": "Charca profunda · #15A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "a5739eb54f6812cf.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #15, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #15，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #15, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p15b",
+    "name": {
+     "en": "Cave pool stones · #15B",
+     "zh": "洞穴水潭岩石 · #15B",
+     "es": "Piedras de charca cavernosa · #15B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "b915af22fc83df4b.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #15, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #15，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #15, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p15c",
+    "name": {
+     "en": "Dark cave pool · #15C",
+     "zh": "暗色洞穴水潭 · #15C",
+     "es": "Charca oscura de cueva · #15C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "41fbda57c91659f1.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #15, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #15，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #15, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p15d",
+    "name": {
+     "en": "Rock-ring pool · #15D",
+     "zh": "岩环水潭 · #15D",
+     "es": "Charca rodeada de rocas · #15D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "730048e62253ed16.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #15, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #15，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #15, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p16a",
+    "name": {
+     "en": "Fine sand · #16A",
+     "zh": "细沙 · #16A",
+     "es": "Arena fina · #16A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "9541dafee1e06730.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #16, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #16，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #16, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p16b",
+    "name": {
+     "en": "Rippled sand · #16B",
+     "zh": "波纹沙地 · #16B",
+     "es": "Arena ondulada · #16B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "2efad663552bfdee.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #16, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #16，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #16, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p16c",
+    "name": {
+     "en": "Dune edge · #16C",
+     "zh": "沙丘边缘 · #16C",
+     "es": "Borde de duna · #16C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "c1609ba8d4e2136b.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #16, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #16，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #16, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p16d",
+    "name": {
+     "en": "Dry scrub sand · #16D",
+     "zh": "干燥灌丛沙地 · #16D",
+     "es": "Arena seca con matorral · #16D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "7c97b81f20c0f9dd.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #16, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #16，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #16, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p17a",
+    "name": {
+     "en": "Warm sand · #17A",
+     "zh": "暖色沙地 · #17A",
+     "es": "Arena cálida · #17A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "c24d3f47e2d60d2e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #17, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #17，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #17, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p17b",
+    "name": {
+     "en": "Pebbled sand · #17B",
+     "zh": "卵石沙地 · #17B",
+     "es": "Arena con guijarros · #17B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f31eee8cb820a80a.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #17, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #17，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #17, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p17c",
+    "name": {
+     "en": "Pebbled dune · #17C",
+     "zh": "卵石沙丘 · #17C",
+     "es": "Duna con guijarros · #17C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "b72fe28c90441ca4.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #17, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #17，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #17, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p17d",
+    "name": {
+     "en": "Rocky warm sand · #17D",
+     "zh": "暖色岩石沙地 · #17D",
+     "es": "Arena cálida rocosa · #17D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "b8438acfbf363195.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #17, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #17，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #17, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p18a",
+    "name": {
+     "en": "Shallow water · #18A",
+     "zh": "浅水 · #18A",
+     "es": "Agua poco profunda · #18A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "90015251ad90df3b.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #18, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #18，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #18, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p18b",
+    "name": {
+     "en": "Reedy water edge · #18B",
+     "zh": "芦苇水边 · #18B",
+     "es": "Orilla con juncos · #18B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "04e255ef000403a6.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #18, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #18，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #18, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p18c",
+    "name": {
+     "en": "Marsh edge · #18C",
+     "zh": "沼泽边缘 · #18C",
+     "es": "Borde de marisma · #18C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "9e5bc7e1d2358629.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #18, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #18，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #18, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p18d",
+    "name": {
+     "en": "Dense reeds · #18D",
+     "zh": "密集芦苇 · #18D",
+     "es": "Juncos densos · #18D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "7cd3241dcc4b23ca.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #18, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #18，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #18, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p19a",
+    "name": {
+     "en": "Pure snow · #19A",
+     "zh": "纯净积雪 · #19A",
+     "es": "Nieve pura · #19A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "fa5b8a80a4e872e5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #19, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #19，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #19, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p19b",
+    "name": {
+     "en": "Snow drifts · #19B",
+     "zh": "雪堆 · #19B",
+     "es": "Ventisqueros · #19B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "eddb26ac5c137508.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #19, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #19，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #19, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p19c",
+    "name": {
+     "en": "Packed snow · #19C",
+     "zh": "压实积雪 · #19C",
+     "es": "Nieve compacta · #19C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "bd4207005417ad9f.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #19, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #19，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #19, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p19d",
+    "name": {
+     "en": "Forest snow · #19D",
+     "zh": "森林积雪 · #19D",
+     "es": "Nieve de bosque · #19D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "62c90147e49d0e29.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #19, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #19，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #19, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p20a",
+    "name": {
+     "en": "Smooth floor · #20A",
+     "zh": "光滑地板 · #20A",
+     "es": "Suelo liso · #20A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "8f35c3def411300a.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #20, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #20，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #20, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p20b",
+    "name": {
+     "en": "Stone tiles · #20B",
+     "zh": "石砖 · #20B",
+     "es": "Baldosas de piedra · #20B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "8af50fc324f9bda5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #20, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #20，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #20, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p20c",
+    "name": {
+     "en": "Panel floor · #20C",
+     "zh": "拼板地板 · #20C",
+     "es": "Suelo de paneles · #20C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "0196385bb2a26ce3.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #20, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #20，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #20, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p20d",
+    "name": {
+     "en": "Cut-stone floor · #20D",
+     "zh": "切石地板 · #20D",
+     "es": "Suelo de piedra tallada · #20D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "07bec00d14e24c96.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #20, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #20，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #20, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p21a",
+    "name": {
+     "en": "Cave stone · #21A",
+     "zh": "洞穴岩面 · #21A",
+     "es": "Piedra de cueva · #21A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "0c3d8b9930551412.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #21, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #21，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #21, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p21b",
+    "name": {
+     "en": "Rocky cave · #21B",
+     "zh": "岩石洞穴 · #21B",
+     "es": "Cueva rocosa · #21B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f94e6aecb4bc1827.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #21, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #21，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #21, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p21c",
+    "name": {
+     "en": "Mossy cave · #21C",
+     "zh": "苔藓洞穴 · #21C",
+     "es": "Cueva musgosa · #21C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "3d3478cfe0da2568.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #21, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #21，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #21, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p21d",
+    "name": {
+     "en": "Pebble cave · #21D",
+     "zh": "卵石洞穴 · #21D",
+     "es": "Cueva de guijarros · #21D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "678babd709200e89.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #21, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #21，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #21, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p22a",
+    "name": {
+     "en": "Frosted ice · #22A",
+     "zh": "霜覆冰面 · #22A",
+     "es": "Hielo escarchado · #22A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "5b6c91e625762a40.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #22, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #22，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #22, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p22b",
+    "name": {
+     "en": "Fractured ice · #22B",
+     "zh": "碎裂冰面 · #22B",
+     "es": "Hielo fracturado · #22B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f518658d85b086e5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #22, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #22，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #22, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p22c",
+    "name": {
+     "en": "Frost-ring ice · #22C",
+     "zh": "霜环冰面 · #22C",
+     "es": "Hielo con anillo de escarcha · #22C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "6260a12c737e56f4.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #22, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #22，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #22, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p22d",
+    "name": {
+     "en": "Icy snow crust · #22D",
+     "zh": "冰雪硬壳 · #22D",
+     "es": "Costra de nieve helada · #22D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "d733dfb986f1dcc5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #22, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #22，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #22, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p23a",
+    "name": {
+     "en": "Red floor · #23A",
+     "zh": "红色地板 · #23A",
+     "es": "Suelo rojo · #23A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "7925369c30ba2022.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #23, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #23，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #23, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p23b",
+    "name": {
+     "en": "Stone-bordered floor · #23B",
+     "zh": "石边地板 · #23B",
+     "es": "Suelo bordeado de piedra · #23B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "01c05e7f4bac0421.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #23, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #23，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #23, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p23c",
+    "name": {
+     "en": "Red panel floor · #23C",
+     "zh": "红色拼板地板 · #23C",
+     "es": "Suelo de paneles rojos · #23C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "abcffd371e9bf707.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #23, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #23，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #23, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p23d",
+    "name": {
+     "en": "Arena ring floor · #23D",
+     "zh": "竞技场环形地板 · #23D",
+     "es": "Suelo de arena circular · #23D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "0c157f2d3dbdf576.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #23, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #23，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #23, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p24a",
+    "name": {
+     "en": "Cream flooring · #24A",
+     "zh": "奶油色地板 · #24A",
+     "es": "Pavimento crema · #24A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "68c2a94c831bd5c5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #24, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #24，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #24, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p24b",
+    "name": {
+     "en": "Plank-like flooring · #24B",
+     "zh": "木板式地板 · #24B",
+     "es": "Pavimento tipo tablones · #24B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "34fe6ce888bf7c61.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #24, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #24，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #24, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p24c",
+    "name": {
+     "en": "Cream stone panels · #24C",
+     "zh": "奶油色石板 · #24C",
+     "es": "Paneles de piedra crema · #24C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "747f713e45cbe77d.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #24, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #24，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #24, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p24d",
+    "name": {
+     "en": "Wide plank floor · #24D",
+     "zh": "宽木板地板 · #24D",
+     "es": "Suelo de tablones anchos · #24D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "4afa787ac5123e33.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #24, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #24，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #24, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p25a",
+    "name": {
+     "en": "Navy arena · #25A",
+     "zh": "深蓝竞技场 · #25A",
+     "es": "Arena azul marino · #25A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "96990a54039966d5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #25, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #25，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #25, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p25b",
+    "name": {
+     "en": "Fine arena panels · #25B",
+     "zh": "精细竞技场面板 · #25B",
+     "es": "Paneles finos de arena · #25B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "2d9840f02d059060.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #25, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #25，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #25, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p25c",
+    "name": {
+     "en": "Arena ring · #25C",
+     "zh": "竞技场圆环 · #25C",
+     "es": "Anillo de arena · #25C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "1920510770ddc970.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #25, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #25，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #25, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p25d",
+    "name": {
+     "en": "Fine line arena · #25D",
+     "zh": "细线竞技场 · #25D",
+     "es": "Arena de líneas finas · #25D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "5e153629cfc35bd0.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #25, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #25，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #25, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p26a",
+    "name": {
+     "en": "Navy arena · #26A",
+     "zh": "深蓝竞技场 · #26A",
+     "es": "Arena azul marino · #26A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "56727b27a5b72ca5.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #26, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #26，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #26, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p26b",
+    "name": {
+     "en": "Fine arena panels · #26B",
+     "zh": "精细竞技场面板 · #26B",
+     "es": "Paneles finos de arena · #26B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "675666240cf3ed06.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #26, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #26，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #26, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p26c",
+    "name": {
+     "en": "Arena ring · #26C",
+     "zh": "竞技场圆环 · #26C",
+     "es": "Anillo de arena · #26C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "c7a7635b5aab9f99.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #26, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #26，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #26, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p26d",
+    "name": {
+     "en": "Fine line arena · #26D",
+     "zh": "细线竞技场 · #26D",
+     "es": "Arena de líneas finas · #26D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "2de9e43fd9873c2e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #26, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #26，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #26, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p27a",
+    "name": {
+     "en": "Khaki path · #27A",
+     "zh": "卡其色小路 · #27A",
+     "es": "Sendero caqui · #27A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "6672df1acfe9a38d.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #27, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #27，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #27, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p27b",
+    "name": {
+     "en": "Pebbled path · #27B",
+     "zh": "卵石小路 · #27B",
+     "es": "Sendero de guijarros · #27B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "e0bb425cb711d9ee.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #27, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #27，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #27, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p27c",
+    "name": {
+     "en": "Dry scrub path · #27C",
+     "zh": "干燥灌丛小路 · #27C",
+     "es": "Sendero seco con matorral · #27C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "8df895fe231ae8f0.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #27, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #27，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #27, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p27d",
+    "name": {
+     "en": "Rocky khaki path · #27D",
+     "zh": "卡其色岩石小路 · #27D",
+     "es": "Sendero caqui rocoso · #27D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "ccf05c1bc15e3a1e.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #27, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #27，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #27, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p28a",
+    "name": {
+     "en": "Short turf · #28A",
+     "zh": "短草坪 · #28A",
+     "es": "Césped corto · #28A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "e70ecbce12277d0c.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #28, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #28，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #28, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p28b",
+    "name": {
+     "en": "Dense short turf · #28B",
+     "zh": "密集短草坪 · #28B",
+     "es": "Césped corto denso · #28B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "03169d6dd0dd8048.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #28, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #28，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #28, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p28c",
+    "name": {
+     "en": "Forest edge grass · #28C",
+     "zh": "林缘草地 · #28C",
+     "es": "Hierba de borde de bosque · #28C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "26f9e10d1ce29392.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #28, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #28，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #28, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p28d",
+    "name": {
+     "en": "Deep forest turf · #28D",
+     "zh": "密林草地 · #28D",
+     "es": "Césped de bosque profundo · #28D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "d69096fed011a6f9.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #28, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #28，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #28, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p29a",
+    "name": {
+     "en": "Short turf · #29A",
+     "zh": "短草坪 · #29A",
+     "es": "Césped corto · #29A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "7248b8b3ad3c7837.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #29, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #29，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #29, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p29b",
+    "name": {
+     "en": "Dense short turf · #29B",
+     "zh": "密集短草坪 · #29B",
+     "es": "Césped corto denso · #29B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "4045f4e7706a45b7.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #29, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #29，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #29, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p29c",
+    "name": {
+     "en": "Forest edge grass · #29C",
+     "zh": "林缘草地 · #29C",
+     "es": "Hierba de borde de bosque · #29C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "17f76e02150cf624.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #29, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #29，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #29, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p29d",
+    "name": {
+     "en": "Deep forest turf · #29D",
+     "zh": "密林草地 · #29D",
+     "es": "Césped de bosque profundo · #29D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "e6d979af30e0d9ab.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #29, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #29，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #29, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p30a",
+    "name": {
+     "en": "Autumn turf · #30A",
+     "zh": "秋季草地 · #30A",
+     "es": "Césped otoñal · #30A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "047bd68b89230343.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #30, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #30，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #30, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p30b",
+    "name": {
+     "en": "Fallen leaves · #30B",
+     "zh": "落叶 · #30B",
+     "es": "Hojas caídas · #30B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "f75acc3b9dbdced3.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #30, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #30，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #30, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p30c",
+    "name": {
+     "en": "Autumn forest floor · #30C",
+     "zh": "秋季森林地面 · #30C",
+     "es": "Suelo de bosque otoñal · #30C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "c98ae9044f6342f9.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #30, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #30，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #30, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p30d",
+    "name": {
+     "en": "Leafy autumn forest · #30D",
+     "zh": "秋季落叶森林 · #30D",
+     "es": "Bosque otoñal frondoso · #30D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "d93f8f27433365ee.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #30, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #30，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #30, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p31a",
+    "name": {
+     "en": "Snow · #31A",
+     "zh": "积雪 · #31A",
+     "es": "Nieve · #31A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "d2423b75935209f2.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #31, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #31，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #31, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p31b",
+    "name": {
+     "en": "Snowy grass · #31B",
+     "zh": "覆雪草地 · #31B",
+     "es": "Hierba nevada · #31B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "717707d0668883c8.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #31, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #31，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #31, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p31c",
+    "name": {
+     "en": "Snowy forest floor · #31C",
+     "zh": "积雪森林地面 · #31C",
+     "es": "Suelo forestal nevado · #31C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "7932e82f8fdca841.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #31, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #31，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #31, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p31d",
+    "name": {
+     "en": "Frost-brush grass · #31D",
+     "zh": "霜覆草丛 · #31D",
+     "es": "Hierba escarchada · #31D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "4bc25d69d2fec694.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #31, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #31，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #31, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p32a",
+    "name": {
+     "en": "Short turf · #32A",
+     "zh": "短草坪 · #32A",
+     "es": "Césped corto · #32A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "67198e0c1620b84a.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #32, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #32，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #32, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p32b",
+    "name": {
+     "en": "Dense short turf · #32B",
+     "zh": "密集短草坪 · #32B",
+     "es": "Césped corto denso · #32B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "08582c0ca51f77ea.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #32, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #32，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #32, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p32c",
+    "name": {
+     "en": "Deep forest turf · #32C",
+     "zh": "密林草地 · #32C",
+     "es": "Césped de bosque profundo · #32C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "146cebba39070358.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #32, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #32，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #32, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p32d",
+    "name": {
+     "en": "Mossy forest floor · #32D",
+     "zh": "苔藓森林地面 · #32D",
+     "es": "Suelo forestal musgoso · #32D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "36ecf123a9226669.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #32, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #32，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #32, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p33a",
+    "name": {
+     "en": "Grey arena · #33A",
+     "zh": "灰色竞技场 · #33A",
+     "es": "Arena gris · #33A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "67f6c9d3640550d1.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #33, option A. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #33，选项 A。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #33, opción A. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p33b",
+    "name": {
+     "en": "Fine arena panels · #33B",
+     "zh": "精细竞技场面板 · #33B",
+     "es": "Paneles finos de arena · #33B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "1960b96c7172c6c8.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #33, option B. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #33，选项 B。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #33, opción B. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p33c",
+    "name": {
+     "en": "Arena ring floor · #33C",
+     "zh": "竞技场环形地板 · #33C",
+     "es": "Suelo de arena circular · #33C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "48d04e17eb48fd47.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #33, option C. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #33，选项 C。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #33, opción C. Correspondencia y aspecto en PokeMMO sin confirmar."
+    }
+   },
+   {
+    "id": "platform-terrain-p33d",
+    "name": {
+     "en": "Cut-stone arena · #33D",
+     "zh": "切石竞技场 · #33D",
+     "es": "Arena de piedra tallada · #33D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "file": "d785baacf7194c56.nsbmd",
+    "desc": {
+     "en": "Pixel Terrain Expanded • Suggested stock member #33, option D. PokeMMO mapping and in-game appearance unconfirmed.",
+     "zh": "扩展像素地形 • 建议原版编号 #33，选项 D。尚未在 PokeMMO 中确认对应关系及显示效果。",
+     "es": "Terreno pixelado ampliado • Miembro original sugerido #33, opción D. Correspondencia y aspecto en PokeMMO sin confirmar."
     }
    }
   ]

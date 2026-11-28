@@ -497,5 +497,769 @@
         "file": "mato-bg/Pink_Fallen_Leaves_Model.nsbmd"
       }
     ]
+  },
+  {
+    "id": "disc-terrain-expanded-a",
+    "cat": "platforms",
+    "name": {
+      "en": "Pixel Terrain Expanded — Set A",
+      "zh": "扩展像素地形 — 套装 A",
+      "es": "Terreno pixelado ampliado — Set A"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "desc": {
+      "en": "34 matched platform models, option A for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+      "zh": "34 个对应地台模型，每个编号使用选项 A。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+      "es": "34 modelos de plataformas asociados, opción A para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+    },
+    "writes": [
+      {
+        "path": "a/0/1/1",
+        "member": 0,
+        "file": "grounds-expanded/P00A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 1,
+        "file": "grounds-expanded/P01A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 2,
+        "file": "grounds-expanded/P02A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 3,
+        "file": "grounds-expanded/P03A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 4,
+        "file": "grounds-expanded/P04A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 5,
+        "file": "grounds-expanded/P05A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 6,
+        "file": "grounds-expanded/P06A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 7,
+        "file": "grounds-expanded/P07A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 8,
+        "file": "grounds-expanded/P08A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 9,
+        "file": "grounds-expanded/P09A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 10,
+        "file": "grounds-expanded/P10A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 11,
+        "file": "grounds-expanded/P11A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 12,
+        "file": "grounds-expanded/P12A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 13,
+        "file": "grounds-expanded/P13A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 14,
+        "file": "grounds-expanded/P14A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 15,
+        "file": "grounds-expanded/P15A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 16,
+        "file": "grounds-expanded/P16A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 17,
+        "file": "grounds-expanded/P17A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 18,
+        "file": "grounds-expanded/P18A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 19,
+        "file": "grounds-expanded/P19A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 20,
+        "file": "grounds-expanded/P20A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 21,
+        "file": "grounds-expanded/P21A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 22,
+        "file": "grounds-expanded/P22A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 23,
+        "file": "grounds-expanded/P23A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 24,
+        "file": "grounds-expanded/P24A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 25,
+        "file": "grounds-expanded/P25A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 26,
+        "file": "grounds-expanded/P26A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 27,
+        "file": "grounds-expanded/P27A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 28,
+        "file": "grounds-expanded/P28A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 29,
+        "file": "grounds-expanded/P29A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 30,
+        "file": "grounds-expanded/P30A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 31,
+        "file": "grounds-expanded/P31A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 32,
+        "file": "grounds-expanded/P32A.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 33,
+        "file": "grounds-expanded/P33A.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "grounds-expanded/P00A.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "disc-terrain-expanded-b",
+    "cat": "platforms",
+    "name": {
+      "en": "Pixel Terrain Expanded — Set B",
+      "zh": "扩展像素地形 — 套装 B",
+      "es": "Terreno pixelado ampliado — Set B"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "desc": {
+      "en": "34 matched platform models, option B for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+      "zh": "34 个对应地台模型，每个编号使用选项 B。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+      "es": "34 modelos de plataformas asociados, opción B para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+    },
+    "writes": [
+      {
+        "path": "a/0/1/1",
+        "member": 0,
+        "file": "grounds-expanded/P00B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 1,
+        "file": "grounds-expanded/P01B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 2,
+        "file": "grounds-expanded/P02B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 3,
+        "file": "grounds-expanded/P03B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 4,
+        "file": "grounds-expanded/P04B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 5,
+        "file": "grounds-expanded/P05B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 6,
+        "file": "grounds-expanded/P06B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 7,
+        "file": "grounds-expanded/P07B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 8,
+        "file": "grounds-expanded/P08B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 9,
+        "file": "grounds-expanded/P09B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 10,
+        "file": "grounds-expanded/P10B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 11,
+        "file": "grounds-expanded/P11B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 12,
+        "file": "grounds-expanded/P12B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 13,
+        "file": "grounds-expanded/P13B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 14,
+        "file": "grounds-expanded/P14B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 15,
+        "file": "grounds-expanded/P15B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 16,
+        "file": "grounds-expanded/P16B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 17,
+        "file": "grounds-expanded/P17B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 18,
+        "file": "grounds-expanded/P18B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 19,
+        "file": "grounds-expanded/P19B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 20,
+        "file": "grounds-expanded/P20B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 21,
+        "file": "grounds-expanded/P21B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 22,
+        "file": "grounds-expanded/P22B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 23,
+        "file": "grounds-expanded/P23B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 24,
+        "file": "grounds-expanded/P24B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 25,
+        "file": "grounds-expanded/P25B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 26,
+        "file": "grounds-expanded/P26B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 27,
+        "file": "grounds-expanded/P27B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 28,
+        "file": "grounds-expanded/P28B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 29,
+        "file": "grounds-expanded/P29B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 30,
+        "file": "grounds-expanded/P30B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 31,
+        "file": "grounds-expanded/P31B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 32,
+        "file": "grounds-expanded/P32B.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 33,
+        "file": "grounds-expanded/P33B.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "grounds-expanded/P00B.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "disc-terrain-expanded-c",
+    "cat": "platforms",
+    "name": {
+      "en": "Pixel Terrain Expanded — Set C",
+      "zh": "扩展像素地形 — 套装 C",
+      "es": "Terreno pixelado ampliado — Set C"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "desc": {
+      "en": "34 matched platform models, option C for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+      "zh": "34 个对应地台模型，每个编号使用选项 C。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+      "es": "34 modelos de plataformas asociados, opción C para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+    },
+    "writes": [
+      {
+        "path": "a/0/1/1",
+        "member": 0,
+        "file": "grounds-expanded/P00C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 1,
+        "file": "grounds-expanded/P01C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 2,
+        "file": "grounds-expanded/P02C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 3,
+        "file": "grounds-expanded/P03C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 4,
+        "file": "grounds-expanded/P04C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 5,
+        "file": "grounds-expanded/P05C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 6,
+        "file": "grounds-expanded/P06C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 7,
+        "file": "grounds-expanded/P07C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 8,
+        "file": "grounds-expanded/P08C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 9,
+        "file": "grounds-expanded/P09C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 10,
+        "file": "grounds-expanded/P10C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 11,
+        "file": "grounds-expanded/P11C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 12,
+        "file": "grounds-expanded/P12C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 13,
+        "file": "grounds-expanded/P13C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 14,
+        "file": "grounds-expanded/P14C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 15,
+        "file": "grounds-expanded/P15C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 16,
+        "file": "grounds-expanded/P16C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 17,
+        "file": "grounds-expanded/P17C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 18,
+        "file": "grounds-expanded/P18C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 19,
+        "file": "grounds-expanded/P19C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 20,
+        "file": "grounds-expanded/P20C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 21,
+        "file": "grounds-expanded/P21C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 22,
+        "file": "grounds-expanded/P22C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 23,
+        "file": "grounds-expanded/P23C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 24,
+        "file": "grounds-expanded/P24C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 25,
+        "file": "grounds-expanded/P25C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 26,
+        "file": "grounds-expanded/P26C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 27,
+        "file": "grounds-expanded/P27C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 28,
+        "file": "grounds-expanded/P28C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 29,
+        "file": "grounds-expanded/P29C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 30,
+        "file": "grounds-expanded/P30C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 31,
+        "file": "grounds-expanded/P31C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 32,
+        "file": "grounds-expanded/P32C.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 33,
+        "file": "grounds-expanded/P33C.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "grounds-expanded/P00C.nsbmd",
+      "kind": "object"
+    }
+  },
+  {
+    "id": "disc-terrain-expanded-d",
+    "cat": "platforms",
+    "name": {
+      "en": "Pixel Terrain Expanded — Set D",
+      "zh": "扩展像素地形 — 套装 D",
+      "es": "Terreno pixelado ampliado — Set D"
+    },
+    "by": "Haqzo & MaToRiuKo",
+    "desc": {
+      "en": "34 matched platform models, option D for every member. PokeMMO environment mappings and in-game appearance remain unconfirmed.",
+      "zh": "34 个对应地台模型，每个编号使用选项 D。PokeMMO 环境对应关系和游戏内显示效果尚未确认。",
+      "es": "34 modelos de plataformas asociados, opción D para cada miembro. Correspondencias de entornos y aspecto en PokeMMO sin confirmar."
+    },
+    "writes": [
+      {
+        "path": "a/0/1/1",
+        "member": 0,
+        "file": "grounds-expanded/P00D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 1,
+        "file": "grounds-expanded/P01D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 2,
+        "file": "grounds-expanded/P02D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 3,
+        "file": "grounds-expanded/P03D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 4,
+        "file": "grounds-expanded/P04D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 5,
+        "file": "grounds-expanded/P05D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 6,
+        "file": "grounds-expanded/P06D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 7,
+        "file": "grounds-expanded/P07D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 8,
+        "file": "grounds-expanded/P08D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 9,
+        "file": "grounds-expanded/P09D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 10,
+        "file": "grounds-expanded/P10D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 11,
+        "file": "grounds-expanded/P11D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 12,
+        "file": "grounds-expanded/P12D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 13,
+        "file": "grounds-expanded/P13D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 14,
+        "file": "grounds-expanded/P14D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 15,
+        "file": "grounds-expanded/P15D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 16,
+        "file": "grounds-expanded/P16D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 17,
+        "file": "grounds-expanded/P17D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 18,
+        "file": "grounds-expanded/P18D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 19,
+        "file": "grounds-expanded/P19D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 20,
+        "file": "grounds-expanded/P20D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 21,
+        "file": "grounds-expanded/P21D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 22,
+        "file": "grounds-expanded/P22D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 23,
+        "file": "grounds-expanded/P23D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 24,
+        "file": "grounds-expanded/P24D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 25,
+        "file": "grounds-expanded/P25D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 26,
+        "file": "grounds-expanded/P26D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 27,
+        "file": "grounds-expanded/P27D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 28,
+        "file": "grounds-expanded/P28D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 29,
+        "file": "grounds-expanded/P29D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 30,
+        "file": "grounds-expanded/P30D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 31,
+        "file": "grounds-expanded/P31D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 32,
+        "file": "grounds-expanded/P32D.nsbmd"
+      },
+      {
+        "path": "a/0/1/1",
+        "member": 33,
+        "file": "grounds-expanded/P33D.nsbmd"
+      }
+    ],
+    "view": {
+      "model": "grounds-expanded/P00D.nsbmd",
+      "kind": "object"
+    }
   }
 ]
